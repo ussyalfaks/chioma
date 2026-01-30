@@ -14,6 +14,7 @@ import { AgreementsModule } from './modules/agreements/agreements.module';
 import { AuditModule } from './modules/audit/audit.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
+import { PropertiesModule } from './modules/properties/properties.module';
 import { StellarModule } from './modules/stellar/stellar.module';
 import { DisputesModule } from './modules/disputes/disputes.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
@@ -21,7 +22,6 @@ import { HealthModule } from './health/health.module';
 import { PaymentModule } from './modules/payments/payment.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { SecurityModule } from './modules/security/security.module';
-import { AppDataSource } from './database/data-source';
 import { AuthRateLimitMiddleware } from './modules/auth/middleware/rate-limit.middleware';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { SecurityHeadersMiddleware } from './common/middleware/security-headers.middleware';
@@ -67,6 +67,7 @@ import { CsrfMiddleware } from './common/middleware/csrf.middleware';
     AuditModule,
     AuthModule,
     UsersModule,
+    PropertiesModule,
     StellarModule,
     DisputesModule,
     HealthModule,
