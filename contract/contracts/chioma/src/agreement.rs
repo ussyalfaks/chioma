@@ -6,6 +6,9 @@ use crate::events::{AgreementCreatedEvent, AgreementSigned};
 use crate::storage::DataKey;
 use crate::types::{AgreementStatus, PaymentSplit, RentAgreement};
 
+const TTL_THRESHOLD: u32 = 500000;
+const TTL_BUMP: u32 = 500000;
+
 /// Validate agreement parameters
 pub fn validate_agreement_params(
     monthly_rent: &i128,
@@ -89,6 +92,11 @@ pub fn create_agreement(
     env.storage()
         .persistent()
         .set(&DataKey::Agreement(agreement_id.clone()), &agreement);
+    env.storage().persistent().extend_ttl(
+        &DataKey::Agreement(agreement_id.clone()),
+        TTL_THRESHOLD,
+        TTL_BUMP,
+    );
 
     // Update counter
     let mut count: u32 = env
@@ -100,6 +108,7 @@ pub fn create_agreement(
     env.storage()
         .instance()
         .set(&DataKey::AgreementCount, &count);
+    env.storage().instance().extend_ttl(TTL_THRESHOLD, TTL_BUMP);
 
     // Emit event
     AgreementCreatedEvent { agreement_id }.publish(env);
@@ -143,6 +152,12 @@ pub fn sign_agreement(env: &Env, tenant: Address, agreement_id: String) -> Resul
     env.storage()
         .persistent()
         .set(&DataKey::Agreement(agreement_id.clone()), &agreement);
+    env.storage().persistent().extend_ttl(
+        &DataKey::Agreement(agreement_id.clone()),
+        TTL_THRESHOLD,
+        TTL_BUMP,
+    );
+    env.storage().instance().extend_ttl(TTL_THRESHOLD, TTL_BUMP);
 
     // Emit AgreementSigned event
     AgreementSigned {
