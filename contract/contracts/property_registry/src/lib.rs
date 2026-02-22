@@ -37,9 +37,7 @@ impl PropertyRegistryContract {
 
         admin.require_auth();
 
-        env.storage()
-            .persistent()
-            .set(&DataKey::Initialized, &true);
+        env.storage().persistent().set(&DataKey::Initialized, &true);
         env.storage()
             .persistent()
             .extend_ttl(&DataKey::Initialized, 500000, 500000);
