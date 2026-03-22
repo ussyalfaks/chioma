@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Users, Building2, Briefcase, ArrowRight } from 'lucide-react';
@@ -50,7 +49,7 @@ export default function ForWho() {
             Built for Everyone
           </h2>
           <p className="text-xl text-blue-200/80 max-w-2xl mx-auto">
-            Whether you're renting, managing, or facilitating, we've got you covered
+            Whether you&apos;re renting, managing, or facilitating, we&apos;ve got you covered
           </p>
         </motion.div>
 
@@ -77,7 +76,7 @@ export default function ForWho() {
 
                 {/* Description */}
                 <p className="text-blue-200/70 mb-6 leading-relaxed">
-                  {audience.description}
+                  {audience.description.replace(/'/g, '\u2019')}
                 </p>
 
                 {/* Features */}
