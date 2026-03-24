@@ -49,7 +49,9 @@ pub fn set_timeout_config(
         return Err(DisputeError::InvalidTimeoutConfig);
     }
 
-    env.storage().instance().set(&DataKey::TimeoutConfig, &config);
+    env.storage()
+        .instance()
+        .set(&DataKey::TimeoutConfig, &config);
     env.storage().instance().extend_ttl(500000, 500000);
     Ok(())
 }

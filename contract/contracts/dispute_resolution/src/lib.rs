@@ -19,8 +19,8 @@ pub use dispute::{
 pub use errors::DisputeError;
 pub use storage::DataKey;
 pub use types::{
-    AppealStatus, AppealVote, Arbiter, ContractState, Dispute, DisputeAppeal, DisputeOutcome, Vote,
-    TimeoutConfig,
+    AppealStatus, AppealVote, Arbiter, ContractState, Dispute, DisputeAppeal, DisputeOutcome,
+    TimeoutConfig, Vote,
 };
 
 #[contract]

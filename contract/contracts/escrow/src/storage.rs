@@ -146,6 +146,8 @@ impl EscrowStorage {
 
     /// Persist timeout configuration in instance storage.
     pub fn set_timeout_config(env: &Env, config: &TimeoutConfig) {
-        env.storage().instance().set(&DataKey::TimeoutConfig, config);
+        env.storage()
+            .instance()
+            .set(&DataKey::TimeoutConfig, config);
     }
 }

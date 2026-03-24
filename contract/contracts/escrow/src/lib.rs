@@ -9,8 +9,8 @@
 pub mod access;
 pub mod dispute;
 pub mod errors;
-pub mod events;
 pub mod escrow_impl;
+pub mod events;
 pub mod storage;
 pub mod types;
 

@@ -277,7 +277,11 @@ impl EscrowContract {
     }
 
     /// Set contract-level timeout config.
-    pub fn set_timeout_config(env: Env, caller: Address, config: TimeoutConfig) -> Result<(), EscrowError> {
+    pub fn set_timeout_config(
+        env: Env,
+        caller: Address,
+        config: TimeoutConfig,
+    ) -> Result<(), EscrowError> {
         caller.require_auth();
 
         if config.escrow_timeout_days == 0
