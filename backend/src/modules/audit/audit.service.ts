@@ -1,7 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
-import { AuditLog, AuditAction, AuditStatus, AuditLevel } from './entities/audit-log.entity';
+import {
+  AuditLog,
+  AuditAction,
+  AuditStatus,
+  AuditLevel,
+} from './entities/audit-log.entity';
 import { QueryAuditLogsDto } from './dto/query-audit-logs.dto';
 import { User } from '../users/entities/user.entity';
 import { PaginationUtils, DateUtils } from '../../common/utils';

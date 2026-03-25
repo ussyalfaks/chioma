@@ -15,14 +15,19 @@ describe('NotificationUtils', () => {
 
   describe('formatSmsNotification', () => {
     it('should return wrapped content', () => {
-      const result = NotificationUtils.formatSmsNotification('Verification code: 123');
+      const result = NotificationUtils.formatSmsNotification(
+        'Verification code: 123',
+      );
       expect(result.content).toBe('Verification code: 123');
     });
   });
 
   describe('formatPushNotification', () => {
     it('should populate title and body', () => {
-      const result = NotificationUtils.formatPushNotification('Alert', 'New message');
+      const result = NotificationUtils.formatPushNotification(
+        'Alert',
+        'New message',
+      );
       expect(result.title).toBe('Alert');
       expect(result.body).toBe('New message');
     });

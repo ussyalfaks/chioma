@@ -17,7 +17,10 @@ export class NotificationUtils {
   /**
    * Formats data into a standardized email template
    */
-  static formatEmailNotification(title: string, message: string): EmailTemplate {
+  static formatEmailNotification(
+    title: string,
+    message: string,
+  ): EmailTemplate {
     return {
       subject: title,
       html: `

@@ -4,9 +4,9 @@ describe('FileUtils', () => {
   describe('validateFileType', () => {
     it('should return true for allowed types', () => {
       const file = { mimetype: 'image/png' };
-      expect(FileUtils.validateFileType(file, ['image/png', 'image/jpeg'])).toBe(
-        true,
-      );
+      expect(
+        FileUtils.validateFileType(file, ['image/png', 'image/jpeg']),
+      ).toBe(true);
     });
 
     it('should return false for restricted types', () => {

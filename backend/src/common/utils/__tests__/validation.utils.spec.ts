@@ -4,7 +4,9 @@ describe('ValidationUtils', () => {
   describe('validateEmail', () => {
     it('should return true for valid emails', () => {
       expect(ValidationUtils.validateEmail('test@example.com')).toBe(true);
-      expect(ValidationUtils.validateEmail('user.name+tag@domain.co.uk')).toBe(true);
+      expect(ValidationUtils.validateEmail('user.name+tag@domain.co.uk')).toBe(
+        true,
+      );
     });
 
     it('should return false for invalid emails', () => {
@@ -28,7 +30,8 @@ describe('ValidationUtils', () => {
 
   describe('validateWalletAddress', () => {
     it('should return true for valid Stellar addresses', () => {
-      const validAddress = 'GDH7I6L2L5QO5XUXW7Y7G7Z7A7B7C7D7E7F7G7H7I7J7K7L7M7N7O7P7';
+      const validAddress =
+        'GDH7I6L2L5QO5XUXW7Y7G7Z7A7B7C7D7E7F7G7H7I7J7K7L7M7N7O7P7';
       expect(ValidationUtils.validateWalletAddress(validAddress)).toBe(true);
     });
 

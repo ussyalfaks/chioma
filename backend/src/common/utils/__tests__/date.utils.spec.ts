@@ -25,7 +25,9 @@ describe('DateUtils', () => {
     });
 
     it('should throw for invalid date string', () => {
-      expect(() => DateUtils.parseDate('invalid')).toThrow('Invalid date string');
+      expect(() => DateUtils.parseDate('invalid')).toThrow(
+        'Invalid date string',
+      );
     });
   });
 

@@ -15,18 +15,34 @@ describe('QueryBuilderUtils', () => {
 
   describe('applyFilters', () => {
     it('should handle simple equality filters', () => {
-      QueryBuilderUtils.applyFilters(mockQb, { action: 'CREATE', status: 'SUCCESS' });
-      expect(mockQb.andWhere).toHaveBeenCalledWith('audit_log.action = :action', { action: 'CREATE' });
-      expect(mockQb.andWhere).toHaveBeenCalledWith('audit_log.status = :status', { status: 'SUCCESS' });
+      QueryBuilderUtils.applyFilters(mockQb, {
+        action: 'CREATE',
+        status: 'SUCCESS',
+      });
+      expect(mockQb.andWhere).toHaveBeenCalledWith(
+        'audit_log.action = :action',
+        { action: 'CREATE' },
+      );
+      expect(mockQb.andWhere).toHaveBeenCalledWith(
+        'audit_log.status = :status',
+        { status: 'SUCCESS' },
+      );
     });
 
     it('should handle array filters with IN', () => {
       QueryBuilderUtils.applyFilters(mockQb, { levels: ['INFO', 'WARN'] });
-      expect(mockQb.andWhere).toHaveBeenCalledWith('audit_log.levels IN (:...levels)', { levels: ['INFO', 'WARN'] });
+      expect(mockQb.andWhere).toHaveBeenCalledWith(
+        'audit_log.levels IN (:...levels)',
+        { levels: ['INFO', 'WARN'] },
+      );
     });
 
     it('should skip empty or undefined filters', () => {
-      QueryBuilderUtils.applyFilters(mockQb, { empty: '', undef: undefined, nul: null });
+      QueryBuilderUtils.applyFilters(mockQb, {
+        empty: '',
+        undef: undefined,
+        nul: null,
+      });
       expect(mockQb.andWhere).not.toHaveBeenCalled();
     });
   });
@@ -34,7 +50,10 @@ describe('QueryBuilderUtils', () => {
   describe('applySorting', () => {
     it('should apply order by correctly', () => {
       QueryBuilderUtils.applySorting(mockQb, 'performedAt', 'DESC');
-      expect(mockQb.orderBy).toHaveBeenCalledWith('audit_log.performedAt', 'DESC');
+      expect(mockQb.orderBy).toHaveBeenCalledWith(
+        'audit_log.performedAt',
+        'DESC',
+      );
     });
 
     it('should fallback to default if field is invalid', () => {

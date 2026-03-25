@@ -17,9 +17,15 @@ describe('PaginationUtils', () => {
     });
 
     it('should throw BadRequestException for invalid parameters', () => {
-      expect(() => PaginationUtils.validatePagination(0, 10)).toThrow(BadRequestException);
-      expect(() => PaginationUtils.validatePagination(1, 0)).toThrow(BadRequestException);
-      expect(() => PaginationUtils.validatePagination(1, 101)).toThrow(BadRequestException);
+      expect(() => PaginationUtils.validatePagination(0, 10)).toThrow(
+        BadRequestException,
+      );
+      expect(() => PaginationUtils.validatePagination(1, 0)).toThrow(
+        BadRequestException,
+      );
+      expect(() => PaginationUtils.validatePagination(1, 101)).toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -29,9 +35,14 @@ describe('PaginationUtils', () => {
       const total = 25;
       const page = 1;
       const limit = 10;
-      
-      const response = PaginationUtils.buildPaginationResponse(data, total, page, limit);
-      
+
+      const response = PaginationUtils.buildPaginationResponse(
+        data,
+        total,
+        page,
+        limit,
+      );
+
       expect(response).toEqual({
         data,
         total,
