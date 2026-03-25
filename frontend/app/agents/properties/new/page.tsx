@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import toast from 'react-hot-toast';
 import {
   ArrowLeft,
@@ -29,6 +29,12 @@ import {
 import { propertyWizardService } from '@/lib/services/property-wizard.service';
 
 const UTILITIES = ['Water', 'Electricity', 'Internet', 'Gas', 'Trash'];
+const BASIC_INFO_NUMERIC_KEYS = [
+  'bedrooms',
+  'bathrooms',
+  'squareFootage',
+  'yearBuilt',
+] as const;
 
 function formatCurrency(value: number): string {
   return new Intl.NumberFormat('en-US', {
@@ -46,7 +52,7 @@ async function inspectPhoto(file: File): Promise<{
   const url = URL.createObjectURL(file);
   try {
     const image = await new Promise<HTMLImageElement>((resolve, reject) => {
-      const img = new Image();
+      const img = new window.Image();
       img.onload = () => resolve(img);
       img.onerror = () => reject(new Error('Unable to load image'));
       img.src = url;
@@ -272,28 +278,24 @@ export default function NewPropertyListingWizardPage() {
               }))
             }
           />
-          {['bedrooms', 'bathrooms', 'squareFootage', 'yearBuilt'].map(
-            (key) => (
-              <input
-                key={key}
-                className="field"
-                type="number"
-                placeholder={key.replace(/([A-Z])/g, ' $1')}
-                value={
-                  (data.basicInfo as Record<string, number | null>)[key] ?? ''
-                }
-                onChange={(e) =>
-                  setData((prev) => ({
-                    ...prev,
-                    basicInfo: {
-                      ...prev.basicInfo,
-                      [key]: e.target.value ? Number(e.target.value) : null,
-                    },
-                  }))
-                }
-              />
-            ),
-          )}
+          {BASIC_INFO_NUMERIC_KEYS.map((key) => (
+            <input
+              key={key}
+              className="field"
+              type="number"
+              placeholder={key.replace(/([A-Z])/g, ' $1')}
+              value={data.basicInfo[key] ?? ''}
+              onChange={(e) =>
+                setData((prev) => ({
+                  ...prev,
+                  basicInfo: {
+                    ...prev.basicInfo,
+                    [key]: e.target.value ? Number(e.target.value) : null,
+                  },
+                }))
+              }
+            />
+          ))}
         </div>
       );
     }
@@ -514,7 +516,7 @@ export default function NewPropertyListingWizardPage() {
                 key={photo.id}
                 className="rounded-xl border border-white/10 p-3 bg-white/5"
               >
-                <Image
+                <NextImage
                   src={photo.url}
                   alt={photo.name}
                   width={640}

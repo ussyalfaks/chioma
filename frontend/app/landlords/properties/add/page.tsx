@@ -27,7 +27,39 @@ type WizardPhoto = {
   previewUrl: string;
   size: number;
 };
-type WizardData = Record<string, unknown>;
+type WizardData = {
+  basicInfo?: {
+    propertyType?: string;
+    address?: string;
+    bedrooms?: number;
+    bathrooms?: number;
+    squareFootage?: number;
+    yearBuilt?: number;
+  };
+  pricing?: {
+    monthlyRent?: number;
+    securityDeposit?: number;
+    leaseTermMonths?: number;
+    moveInDate?: string;
+    utilitiesIncluded?: string;
+  };
+  amenities?: Record<string, boolean>;
+  rules?: {
+    quietHours?: string;
+    guestPolicy?: string;
+  } & Record<string, unknown>;
+  photos?: WizardPhoto[];
+  description?: {
+    propertyDescription?: string;
+    neighborhoodDescription?: string;
+    transportationInfo?: string;
+  };
+  availability?: {
+    availableFrom?: string;
+    blockedDates?: string[];
+    blockedDatesText?: string;
+  };
+} & Record<string, unknown>;
 
 const steps = [
   'Basic Information',
@@ -120,7 +152,10 @@ export default function AddPropertyPage() {
   const setSection = (section: string, key: string, value: unknown) => {
     setFormData((prev) => ({
       ...prev,
-      [section]: { ...(prev[section] || {}), [key]: value },
+      [section]: {
+        ...((prev[section] as Record<string, unknown>) || {}),
+        [key]: value,
+      },
     }));
   };
 
@@ -177,9 +212,7 @@ export default function AddPropertyPage() {
           typeof (e as { message?: unknown }).message === 'string'
             ? (e as { message: string }).message
             : 'Unable to publish property. Please check required fields.';
-        setError(
-          message,
-        );
+        setError(message);
       },
     });
   };
@@ -435,7 +468,7 @@ export default function AddPropertyPage() {
                       placeholder="Caption"
                       value={photo.caption}
                       onChange={(e) => {
-                        const next = [...formData.photos];
+                        const next = [...(formData.photos ?? [])];
                         next[index] = { ...photo, caption: e.target.value };
                         setFormData((prev) => ({ ...prev, photos: next }));
                       }}
