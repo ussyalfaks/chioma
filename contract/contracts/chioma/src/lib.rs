@@ -13,6 +13,7 @@ mod deposit_interest;
 mod errors;
 mod events;
 mod multi_token;
+mod rate_limit;
 mod royalties;
 mod storage;
 mod types;
@@ -32,6 +33,9 @@ mod tests_errors;
 #[cfg(test)]
 mod tests_royalties;
 
+#[cfg(test)]
+mod tests_rate_limit;
+
 pub use agreement::{
     cancel_agreement, create_agreement, create_agreement_with_token, get_agreement,
     get_agreement_count, get_agreement_token, get_payment_history, get_payment_split,
@@ -47,8 +51,9 @@ pub use storage::DataKey;
 pub use types::{
     AgreementInput, AgreementStatus, AgreementTerms, AgreementWithToken, Attribute,
     CompoundingFrequency, Config, ContractState, DepositInterest, DepositInterestConfig,
-    ErrorContext, InterestAccrual, InterestRecipient, PauseState, PaymentSplit, RentAgreement,
-    RoyaltyConfig, RoyaltyPayment, SupportedToken, TokenExchangeRate,
+    ErrorContext, InterestAccrual, InterestRecipient, PauseState, PaymentSplit, RateLimitConfig,
+    RateLimitReason, RentAgreement, RoyaltyConfig, RoyaltyPayment, SupportedToken,
+    TokenExchangeRate, UserCallCount,
 };
 
 /// Chioma rental agreement contract.
@@ -620,5 +625,55 @@ impl Contract {
         token_id: String,
     ) -> Result<Vec<RoyaltyPayment>, RentalError> {
         royalties::get_royalty_payments(env, token_id)
+    }
+
+    // ─── Rate Limiting Functions ──────────────────────────────────────────────
+
+    /// Set rate limit configuration (admin only).
+    pub fn set_rate_limit_config(env: Env, config: RateLimitConfig) -> Result<(), RentalError> {
+        let state = Self::get_state(env.clone()).ok_or(RentalError::InvalidState)?;
+        state.admin.require_auth();
+
+        rate_limit::set_rate_limit_config(&env, config.clone())?;
+
+        events::rate_limit_config_updated(
+            &env,
+            config.max_calls_per_block,
+            config.max_calls_per_user_per_day,
+            config.cooldown_blocks,
+        );
+
+        Ok(())
+    }
+
+    /// Get current rate limit configuration.
+    pub fn get_rate_limit_config(env: Env) -> RateLimitConfig {
+        rate_limit::get_rate_limit_config(&env)
+    }
+
+    /// Get user call statistics for a specific function.
+    pub fn get_user_call_count(
+        env: Env,
+        user: Address,
+        function_name: String,
+    ) -> Option<UserCallCount> {
+        rate_limit::get_user_call_count(&env, &user, function_name)
+    }
+
+    /// Get current block call count for a function.
+    pub fn get_block_call_count(env: Env, function_name: String) -> u32 {
+        rate_limit::get_block_call_count(&env, function_name)
+    }
+
+    /// Reset rate limits for a user (admin only, emergency use).
+    pub fn reset_user_rate_limit(
+        env: Env,
+        user: Address,
+        function_name: String,
+    ) -> Result<(), RentalError> {
+        let state = Self::get_state(env.clone()).ok_or(RentalError::InvalidState)?;
+        state.admin.require_auth();
+
+        rate_limit::reset_user_rate_limit(&env, &user, function_name)
     }
 }
