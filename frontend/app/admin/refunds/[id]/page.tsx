@@ -79,7 +79,9 @@ export default function AdminRefundDetailPage() {
       setRefund((prev) => {
         if (!prev) return prev;
         const nextStatus =
-          args.action === 'approve' ? ('APPROVED' as const) : ('REJECTED' as const);
+          args.action === 'approve'
+            ? ('APPROVED' as const)
+            : ('REJECTED' as const);
         return {
           ...prev,
           status: nextStatus,

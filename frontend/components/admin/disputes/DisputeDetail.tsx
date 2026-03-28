@@ -39,15 +39,13 @@ const PRIORITY_STYLES = {
   high: 'bg-rose-500/15 text-rose-300 border-rose-500/25',
 };
 
-const TIMELINE_DOT: Record<
-  'info' | 'success' | 'warning' | 'neutral',
-  string
-> = {
-  success: 'bg-emerald-400',
-  warning: 'bg-amber-400',
-  info: 'bg-sky-400',
-  neutral: 'bg-slate-500',
-};
+const TIMELINE_DOT: Record<'info' | 'success' | 'warning' | 'neutral', string> =
+  {
+    success: 'bg-emerald-400',
+    warning: 'bg-amber-400',
+    info: 'bg-sky-400',
+    neutral: 'bg-slate-500',
+  };
 
 function DecisionBadge({ decision }: { decision: string }) {
   const map: Record<string, string> = {
@@ -85,9 +83,7 @@ export function DisputeDetail({
   const [localError, setLocalError] = useState<string | null>(null);
 
   const canResolve = useMemo(() => {
-    return (
-      dispute.status === 'OPEN' || dispute.status === 'UNDER_REVIEW'
-    );
+    return dispute.status === 'OPEN' || dispute.status === 'UNDER_REVIEW';
   }, [dispute.status]);
 
   const sortedTimeline = useMemo(() => {
@@ -104,7 +100,10 @@ export function DisputeDetail({
       return;
     }
     if (!onSubmitResolution) return;
-    await onSubmitResolution({ resolutionNotes: resolutionNotes.trim(), action });
+    await onSubmitResolution({
+      resolutionNotes: resolutionNotes.trim(),
+      action,
+    });
   };
 
   return (
@@ -208,7 +207,9 @@ export function DisputeDetail({
                   <p className="text-xs text-slate-500 uppercase tracking-wider">
                     Claimant ({dispute.claimantRole})
                   </p>
-                  <p className="text-white font-medium">{dispute.claimantName}</p>
+                  <p className="text-white font-medium">
+                    {dispute.claimantName}
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -311,7 +312,9 @@ export function DisputeDetail({
                     />
                     <p className="text-white font-medium">{ev.title}</p>
                     {ev.description && (
-                      <p className="text-slate-400 text-sm mt-1">{ev.description}</p>
+                      <p className="text-slate-400 text-sm mt-1">
+                        {ev.description}
+                      </p>
                     )}
                     <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-xs text-slate-500">
                       <span>

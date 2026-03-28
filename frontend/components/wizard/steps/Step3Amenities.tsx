@@ -13,23 +13,48 @@ interface StepProps {
 const AMENITY_CATEGORIES = [
   {
     name: 'Indoor',
-    items: ['Air Conditioning', 'Heating', 'Washer', 'Dryer', 'Dishwasher', 'Furnished', 'High Speed Internet', 'Smart Home Features']
+    items: [
+      'Air Conditioning',
+      'Heating',
+      'Washer',
+      'Dryer',
+      'Dishwasher',
+      'Furnished',
+      'High Speed Internet',
+      'Smart Home Features',
+    ],
   },
   {
     name: 'Building',
-    items: ['Elevator', 'Gym / Fitness Center', 'Swimming Pool', 'Security Guard', 'Rooftop Access', 'Concierge', 'Laundry Room']
+    items: [
+      'Elevator',
+      'Gym / Fitness Center',
+      'Swimming Pool',
+      'Security Guard',
+      'Rooftop Access',
+      'Concierge',
+      'Laundry Room',
+    ],
   },
   {
     name: 'Outdoor & Parking',
-    items: ['Parking Garage', 'Attached Garage', 'Deck / Patio', 'Backyard', 'Fenced Yard', 'Bicycle Storage', 'Garden']
-  }
+    items: [
+      'Parking Garage',
+      'Attached Garage',
+      'Deck / Patio',
+      'Backyard',
+      'Fenced Yard',
+      'Bicycle Storage',
+      'Garden',
+    ],
+  },
 ];
 
 export const Step3Amenities: React.FC<StepProps> = ({ data, onChange }) => {
   const toggleAmenity = (item: string) => {
     const current = data.amenities || [];
     if (current.includes(item)) {
-      onChange({ amenities: current.filter(a => a !== item) });
+      onChange({ amenities: current.filter((a) => a !== item) });
     } else {
       onChange({ amenities: [...current, item] });
     }
@@ -57,11 +82,15 @@ export const Step3Amenities: React.FC<StepProps> = ({ data, onChange }) => {
                       key={item}
                       onClick={() => toggleAmenity(item)}
                       className={`relative flex items-center justify-center p-4 rounded-2xl border-2 transition-all transform active:scale-95 group
-                        ${isSelected
-                          ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
-                          : 'border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-neutral-200 dark:hover:border-neutral-700 hover:bg-white dark:hover:bg-neutral-700'}`}
+                        ${
+                          isSelected
+                            ? 'border-brand-blue bg-brand-blue/5 text-brand-blue'
+                            : 'border-neutral-100 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:border-neutral-200 dark:hover:border-neutral-700 hover:bg-white dark:hover:bg-neutral-700'
+                        }`}
                     >
-                      <span className="text-xs font-bold text-center leading-tight">{item}</span>
+                      <span className="text-xs font-bold text-center leading-tight">
+                        {item}
+                      </span>
                       {isSelected && (
                         <div className="absolute top-2 right-2 text-brand-blue">
                           <CheckCircle2 size={12} fill="white" />

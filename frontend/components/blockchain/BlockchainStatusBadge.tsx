@@ -1,7 +1,13 @@
 'use client';
 
 import React from 'react';
-import { AlertCircle, CheckCircle2, Loader2, Wifi, WifiOff } from 'lucide-react';
+import {
+  AlertCircle,
+  CheckCircle2,
+  Loader2,
+  Wifi,
+  WifiOff,
+} from 'lucide-react';
 import { getConfiguredNetwork } from '@/lib/stellar-network';
 
 export type BlockchainStatusVariant =
@@ -45,7 +51,7 @@ export function BlockchainStatusBadge({
 }: BlockchainStatusBadgeProps) {
   const networkLabel =
     variant === 'network'
-      ? label ?? `Stellar ${getConfiguredNetwork()}`
+      ? (label ?? `Stellar ${getConfiguredNetwork()}`)
       : label;
 
   const text =

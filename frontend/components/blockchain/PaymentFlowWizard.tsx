@@ -88,7 +88,9 @@ export function PaymentFlowWizard({
       {step === 'amount' && (
         <div className="space-y-4">
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Amount ({assetLabel})</label>
+            <label className="block text-xs text-slate-400 mb-1">
+              Amount ({assetLabel})
+            </label>
             <input
               type="text"
               inputMode="decimal"
@@ -99,7 +101,9 @@ export function PaymentFlowWizard({
             />
           </div>
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Memo (optional)</label>
+            <label className="block text-xs text-slate-400 mb-1">
+              Memo (optional)
+            </label>
             <input
               type="text"
               value={memo}

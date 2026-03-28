@@ -62,7 +62,8 @@ export interface AdminUserDetailViewProps {
 
 export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
   const router = useRouter();
-  const { data, isLoading, isError, refetch } = useAdminUserDetailBundle(userId);
+  const { data, isLoading, isError, refetch } =
+    useAdminUserDetailBundle(userId);
   const { data: txPage, isLoading: txLoading } = useUserTransactions(userId);
 
   const suspendUser = useSuspendUser();
@@ -86,9 +87,7 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
       setConfirmSuspend(false);
       await refetch();
     } catch (e) {
-      toast.error(
-        e instanceof Error ? e.message : 'Could not suspend user',
-      );
+      toast.error(e instanceof Error ? e.message : 'Could not suspend user');
     } finally {
       setActionLoading(false);
     }
@@ -102,9 +101,7 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
       toast.success('User reactivated');
       await refetch();
     } catch (e) {
-      toast.error(
-        e instanceof Error ? e.message : 'Could not reactivate user',
-      );
+      toast.error(e instanceof Error ? e.message : 'Could not reactivate user');
     } finally {
       setActionLoading(false);
     }
@@ -117,9 +114,7 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
       toast.success('User marked verified');
       await refetch();
     } catch (e) {
-      toast.error(
-        e instanceof Error ? e.message : 'Could not verify user',
-      );
+      toast.error(e instanceof Error ? e.message : 'Could not verify user');
     } finally {
       setActionLoading(false);
     }
@@ -251,8 +246,7 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
               </div>
               <div className="flex items-center gap-3">
                 <Calendar size={16} className="text-slate-500 shrink-0" />
-                Joined{' '}
-                {format(new Date(user.createdAt), 'MMM d, yyyy')}
+                Joined {format(new Date(user.createdAt), 'MMM d, yyyy')}
               </div>
             </div>
           </div>
@@ -270,8 +264,7 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
               </span>
               {extras.kycUpdatedAt && (
                 <span className="text-xs text-slate-500">
-                  Updated{' '}
-                  {format(new Date(extras.kycUpdatedAt), 'MMM d, yyyy')}
+                  Updated {format(new Date(extras.kycUpdatedAt), 'MMM d, yyyy')}
                 </span>
               )}
             </div>
@@ -377,7 +370,9 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
                 <Loader2 className="animate-spin" size={24} />
               </div>
             ) : transactions.length === 0 ? (
-              <p className="p-6 text-slate-500 text-sm">No transactions found.</p>
+              <p className="p-6 text-slate-500 text-sm">
+                No transactions found.
+              </p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-sm">
@@ -397,7 +392,9 @@ export function AdminUserDetailView({ userId }: AdminUserDetailViewProps) {
                     {transactions.slice(0, 25).map((tx) => (
                       <tr key={tx.id} className="hover:bg-white/5">
                         <td className="px-4 py-3">
-                          <span className="text-white capitalize">{tx.type}</span>
+                          <span className="text-white capitalize">
+                            {tx.type}
+                          </span>
                           <p className="text-slate-500 text-xs mt-0.5 line-clamp-2 md:hidden">
                             {tx.status} ·{' '}
                             {format(new Date(tx.createdAt), 'MMM d, yyyy')}

@@ -21,17 +21,11 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   let pageTitle = getAdminPageTitle(pathname);
 
   // Dynamic routes (merged from feature branches)
-  if (
-    /^\/admin\/refunds\/.+/.test(pathname) &&
-    pathname !== '/admin/refunds'
-  ) {
+  if (/^\/admin\/refunds\/.+/.test(pathname) && pathname !== '/admin/refunds') {
     pageTitle = 'Refund Detail';
   }
 
-  if (
-    /^\/admin\/users\/.+/.test(pathname) &&
-    pathname !== '/admin/users'
-  ) {
+  if (/^\/admin\/users\/.+/.test(pathname) && pathname !== '/admin/users') {
     pageTitle = 'User Detail';
   }
 

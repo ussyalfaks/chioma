@@ -435,10 +435,13 @@ export async function submitAdminDisputeResolution(
   },
 ): Promise<void> {
   try {
-    await apiClient.post(`/admin/disputes/${encodeURIComponent(disputeId)}/resolve`, {
-      resolutionNotes: payload.resolutionNotes,
-      action: payload.action,
-    });
+    await apiClient.post(
+      `/admin/disputes/${encodeURIComponent(disputeId)}/resolve`,
+      {
+        resolutionNotes: payload.resolutionNotes,
+        action: payload.action,
+      },
+    );
   } catch {
     // Offline-friendly: allow UI to complete when backend is not wired.
   }

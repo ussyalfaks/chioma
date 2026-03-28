@@ -70,7 +70,9 @@ export function TransactionHistoryList({
                 {tx.hash}
               </p>
               {tx.memo && (
-                <p className="text-xs text-slate-500 truncate">Memo: {tx.memo}</p>
+                <p className="text-xs text-slate-500 truncate">
+                  Memo: {tx.memo}
+                </p>
               )}
             </div>
           </div>

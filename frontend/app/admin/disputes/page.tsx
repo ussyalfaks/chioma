@@ -128,8 +128,16 @@ export default function AdminDisputesPage() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         <MetricCard label="Total" value={metrics.total} icon={<Gavel />} />
         <MetricCard label="Open" value={metrics.open} icon={<Clock3 />} />
-        <MetricCard label="Review" value={metrics.underReview} icon={<MessageSquareMore />} />
-        <MetricCard label="Resolved" value={metrics.resolved} icon={<CheckCircle2 />} />
+        <MetricCard
+          label="Review"
+          value={metrics.underReview}
+          icon={<MessageSquareMore />}
+        />
+        <MetricCard
+          label="Resolved"
+          value={metrics.resolved}
+          icon={<CheckCircle2 />}
+        />
       </div>
 
       {/* Filters */}
@@ -169,9 +177,7 @@ export default function AdminDisputesPage() {
                   </button>
                 </td>
                 <td className="p-3">
-                  <button
-                    onClick={() => handleQuickAction(d.id, 'RESOLVED')}
-                  >
+                  <button onClick={() => handleQuickAction(d.id, 'RESOLVED')}>
                     Resolve
                   </button>
                 </td>

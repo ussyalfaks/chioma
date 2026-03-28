@@ -3,12 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { format } from 'date-fns';
-import {
-  ArrowRight,
-  CircleDollarSign,
-  Filter,
-  Loader2,
-} from 'lucide-react';
+import { ArrowRight, CircleDollarSign, Filter, Loader2 } from 'lucide-react';
 import type {
   AdminRefundRequestRow,
   AdminRefundStatus,
@@ -24,20 +19,12 @@ const STATUS_OPTIONS: { value: AdminRefundStatus | 'ALL'; label: string }[] = [
   { value: 'REJECTED', label: 'Rejected' },
 ];
 
-const STATUS_BADGE: Record<
-  AdminRefundStatus,
-  string
-> = {
-  PENDING:
-    'bg-amber-500/15 text-amber-300 border-amber-500/30',
-  APPROVED:
-    'bg-sky-500/15 text-sky-300 border-sky-500/30',
-  PROCESSING:
-    'bg-violet-500/15 text-violet-300 border-violet-500/30',
-  COMPLETED:
-    'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-  REJECTED:
-    'bg-red-500/15 text-red-300 border-red-500/30',
+const STATUS_BADGE: Record<AdminRefundStatus, string> = {
+  PENDING: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+  APPROVED: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+  PROCESSING: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
+  COMPLETED: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+  REJECTED: 'bg-red-500/15 text-red-300 border-red-500/30',
 };
 
 export interface RefundManagementProps {

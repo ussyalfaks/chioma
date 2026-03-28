@@ -59,7 +59,9 @@ export function WalletConnectButton({
 
   if (publicKey) {
     return (
-      <div className={`flex flex-col sm:flex-row sm:items-center gap-2 ${className}`}>
+      <div
+        className={`flex flex-col sm:flex-row sm:items-center gap-2 ${className}`}
+      >
         <div className="flex items-center gap-2 min-w-0 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white">
           <StellarLogo size={18} className="shrink-0 text-sky-400" />
           <span className="font-mono truncate" title={publicKey}>

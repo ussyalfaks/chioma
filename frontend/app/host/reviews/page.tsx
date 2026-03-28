@@ -17,8 +17,10 @@ export default function HostReviewsPage() {
 
   const avg = reviews.length
     ? (
-        reviews.reduce((s: number, r: { rating?: number }) => s + (r.rating ?? 0), 0) /
-        reviews.length
+        reviews.reduce(
+          (s: number, r: { rating?: number }) => s + (r.rating ?? 0),
+          0,
+        ) / reviews.length
       ).toFixed(1)
     : '—';
 
@@ -49,10 +51,14 @@ export default function HostReviewsPage() {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="font-semibold">
-                    {String(r.reviewerName) ?? (r.reviewer as unknown as Record<string, unknown>)?.firstName ?? 'Guest'}
+                    {String(r.reviewerName) ??
+                      (r.reviewer as unknown as Record<string, unknown>)
+                        ?.firstName ??
+                      'Guest'}
                   </p>
                   <p className="text-sm text-blue-300/60">
-                    {String(r.propertyTitle) ?? (r.property as unknown as Record<string, unknown>)?.title}
+                    {String(r.propertyTitle) ??
+                      (r.property as unknown as Record<string, unknown>)?.title}
                   </p>
                 </div>
                 <div className="flex items-center gap-1">
@@ -75,7 +81,9 @@ export default function HostReviewsPage() {
                 </p>
               )}
               <p className="text-xs text-blue-300/40 mt-3">
-                {r.createdAt ? new Date(String(r.createdAt)).toLocaleDateString() : ''}
+                {r.createdAt
+                  ? new Date(String(r.createdAt)).toLocaleDateString()
+                  : ''}
               </p>
             </div>
           ))}

@@ -23,7 +23,9 @@ function labelFromBalance(b: HorizonBalance): string {
   return b.asset_code ?? b.asset_type;
 }
 
-export function parseHorizonBalances(balances: HorizonBalance[]): StellarBalanceRow[] {
+export function parseHorizonBalances(
+  balances: HorizonBalance[],
+): StellarBalanceRow[] {
   return (balances ?? []).map((b) => ({
     label: labelFromBalance(b),
     amount: b.balance,

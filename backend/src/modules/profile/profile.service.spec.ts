@@ -40,6 +40,13 @@ describe('ProfileService', () => {
     createdAt: new Date(),
     updatedAt: new Date(),
     kycStatus: KycStatus.PENDING,
+    loginCount: 0,
+    preferredLanguage: 'en',
+    timezone: 'UTC',
+    twoFactorEnabled: false,
+    emailNotifications: true,
+    smsNotifications: false,
+    marketingOptIn: false,
   };
 
   const mockProfileMetadata: ProfileMetadata = {

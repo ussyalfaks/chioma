@@ -2,7 +2,13 @@
 
 import React, { useState } from 'react';
 import { PropertyData } from '@/store/wizard-store';
-import { Calendar as CalendarIcon, Clock, X, Plus, AlertCircle } from 'lucide-react';
+import {
+  Calendar as CalendarIcon,
+  Clock,
+  X,
+  Plus,
+  AlertCircle,
+} from 'lucide-react';
 
 interface StepProps {
   data: PropertyData;
@@ -10,7 +16,11 @@ interface StepProps {
   errors: Record<string, string>;
 }
 
-export const Step7Availability: React.FC<StepProps> = ({ data, onChange, errors }) => {
+export const Step7Availability: React.FC<StepProps> = ({
+  data,
+  onChange,
+  errors,
+}) => {
   const [newBlockedDate, setNewBlockedDate] = useState('');
 
   const handleChange = (field: keyof PropertyData, value: unknown) => {
@@ -28,7 +38,10 @@ export const Step7Availability: React.FC<StepProps> = ({ data, onChange, errors 
 
   const removeBlockedDate = (date: string) => {
     const current = data.blockedDates || [];
-    handleChange('blockedDates', current.filter(d => d !== date));
+    handleChange(
+      'blockedDates',
+      current.filter((d) => d !== date),
+    );
   };
 
   return (
@@ -43,7 +56,8 @@ export const Step7Availability: React.FC<StepProps> = ({ data, onChange, errors 
           {/* Available From */}
           <div className="space-y-4">
             <span className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 flex items-center">
-              <CalendarIcon className="mr-2 text-brand-blue" size={16} /> Available For Viewings From (Required)
+              <CalendarIcon className="mr-2 text-brand-blue" size={16} />{' '}
+              Available For Viewings From (Required)
             </span>
             <div className="relative group">
               <input
@@ -55,20 +69,26 @@ export const Step7Availability: React.FC<StepProps> = ({ data, onChange, errors 
                   ${errors.availableFrom ? 'border-red-300 focus:border-red-500 focus:ring-red-100' : 'border-transparent focus:border-brand-blue focus:ring-brand-blue/10'}`}
               />
             </div>
-            {errors.availableFrom && <span className="text-xs text-red-500 font-medium">{errors.availableFrom}</span>}
-            
+            {errors.availableFrom && (
+              <span className="text-xs text-red-500 font-medium">
+                {errors.availableFrom}
+              </span>
+            )}
+
             <p className="text-xs text-neutral-500 mt-2 bg-neutral-50 dark:bg-neutral-800/50 p-4 rounded-xl border border-neutral-100 dark:border-neutral-800">
               <AlertCircle size={14} className="inline mr-1 text-brand-blue" />
-              Specify the date when you can start showing the property to interested tenants. 
+              Specify the date when you can start showing the property to
+              interested tenants.
             </p>
           </div>
 
           {/* Blocked Dates */}
           <div className="space-y-4 pt-4 md:pt-0">
             <span className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 flex items-center">
-              <X className="mr-2 text-red-500" size={16} /> Blocked Dates (Optional)
+              <X className="mr-2 text-red-500" size={16} /> Blocked Dates
+              (Optional)
             </span>
-            
+
             <div className="flex space-x-2">
               <input
                 type="date"
@@ -88,15 +108,24 @@ export const Step7Availability: React.FC<StepProps> = ({ data, onChange, errors 
             <div className="space-y-2 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
               {(data.blockedDates || []).length === 0 ? (
                 <div className="text-center py-8 bg-neutral-50 dark:bg-neutral-800/50 rounded-2xl border-2 border-dashed border-neutral-100 dark:border-neutral-800">
-                  <span className="text-xs text-neutral-400">No dates blocked yet</span>
+                  <span className="text-xs text-neutral-400">
+                    No dates blocked yet
+                  </span>
                 </div>
               ) : (
                 data.blockedDates?.map((date) => (
-                  <div key={date} className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 shadow-sm group animate-slide-in">
+                  <div
+                    key={date}
+                    className="flex items-center justify-between p-3.5 rounded-xl bg-white dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 shadow-sm group animate-slide-in"
+                  >
                     <span className="text-sm font-bold text-neutral-700 dark:text-neutral-300">
-                      {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                      {new Date(date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
                     </span>
-                    <button 
+                    <button
                       onClick={() => removeBlockedDate(date)}
                       className="text-neutral-400 hover:text-red-500 transition-colors"
                     >

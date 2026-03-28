@@ -51,22 +51,24 @@ export default function HostCalendarPage() {
           ) : properties.length === 0 ? (
             <p className="text-sm text-blue-300/40">No listings found</p>
           ) : (
-            properties.map((p: { id: string; title?: string; [key: string]: unknown }) => (
-              <button
-                key={p.id}
-                onClick={() => setSelectedProperty(p.id)}
-                className={`w-full text-left p-3 rounded-xl border text-sm transition-all ${
-                  selectedProperty === p.id
-                    ? 'border-blue-500 bg-blue-500/10 text-white'
-                    : 'border-white/10 bg-white/5 text-blue-200/70 hover:bg-white/10'
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <Building2 size={14} className="shrink-0" />
-                  <span className="line-clamp-1">{p.title}</span>
-                </div>
-              </button>
-            ))
+            properties.map(
+              (p: { id: string; title?: string; [key: string]: unknown }) => (
+                <button
+                  key={p.id}
+                  onClick={() => setSelectedProperty(p.id)}
+                  className={`w-full text-left p-3 rounded-xl border text-sm transition-all ${
+                    selectedProperty === p.id
+                      ? 'border-blue-500 bg-blue-500/10 text-white'
+                      : 'border-white/10 bg-white/5 text-blue-200/70 hover:bg-white/10'
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Building2 size={14} className="shrink-0" />
+                    <span className="line-clamp-1">{p.title}</span>
+                  </div>
+                </button>
+              ),
+            )
           )}
         </div>
 

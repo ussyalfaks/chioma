@@ -3,14 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import {
-  MapPin,
-  Bed,
-  Bath,
-  ArrowLeft,
-  Car,
-  PawPrint,
-} from 'lucide-react';
+import { MapPin, Bed, Bath, ArrowLeft, Car, PawPrint } from 'lucide-react';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 async function fetchProperty(id: string) {

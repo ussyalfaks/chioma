@@ -53,7 +53,5 @@ export default function AdminRefundsPage() {
     return null;
   }
 
-  return (
-    <RefundManagement rows={rows} loading={loading} error={error} />
-  );
+  return <RefundManagement rows={rows} loading={loading} error={error} />;
 }

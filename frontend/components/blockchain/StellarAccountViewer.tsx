@@ -21,8 +21,7 @@ export function StellarAccountViewer({
   const [input, setInput] = useState(initialPublicKey);
 
   const trimmed = input.trim();
-  const enabled =
-    trimmed.length >= 56 && trimmed.startsWith('G');
+  const enabled = trimmed.length >= 56 && trimmed.startsWith('G');
 
   const { data, error, refetch, isFetching, isFetched } = useQuery({
     queryKey: ['stellar-account-balances', trimmed],
@@ -59,9 +58,7 @@ export function StellarAccountViewer({
           }}
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-sky-600/90 hover:bg-sky-600 text-white px-4 py-2.5 text-sm font-semibold disabled:opacity-50 shrink-0"
         >
-          {isFetching ? (
-            <Loader2 className="animate-spin" size={18} />
-          ) : null}
+          {isFetching ? <Loader2 className="animate-spin" size={18} /> : null}
           Load account
         </button>
       </div>

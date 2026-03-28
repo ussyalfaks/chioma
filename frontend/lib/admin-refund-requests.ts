@@ -269,9 +269,7 @@ export async function loadAdminRefundRequests(): Promise<
       | { data?: AdminRefundRequestRow[]; refunds?: AdminRefundRequestRow[] }
     >('/admin/refunds');
     const body = response.data;
-    const rows = Array.isArray(body)
-      ? body
-      : (body.data ?? body.refunds ?? []);
+    const rows = Array.isArray(body) ? body : (body.data ?? body.refunds ?? []);
     if (rows.length > 0) return rows;
   } catch {
     // fallback
@@ -291,7 +289,11 @@ export async function loadAdminRefundRequestDetail(
     const payload = response.data?.data;
     if (payload && typeof payload === 'object' && 'refundId' in payload) {
       return fallback
-        ? { ...fallback, ...payload, history: payload.history ?? fallback.history }
+        ? {
+            ...fallback,
+            ...payload,
+            history: payload.history ?? fallback.history,
+          }
         : (payload as AdminRefundRequestDetail);
     }
   } catch {

@@ -10,8 +10,7 @@ const meta = {
 
 export default meta;
 
-const MOCK_XDR =
-  'AAAAAgAAAAA=' + 'A'.repeat(80) + 'AAAAAA==';
+const MOCK_XDR = 'AAAAAgAAAAA=' + 'A'.repeat(80) + 'AAAAAA==';
 
 export const Open = () => {
   const [open, setOpen] = useState(true);

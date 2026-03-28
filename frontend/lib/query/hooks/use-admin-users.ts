@@ -90,7 +90,10 @@ export function useVerifyUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (userId: string) => {
-      await apiClient.post(`/admin/users/${encodeURIComponent(userId)}/verify`, {});
+      await apiClient.post(
+        `/admin/users/${encodeURIComponent(userId)}/verify`,
+        {},
+      );
     },
     onSuccess: (_, userId) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.users.all });

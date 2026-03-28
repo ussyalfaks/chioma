@@ -72,8 +72,8 @@ export function BookingStep4({
       </div>
 
       <p className="text-xs text-blue-300/40">
-        By confirming, you agree to the host&apos;s cancellation policy and our terms
-        of service.
+        By confirming, you agree to the host&apos;s cancellation policy and our
+        terms of service.
       </p>
 
       <div className="flex gap-3">

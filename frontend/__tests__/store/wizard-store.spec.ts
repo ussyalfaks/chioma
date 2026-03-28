@@ -28,7 +28,9 @@ describe('Wizard Store', () => {
   });
 
   it('should start a new draft if no ID provided', async () => {
-    vi.mocked(axios.post).mockResolvedValue({ data: { ...mockDraft, data: {} } });
+    vi.mocked(axios.post).mockResolvedValue({
+      data: { ...mockDraft, data: {} },
+    });
 
     await useWizardStore.getState().initDraft();
 
@@ -43,15 +45,17 @@ describe('Wizard Store', () => {
 
   it('should save step and update sync status', async () => {
     useWizardStore.setState({ draftId: 'id', data: { bedrooms: 2 } });
-    vi.mocked(axios.patch).mockResolvedValue({ 
-      data: { completedSteps: [1], validationErrors: {} } 
+    vi.mocked(axios.patch).mockResolvedValue({
+      data: { completedSteps: [1], validationErrors: {} },
     });
 
     await useWizardStore.getState().saveStep(1);
 
     expect(useWizardStore.getState().syncStatus).toBe('saved');
     expect(useWizardStore.getState().completedSteps).toContain(1);
-    expect(Object.keys(useWizardStore.getState().validationErrors)).toHaveLength(0);
+    expect(
+      Object.keys(useWizardStore.getState().validationErrors),
+    ).toHaveLength(0);
   });
 
   it('should handle save error', async () => {

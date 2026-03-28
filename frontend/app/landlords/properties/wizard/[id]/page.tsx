@@ -3,7 +3,11 @@
 import React, { use } from 'react';
 import { PropertyListingWizard } from '@/components/wizard/PropertyListingWizard';
 
-export default function ResumeWizardPage({ params }: { params: Promise<{ id: string }> }) {
+export default function ResumeWizardPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = use(params);
 
   return (

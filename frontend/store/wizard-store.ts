@@ -67,7 +67,9 @@ export const useWizardStore = create<WizardStore>()(
       initDraft: async (draftId) => {
         try {
           if (draftId) {
-            const response = await axios.get(`/api/property-listings/wizard/${draftId}/draft`);
+            const response = await axios.get(
+              `/api/property-listings/wizard/${draftId}/draft`,
+            );
             const draft = response.data;
             set({
               draftId: draft.id,
@@ -76,7 +78,7 @@ export const useWizardStore = create<WizardStore>()(
               data: draft.data,
               isInitialized: true,
             });
-            
+
             // Check localStorage backup
             if (typeof window !== 'undefined') {
               const backup = localStorage.getItem(`nepa-wizard-${draftId}`);
@@ -88,7 +90,9 @@ export const useWizardStore = create<WizardStore>()(
               }
             }
           } else {
-            const response = await axios.post('/api/property-listings/wizard/start');
+            const response = await axios.post(
+              '/api/property-listings/wizard/start',
+            );
             const draft = response.data;
             set({
               draftId: draft.id,
@@ -108,7 +112,7 @@ export const useWizardStore = create<WizardStore>()(
           state.data = { ...state.data, ...newData };
           state.syncStatus = 'idle';
         });
-        
+
         // Save to localStorage immediately as backup
         const { draftId, data } = get();
         if (draftId && typeof window !== 'undefined') {
@@ -130,11 +134,14 @@ export const useWizardStore = create<WizardStore>()(
 
         set({ syncStatus: 'saving' });
         try {
-          const response = await axios.patch(`/api/property-listings/wizard/${draftId}/step`, {
-            step,
-            data,
-          });
-          
+          const response = await axios.patch(
+            `/api/property-listings/wizard/${draftId}/step`,
+            {
+              step,
+              data,
+            },
+          );
+
           set({
             syncStatus: 'saved',
             validationErrors: response.data.validationErrors || {},

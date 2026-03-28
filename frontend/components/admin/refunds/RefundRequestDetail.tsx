@@ -166,7 +166,9 @@ export function RefundRequestDetail({
         <div className="lg:col-span-2 space-y-8">
           <section className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
             <h2 className="text-white font-semibold mb-3">Reason</h2>
-            <p className="text-slate-400 text-sm mb-4">{refund.reasonSummary}</p>
+            <p className="text-slate-400 text-sm mb-4">
+              {refund.reasonSummary}
+            </p>
             <p className="text-slate-200 text-sm leading-relaxed whitespace-pre-wrap">
               {refund.reasonDetail}
             </p>
@@ -270,8 +272,8 @@ export function RefundRequestDetail({
 
           {!canDecide && refund.status !== 'PENDING' && (
             <div className="rounded-2xl border border-slate-600/40 bg-slate-800/40 px-4 py-3 text-sm text-slate-300">
-              This request is not awaiting review. Use the history above to audit
-              status changes.
+              This request is not awaiting review. Use the history above to
+              audit status changes.
             </div>
           )}
         </div>

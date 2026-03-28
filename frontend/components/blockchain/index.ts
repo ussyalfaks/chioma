@@ -13,6 +13,9 @@ export type { StellarAccountViewerProps } from './StellarAccountViewer';
 export { TransactionSigningModal } from './TransactionSigningModal';
 export type { TransactionSigningModalProps } from './TransactionSigningModal';
 export { PaymentFlowWizard } from './PaymentFlowWizard';
-export type { PaymentFlowWizardProps, PaymentFlowStep } from './PaymentFlowWizard';
+export type {
+  PaymentFlowWizardProps,
+  PaymentFlowStep,
+} from './PaymentFlowWizard';
 export { TransactionHistoryList } from './TransactionHistoryList';
 export type { TransactionHistoryListProps } from './TransactionHistoryList';

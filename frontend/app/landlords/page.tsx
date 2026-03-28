@@ -36,7 +36,10 @@ export default function DashboardPage() {
           href="/landlords/properties/wizard"
           className="flex items-center justify-center bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3 px-6 rounded-2xl transition-all shadow-lg active:scale-95 group"
         >
-          <Home className="mr-2 group-hover:scale-110 transition-transform" size={20} />
+          <Home
+            className="mr-2 group-hover:scale-110 transition-transform"
+            size={20}
+          />
           Create New Listing
         </Link>
       </div>

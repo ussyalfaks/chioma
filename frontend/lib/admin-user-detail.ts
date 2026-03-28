@@ -90,7 +90,9 @@ export function buildMockExtras(user: User): AdminUserDetailExtras {
   };
 }
 
-export async function fetchAdminUserWithFallback(userId: string): Promise<User> {
+export async function fetchAdminUserWithFallback(
+  userId: string,
+): Promise<User> {
   try {
     const res = await apiClient.get<User | { data: User }>(
       `/admin/users/${encodeURIComponent(userId)}`,
@@ -140,8 +142,9 @@ export async function fetchAdminUserDetailExtras(
       return {
         ...base,
         ...payload,
-        properties:
-          payload.properties?.length ? payload.properties : base.properties,
+        properties: payload.properties?.length
+          ? payload.properties
+          : base.properties,
       };
     }
   } catch {

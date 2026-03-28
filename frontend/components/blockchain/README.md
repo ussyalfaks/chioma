@@ -11,15 +11,15 @@ Reusable UI for **Freighter** wallet connection, **XDR signing**, **payment step
 
 ## Components
 
-| Component | Purpose |
-|-----------|---------|
-| `WalletConnectButton` | Connect Freighter, show truncated address, disconnect (app session) |
-| `BlockchainStatusBadge` | Network / wallet / pending / success / error pills |
-| `AssetBalanceDisplay` | List of balances from Horizon or mocks |
-| `StellarAccountViewer` | Paste a public key → load balances + Expert link |
-| `TransactionSigningModal` | Preview XDR + sign via Freighter |
-| `PaymentFlowWizard` | Amount → review → `prepareTransaction()` → signing modal |
-| `TransactionHistoryList` | Rows with hash + amount + Explorer link |
+| Component                 | Purpose                                                             |
+| ------------------------- | ------------------------------------------------------------------- |
+| `WalletConnectButton`     | Connect Freighter, show truncated address, disconnect (app session) |
+| `BlockchainStatusBadge`   | Network / wallet / pending / success / error pills                  |
+| `AssetBalanceDisplay`     | List of balances from Horizon or mocks                              |
+| `StellarAccountViewer`    | Paste a public key → load balances + Expert link                    |
+| `TransactionSigningModal` | Preview XDR + sign via Freighter                                    |
+| `PaymentFlowWizard`       | Amount → review → `prepareTransaction()` → signing modal            |
+| `TransactionHistoryList`  | Rows with hash + amount + Explorer link                             |
 
 ## Usage
 

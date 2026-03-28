@@ -18,8 +18,18 @@ interface PropertyListingWizardProps {
   draftId?: string;
 }
 
-export const PropertyListingWizard: React.FC<PropertyListingWizardProps> = ({ draftId }) => {
-  const { currentStep, initDraft, data, updateData, validationErrors, isInitialized, saveStep } = useWizardStore();
+export const PropertyListingWizard: React.FC<PropertyListingWizardProps> = ({
+  draftId,
+}) => {
+  const {
+    currentStep,
+    initDraft,
+    data,
+    updateData,
+    validationErrors,
+    isInitialized,
+    saveStep,
+  } = useWizardStore();
   const [error, setError] = useState<string | null>(null);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -67,9 +77,11 @@ export const PropertyListingWizard: React.FC<PropertyListingWizardProps> = ({ dr
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center max-w-lg mx-auto bg-white dark:bg-neutral-800 rounded-2xl shadow-xl border border-neutral-100 dark:border-neutral-700 animate-slide-in">
         <AlertCircle size={48} className="text-red-500 mb-4" />
-        <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">Error Occurred</h2>
+        <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
+          Error Occurred
+        </h2>
         <p className="text-neutral-500 mb-6">{error}</p>
-        <button 
+        <button
           onClick={() => window.location.reload()}
           className="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg active:scale-95"
         >
@@ -84,7 +96,9 @@ export const PropertyListingWizard: React.FC<PropertyListingWizardProps> = ({ dr
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center space-y-4">
           <Loader2 size={48} className="animate-spin text-brand-blue" />
-          <p className="text-neutral-500 font-medium">Preparing your wizard...</p>
+          <p className="text-neutral-500 font-medium">
+            Preparing your wizard...
+          </p>
         </div>
       </div>
     );
@@ -94,15 +108,24 @@ export const PropertyListingWizard: React.FC<PropertyListingWizardProps> = ({ dr
     const props = { data, onChange: updateData, errors: validationErrors };
 
     switch (currentStep) {
-      case 1: return <Step1BasicInfo {...props} />;
-      case 2: return <Step2PricingTerms {...props} />;
-      case 3: return <Step3Amenities {...props} />;
-      case 4: return <Step4HouseRules {...props} />;
-      case 5: return <Step5Photos {...props} />;
-      case 6: return <Step6Description {...props} />;
-      case 7: return <Step7Availability {...props} />;
-      case 8: return <Step8Preview {...props} />;
-      default: return null;
+      case 1:
+        return <Step1BasicInfo {...props} />;
+      case 2:
+        return <Step2PricingTerms {...props} />;
+      case 3:
+        return <Step3Amenities {...props} />;
+      case 4:
+        return <Step4HouseRules {...props} />;
+      case 5:
+        return <Step5Photos {...props} />;
+      case 6:
+        return <Step6Description {...props} />;
+      case 7:
+        return <Step7Availability {...props} />;
+      case 8:
+        return <Step8Preview {...props} />;
+      default:
+        return null;
     }
   };
 
@@ -114,7 +137,8 @@ export const PropertyListingWizard: React.FC<PropertyListingWizardProps> = ({ dr
             Create Rental Property
           </h1>
           <p className="text-neutral-500 max-w-lg mx-auto">
-            Fill out the details below to list your property on Chioma Protocol and start attracting top-tier tenants.
+            Fill out the details below to list your property on Chioma Protocol
+            and start attracting top-tier tenants.
           </p>
         </header>
 
