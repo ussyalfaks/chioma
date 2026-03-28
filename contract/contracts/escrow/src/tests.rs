@@ -783,7 +783,11 @@ fn test_is_party_depositor() {
     let escrow = client.get_escrow(&escrow_id);
 
     // Depositor is a party
-    assert!(escrow.depositor == depositor || escrow.beneficiary == depositor || escrow.arbiter == depositor);
+    assert!(
+        escrow.depositor == depositor
+            || escrow.beneficiary == depositor
+            || escrow.arbiter == depositor
+    );
 }
 
 #[test]
@@ -798,7 +802,11 @@ fn test_is_party_beneficiary() {
     let escrow = client.get_escrow(&escrow_id);
 
     // Beneficiary is a party
-    assert!(escrow.depositor == beneficiary || escrow.beneficiary == beneficiary || escrow.arbiter == beneficiary);
+    assert!(
+        escrow.depositor == beneficiary
+            || escrow.beneficiary == beneficiary
+            || escrow.arbiter == beneficiary
+    );
 }
 
 #[test]
@@ -813,7 +821,9 @@ fn test_is_party_arbiter() {
     let escrow = client.get_escrow(&escrow_id);
 
     // Arbiter is a party
-    assert!(escrow.depositor == arbiter || escrow.beneficiary == arbiter || escrow.arbiter == arbiter);
+    assert!(
+        escrow.depositor == arbiter || escrow.beneficiary == arbiter || escrow.arbiter == arbiter
+    );
 }
 
 #[test]
@@ -829,7 +839,11 @@ fn test_is_party_non_party() {
     let escrow = client.get_escrow(&escrow_id);
 
     // Non-party should not match any party
-    assert!(escrow.depositor != non_party && escrow.beneficiary != non_party && escrow.arbiter != non_party);
+    assert!(
+        escrow.depositor != non_party
+            && escrow.beneficiary != non_party
+            && escrow.arbiter != non_party
+    );
 }
 
 #[test]

@@ -392,7 +392,8 @@ fn test_compound_interest_daily_exceeds_simple() {
 
     // Accrue daily for 365 days
     for day in 1..=365 {
-        env.ledger().with_mut(|li| li.timestamp = day as u64 * 86_400);
+        env.ledger()
+            .with_mut(|li| li.timestamp = day as u64 * 86_400);
         client.accrue_interest(&id);
     }
 
@@ -423,7 +424,8 @@ fn test_compound_interest_monthly() {
 
     // Accrue monthly for 12 months
     for month in 1..=12 {
-        env.ledger().with_mut(|li| li.timestamp = month as u64 * 30 * 86_400);
+        env.ledger()
+            .with_mut(|li| li.timestamp = month as u64 * 30 * 86_400);
         client.accrue_interest(&id);
     }
 
@@ -454,7 +456,8 @@ fn test_compound_interest_quarterly() {
 
     // Accrue quarterly for 4 quarters
     for quarter in 1..=4 {
-        env.ledger().with_mut(|li| li.timestamp = quarter as u64 * 90 * 86_400);
+        env.ledger()
+            .with_mut(|li| li.timestamp = quarter as u64 * 90 * 86_400);
         client.accrue_interest(&id);
     }
 
@@ -484,7 +487,8 @@ fn test_compound_interest_annually() {
 
     // Accrue annually for 2 years
     for year in 1..=2 {
-        env.ledger().with_mut(|li| li.timestamp = year as u64 * 365 * 86_400);
+        env.ledger()
+            .with_mut(|li| li.timestamp = year as u64 * 365 * 86_400);
         client.accrue_interest(&id);
     }
 
@@ -613,7 +617,8 @@ fn test_get_accrual_history_multiple_entries() {
 
     // Multiple accruals
     for i in 1..=3 {
-        env.ledger().with_mut(|li| li.timestamp = i as u64 * 30 * 86_400);
+        env.ledger()
+            .with_mut(|li| li.timestamp = i as u64 * 30 * 86_400);
         client.accrue_interest(&id);
     }
 
@@ -648,7 +653,7 @@ fn test_get_deposit_interest_state_all_fields() {
     assert_eq!(di.principal, deposit);
     assert!(di.accrued_interest > 0);
     assert_eq!(di.total_with_interest, deposit + di.accrued_interest);
-    assert!(di.last_accrual_timestamp > 0);
+    assert!(di.last_accrual_date > 0);
 }
 
 #[test]
@@ -660,7 +665,7 @@ fn test_process_interest_accruals_batch() {
     let (client, _admin) = setup(&env);
 
     // Create multiple agreements
-    let mut agreement_ids = Vec::new();
+    let mut agreement_ids = Vec::new(&env);
     for i in 0..3 {
         let tenant = Address::generate(&env);
         let landlord = Address::generate(&env);
@@ -673,20 +678,22 @@ fn test_process_interest_accruals_batch() {
             &InterestRecipient::Tenant,
         );
 
-        agreement_ids.push(id);
+        agreement_ids.push_back(id);
     }
 
     // Advance time
     env.ledger().with_mut(|li| li.timestamp = 30 * 86_400);
 
     // Batch process all accruals
-    for id in agreement_ids.iter() {
-        client.accrue_interest(id);
+    for i in 0..agreement_ids.len() {
+        let id = agreement_ids.get(i).unwrap();
+        client.accrue_interest(&id);
     }
 
     // Verify all were processed
-    for id in agreement_ids.iter() {
-        let di = client.get_deposit_interest(id);
+    for i in 0..agreement_ids.len() {
+        let id = agreement_ids.get(i).unwrap();
+        let di = client.get_deposit_interest(&id);
         assert!(di.accrued_interest > 0);
     }
 }
