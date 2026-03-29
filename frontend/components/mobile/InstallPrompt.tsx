@@ -53,9 +53,12 @@ export default function InstallPrompt() {
       <div className="rounded-2xl border border-white/10 bg-slate-900/95 backdrop-blur-xl p-4 shadow-2xl">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-white">Install Chioma App</p>
+            <p className="text-sm font-semibold text-white">
+              Install Chioma App
+            </p>
             <p className="text-xs text-blue-200/70 mt-1">
-              Add Chioma to your home screen for faster access and better offline support.
+              Add Chioma to your home screen for faster access and better
+              offline support.
             </p>
           </div>
           <button
