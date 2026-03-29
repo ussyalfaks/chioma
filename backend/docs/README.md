@@ -16,6 +16,8 @@ Welcome to the Chioma backend documentation hub. This index covers all aspects o
 | [Caching](#caching)                 | Redis/Upstash strategy, invalidation, monitoring |
 | [Queues](#queues)                   | Bull queue implementation                        |
 | [Deployment](#deployment)           | Production setup, Docker, CI/CD                  |
+| [Error Handling](#error-handling)    | Exception filters, error types, error responses  |
+| [Logging & Monitoring](#logging--monitoring) | Logging, Prometheus, Grafana, Sentry, alerts |
 | [Security](#security)               | Encryption, threat model, compliance             |
 | [Integrations](#integrations)       | Third-party services                             |
 | [Support](#support)                 | Support procedures, SLAs, maintenance schedules  |
@@ -160,6 +162,26 @@ Docker Compose files:
 - `docker-compose.production.yml` — production
 - `docker-compose.monitoring.yml` — Prometheus + Grafana
 - `docker-compose.docs.yml` — serve docs locally
+
+---
+
+## Error Handling
+
+| Document                                    | Summary                                                      |
+| ------------------------------------------- | ------------------------------------------------------------ |
+| [Error Handling](./ERROR_HANDLING.md)       | Exception filters, custom errors, frontend classification, error response formats |
+
+The `AllExceptionsFilter` catches all unhandled exceptions and maps them to standardized JSON responses. The frontend uses an `AppError` type system with error classification, user-friendly messages, and retry logic.
+
+---
+
+## Logging & Monitoring
+
+| Document                                                  | Summary                                                          |
+| --------------------------------------------------------- | ---------------------------------------------------------------- |
+| [Logging & Monitoring](./LOGGING_AND_MONITORING.md)       | LoggerService, middleware, Sentry, Prometheus, Grafana, Loki, alerts |
+
+The platform uses structured JSON logging with correlation IDs, sensitive data sanitization, and a full Prometheus + Grafana + Loki + Alertmanager monitoring stack.
 
 ---
 
