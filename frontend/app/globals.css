@@ -115,6 +115,27 @@ body {
   overscroll-behavior-y: none;
 }
 
+:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 999;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
 /* Mobile-first UX helpers */
 * {
   -webkit-touch-callout: none;

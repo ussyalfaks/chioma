@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
 import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Spinner } from '@/components/loading';
@@ -43,6 +43,11 @@ export const BaseModal: React.FC<BaseModalProps> = ({
   loading = false,
   loadingMessage,
 }) => {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const lastActiveElementRef = useRef<HTMLElement | null>(null);
+  const titleId = useId();
+  const descriptionId = useId();
+
   useEffect(() => {
     if (!closeOnEscape) return;
 
@@ -58,7 +63,23 @@ export const BaseModal: React.FC<BaseModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      lastActiveElementRef.current = document.activeElement as HTMLElement;
       document.body.style.overflow = 'hidden';
+
+      const timer = window.setTimeout(() => {
+        const focusableElements =
+          modalRef.current?.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+          );
+
+        focusableElements?.[0]?.focus();
+      }, 0);
+
+      return () => {
+        window.clearTimeout(timer);
+        document.body.style.overflow = 'unset';
+        lastActiveElementRef.current?.focus();
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -66,6 +87,37 @@ export const BaseModal: React.FC<BaseModalProps> = ({
     return () => {
       document.body.style.overflow = 'unset';
     };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleTabKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Tab' || !modalRef.current) return;
+
+      const focusableElements = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute('disabled'));
+
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement as HTMLElement;
+
+      if (event.shiftKey && activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    document.addEventListener('keydown', handleTabKey);
+    return () => document.removeEventListener('keydown', handleTabKey);
   }, [isOpen]);
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -82,7 +134,8 @@ export const BaseModal: React.FC<BaseModalProps> = ({
           onClick={handleOverlayClick}
           role="dialog"
           aria-modal="true"
-          aria-labelledby="modal-title"
+          aria-labelledby={titleId}
+          aria-describedby={subtitle ? descriptionId : undefined}
         >
           {/* Backdrop */}
           <motion.div
@@ -95,6 +148,7 @@ export const BaseModal: React.FC<BaseModalProps> = ({
 
           {/* Modal */}
           <motion.div
+            ref={modalRef}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -106,13 +160,16 @@ export const BaseModal: React.FC<BaseModalProps> = ({
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0 mr-4">
                   <h2
-                    id="modal-title"
+                    id={titleId}
                     className="text-xl font-bold text-neutral-900 dark:text-white tracking-tight"
                   >
                     {title}
                   </h2>
                   {subtitle && (
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+                    <p
+                      id={descriptionId}
+                      className="text-sm text-neutral-600 dark:text-neutral-400 mt-1"
+                    >
                       {subtitle}
                     </p>
                   )}

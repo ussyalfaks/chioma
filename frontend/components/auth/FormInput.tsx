@@ -22,6 +22,8 @@ export default function FormInput({
   disabled,
   registration,
 }: FormInputProps) {
+  const errorId = `${id}-error`;
+
   return (
     <div className="space-y-1">
       <div className="relative">
@@ -35,6 +37,8 @@ export default function FormInput({
           type={type}
           placeholder={placeholder}
           disabled={disabled}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : undefined}
           className={`w-full ${icon ? 'pl-10' : 'pl-4'} pr-4 py-3 rounded-xl bg-white/10 text-white placeholder:text-white/50 border focus:ring-2 outline-none transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
             error
               ? 'border-red-400/60 focus:ring-red-400/30'
@@ -43,7 +47,11 @@ export default function FormInput({
           {...registration}
         />
       </div>
-      {error && <p className="text-sm text-red-300 pl-1">{error}</p>}
+      {error && (
+        <p id={errorId} className="text-sm text-red-300 pl-1">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

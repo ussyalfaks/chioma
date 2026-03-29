@@ -160,10 +160,18 @@ export default function SignupPage() {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-5"
             noValidate
+            aria-label="Signup form"
           >
             {/* Role Toggle */}
-            <div>
-              <div className="grid grid-cols-2 gap-2 p-1 rounded-lg bg-white/5 border border-white/20">
+            <fieldset>
+              <legend className="mb-2 block text-sm font-semibold text-white">
+                Account type
+              </legend>
+              <div
+                className="grid grid-cols-2 gap-2 p-1 rounded-lg bg-white/5 border border-white/20"
+                role="radiogroup"
+                aria-label="Account type"
+              >
                 {(['TENANT', 'LANDLORD'] as const).map((role) => (
                   <button
                     key={role}
@@ -171,6 +179,8 @@ export default function SignupPage() {
                     onClick={() =>
                       setValue('role', role, { shouldValidate: true })
                     }
+                    role="radio"
+                    aria-checked={selectedRole === role}
                     className={`py-2.5 px-4 rounded-md text-sm font-semibold transition-all duration-200 ${
                       selectedRole === role
                         ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg'
@@ -181,7 +191,7 @@ export default function SignupPage() {
                   </button>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* Name Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

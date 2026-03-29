@@ -10,14 +10,15 @@ import { ModalManager } from '@/components/modals';
 import { OfflineIndicator } from '@/components/offline';
 import { ToastProvider } from '@/components/ui';
 import { Inter } from 'next/font/google';
+import { RouteAnnouncer } from '@/components/accessibility/RouteAnnouncer';
 
 export const viewport: Viewport = {
   themeColor: '#1d4ed8',
   colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
   viewportFit: 'cover',
 };
 
@@ -142,13 +143,19 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://images.unsplash.com" />
       </head>
       <body className="antialiased font-sans bg-linear-to-br from-slate-900 via-blue-900 to-slate-900">
+        <a href="#main-content" className="skip-link">
+          Skip to main content
+        </a>
         <QueryProvider>
           <ModalProvider>
             <StoreHydrator />
             <ErrorMonitoringProvider />
             <PwaController />
             <NetworkStatusBanner />
-            {children}
+            <RouteAnnouncer />
+            <div id="main-content" tabIndex={-1}>
+              {children}
+            </div>
             <ModalManager />
             <OfflineIndicator />
             <ToastProvider />

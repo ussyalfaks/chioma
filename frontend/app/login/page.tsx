@@ -108,6 +108,7 @@ export default function LoginPage() {
             onSubmit={handleSubmit(onSubmit)}
             className="space-y-5"
             noValidate
+            aria-label="Login form"
           >
             <div>
               <label
@@ -245,6 +246,7 @@ export default function LoginPage() {
                     setValue('password', password, { shouldValidate: true });
                     setSelectedDemo(email);
                   }}
+                  aria-label={`Use ${role} demo credentials for ${email}`}
                   className={`w-full text-left px-3 py-2 rounded text-amber-100 transition-colors flex justify-between items-center group ${
                     selectedDemo === email
                       ? 'bg-amber-500/20 border border-amber-500/50 text-amber-50'
