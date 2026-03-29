@@ -1,3 +1,5 @@
+'use client';
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
@@ -17,11 +19,9 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     };
 }
 
-"use client";
-
-export default function TenantReviewDetailPage({ params }: Params) {
+export default async function TenantReviewDetailPage({ params }: Params) {
     const { user, isAuthenticated, loading } = useAuthStore();
-    const id = params.id;
+    const { id } = await params;
 
     if (loading) {
         return (
