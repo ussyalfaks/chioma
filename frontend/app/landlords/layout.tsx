@@ -15,6 +15,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     '/landlords/properties': 'Properties',
     '/landlords/properties/add': 'Add New Property',
     '/landlords/tenants': 'Tenants',
+    '/landlords/analytics': 'Property Analytics',
     '/landlords/financials': 'Financials',
     '/landlords/maintenance': 'Maintenance',
     '/landlords/documents': 'Documents',

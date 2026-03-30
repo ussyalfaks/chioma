@@ -1,7 +1,7 @@
 import SidebarItem from './SidebarItem';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { FaBuilding, FaChartPie } from 'react-icons/fa';
+import { FaBuilding, FaChartPie, FaChartLine } from 'react-icons/fa';
 import { FaScrewdriverWrench, FaArrowRightFromBracket } from 'react-icons/fa6';
 import { HiSquares2X2, HiUsers } from 'react-icons/hi2';
 import { IoDocumentTextSharp } from 'react-icons/io5';
@@ -15,6 +15,7 @@ const baseNavItems = [
   { icon: HiSquares2X2, label: 'Dashboard', href: '/landlords' },
   { icon: FaBuilding, label: 'Properties', href: '/landlords/properties' },
   { icon: HiUsers, label: 'Tenants', href: '/landlords/tenants' },
+  { icon: FaChartLine, label: 'Analytics', href: '/landlords/analytics' },
   { icon: FaChartPie, label: 'Financials', href: '/landlords/financials' },
   {
     icon: FaScrewdriverWrench,

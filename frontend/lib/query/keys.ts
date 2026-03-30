@@ -133,4 +133,10 @@ export const queryKeys = {
     incidentMetrics: () =>
       [...queryKeys.security.all, 'incident-metrics'] as const,
   },
+
+  analytics: {
+    all: ['analytics'] as const,
+    landlordOverview: (days: number) =>
+      [...queryKeys.analytics.all, 'landlord-overview', days] as const,
+  },
 } as const;

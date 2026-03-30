@@ -70,6 +70,8 @@ export {
   useResolveSecurityIncident,
 } from './use-security-dashboard';
 
+export { useLandlordPropertyAnalytics } from './use-property-analytics';
+
 export { useOptimisticUpdate } from './use-optimistic-update';
 export type {
   UseOptimisticUpdateOptions,
