@@ -6,23 +6,23 @@ Welcome to the Chioma backend documentation hub. This index covers all aspects o
 
 ## Navigation
 
-| Category                            | Description                                      |
-| ----------------------------------- | ------------------------------------------------ |
-| [Getting Started](#getting-started) | Prerequisites, local setup, environment config   |
-| [API Reference](#api-reference)     | Endpoint docs, standards, versioning, changelog  |
-| [Architecture](#architecture)       | System design, dependency graph, performance     |
-| [Database](#database)               | Schema, migrations, indexes                      |
-| [Blockchain](#blockchain)           | Stellar integration, anchor, SEP-0010 auth       |
-| [Authentication](#authentication)   | JWT, Stellar auth, MFA, guards, security         |
-| [Caching](#caching)                 | Redis/Upstash strategy, invalidation, monitoring |
-| [Queues](#queues)                   | Bull queue implementation                        |
-| [Deployment](#deployment)           | Production setup, Docker, CI/CD                  |
-| [Error Handling](#error-handling)    | Exception filters, error types, error responses  |
-| [Logging & Monitoring](#logging--monitoring) | Logging, Prometheus, Grafana, Sentry, alerts |
-| [Security](#security)               | Encryption, threat model, compliance             |
-| [Integrations](#integrations)       | Third-party services                             |
-| [Support](#support)                 | Support procedures, SLAs, maintenance schedules  |
-| [Community](#community)             | Contributing, code of conduct, team policies     |
+| Category                                     | Description                                      |
+| -------------------------------------------- | ------------------------------------------------ |
+| [Getting Started](#getting-started)          | Prerequisites, local setup, environment config   |
+| [API Reference](#api-reference)              | Endpoint docs, standards, versioning, changelog  |
+| [Architecture](#architecture)                | System design, dependency graph, performance     |
+| [Database](#database)                        | Schema, migrations, indexes                      |
+| [Blockchain](#blockchain)                    | Stellar integration, anchor, SEP-0010 auth       |
+| [Authentication](#authentication)            | JWT, Stellar auth, MFA, guards, security         |
+| [Caching](#caching)                          | Redis/Upstash strategy, invalidation, monitoring |
+| [Queues](#queues)                            | Bull queue implementation                        |
+| [Deployment](#deployment)                    | Production setup, Docker, CI/CD                  |
+| [Error Handling](#error-handling)            | Exception filters, error types, error responses  |
+| [Logging & Monitoring](#logging--monitoring) | Logging, Prometheus, Grafana, Sentry, alerts     |
+| [Security](#security)                        | Encryption, threat model, compliance             |
+| [Integrations](#integrations)                | Third-party services                             |
+| [Support](#support)                          | Support procedures, SLAs, maintenance schedules  |
+| [Community](#community)                      | Contributing, code of conduct, team policies     |
 
 ---
 
@@ -129,11 +129,11 @@ pnpm run migration:generate  # generate migration from entity changes
 
 ## Authentication
 
-| Document                                                     | Summary                                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| [Authentication Documentation](./AUTHENTICATION.md)          | Full architecture, JWT/Stellar flows, MFA, guards, decorators, security  |
-| [API Authentication Guide](./api/AUTHENTICATION.md)          | Quick API reference with request/response examples                       |
-| [Stellar Auth (SEP-0010)](./blockchain/stellar-auth.md)      | Wallet-based authentication flow details                                 |
+| Document                                                | Summary                                                                 |
+| ------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [Authentication Documentation](./AUTHENTICATION.md)     | Full architecture, JWT/Stellar flows, MFA, guards, decorators, security |
+| [API Authentication Guide](./api/AUTHENTICATION.md)     | Quick API reference with request/response examples                      |
+| [Stellar Auth (SEP-0010)](./blockchain/stellar-auth.md) | Wallet-based authentication flow details                                |
 
 Chioma supports dual authentication: **JWT (email/password)** and **Stellar SEP-0010 (wallet)**. Both methods issue JWT access tokens with 15-minute lifetime and HttpOnly cookie refresh tokens with 7-day lifetime. MFA via TOTP is available for all accounts.
 
@@ -163,11 +163,14 @@ Chioma supports dual authentication: **JWT (email/password)** and **Stellar SEP-
 
 ## Deployment
 
-| Document                                                     | Summary                                                                 |
-| ------------------------------------------------------------ | ----------------------------------------------------------------------- |
-| [Deployment Guide](./deployment/DEPLOYMENT.md)               | Full runbook for dev/staging/prod deployments, monitoring, and rollback |
-| [Deployment Checklist](./deployment/DEPLOYMENT_CHECKLIST.md) | Pre-deploy and post-deploy safety checklist                             |
-| [Production Setup](./deployment/PRODUCTION_SETUP.md)         | Environment config, secrets, health checks                              |
+| Document                                                         | Summary                                                                 |
+| ---------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [Deployment Guide](./deployment/DEPLOYMENT.md)                   | Full runbook for dev/staging/prod deployments, monitoring, and rollback |
+| [Deployment Checklist](./deployment/DEPLOYMENT_CHECKLIST.md)     | Pre-deploy and post-deploy safety checklist                             |
+| [Production Setup](./deployment/PRODUCTION_SETUP.md)             | Environment config, secrets, health checks                              |
+| [Monitoring & Alerting](./deployment/MONITORING_AND_ALERTING.md) | Metrics collection, alert configuration, dashboards, alert response     |
+| [Backup & Recovery](./deployment/BACKUP_AND_RECOVERY.md)         | Backup strategies, verification, recovery procedures, testing           |
+| [Release Management](./deployment/RELEASE_MANAGEMENT.md)         | Release planning, versioning, release notes, deployment, rollback       |
 
 Docker Compose files:
 
@@ -180,9 +183,9 @@ Docker Compose files:
 
 ## Error Handling
 
-| Document                                    | Summary                                                      |
-| ------------------------------------------- | ------------------------------------------------------------ |
-| [Error Handling](./ERROR_HANDLING.md)       | Exception filters, custom errors, frontend classification, error response formats |
+| Document                              | Summary                                                                           |
+| ------------------------------------- | --------------------------------------------------------------------------------- |
+| [Error Handling](./ERROR_HANDLING.md) | Exception filters, custom errors, frontend classification, error response formats |
 
 The `AllExceptionsFilter` catches all unhandled exceptions and maps them to standardized JSON responses. The frontend uses an `AppError` type system with error classification, user-friendly messages, and retry logic.
 
@@ -190,9 +193,9 @@ The `AllExceptionsFilter` catches all unhandled exceptions and maps them to stan
 
 ## Logging & Monitoring
 
-| Document                                                  | Summary                                                          |
-| --------------------------------------------------------- | ---------------------------------------------------------------- |
-| [Logging & Monitoring](./LOGGING_AND_MONITORING.md)       | LoggerService, middleware, Sentry, Prometheus, Grafana, Loki, alerts |
+| Document                                            | Summary                                                              |
+| --------------------------------------------------- | -------------------------------------------------------------------- |
+| [Logging & Monitoring](./LOGGING_AND_MONITORING.md) | LoggerService, middleware, Sentry, Prometheus, Grafana, Loki, alerts |
 
 The platform uses structured JSON logging with correlation IDs, sensitive data sanitization, and a full Prometheus + Grafana + Loki + Alertmanager monitoring stack.
 
@@ -220,24 +223,25 @@ Security features active in every request:
 
 ## Integrations
 
-| Document                                                                 | Summary                         |
-| ------------------------------------------------------------------------ | ------------------------------- |
-| [Tenant Screening](./integrations/TENANT_SCREENING_PROVIDER_RESEARCH.md) | Third-party screening providers |
-| [Tenant Screening Integration](./api/TENANT_SCREENING_INTEGRATION.md)    | API integration guide           |
+| Document                                                                   | Summary                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [API Integration Procedures](./integrations/API_INTEGRATION_PROCEDURES.md) | Third-party API integration, webhooks, testing, error handling, monitoring |
+| [Tenant Screening](./integrations/TENANT_SCREENING_PROVIDER_RESEARCH.md)   | Third-party screening providers                                            |
+| [Tenant Screening Integration](./api/TENANT_SCREENING_INTEGRATION.md)      | API integration guide                                                      |
 
 ---
 
 ## Community
 
-| Document                                                          | Summary                 |
-| ----------------------------------------------------------------- | ----------------------- |
-| [Contributing](./community/CONTRIBUTING.md)                       | How to contribute       |
-| [Contribution Guidelines](./community/CONTRIBUTION_GUIDELINES.md) | Detailed guidelines     |
-| [Code Review Standards](./community/CODE_REVIEW_STANDARDS.md)     | Review criteria, approvals, and feedback rules |
+| Document                                                          | Summary                                                  |
+| ----------------------------------------------------------------- | -------------------------------------------------------- |
+| [Contributing](./community/CONTRIBUTING.md)                       | How to contribute                                        |
+| [Contribution Guidelines](./community/CONTRIBUTION_GUIDELINES.md) | Detailed guidelines                                      |
+| [Code Review Standards](./community/CODE_REVIEW_STANDARDS.md)     | Review criteria, approvals, and feedback rules           |
 | [Testing Standards](./community/TESTING_STANDARDS.md)             | Unit/integration/E2E standards and coverage requirements |
-| [Code of Conduct](./community/CODE_OF_CONDUCT.md)                 | Community standards     |
-| [Community Support](./community/COMMUNITY-SUPPORT.md)             | Where to get help       |
-| [Team Policies](./community/TEAM_POLICIES.md)                     | Internal team standards |
+| [Code of Conduct](./community/CODE_OF_CONDUCT.md)                 | Community standards                                      |
+| [Community Support](./community/COMMUNITY-SUPPORT.md)             | Where to get help                                        |
+| [Team Policies](./community/TEAM_POLICIES.md)                     | Internal team standards                                  |
 
 ---
 
