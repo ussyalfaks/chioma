@@ -3,6 +3,8 @@
 mod profile;
 mod storage;
 mod types;
+mod errors;
+mod events;
 
 #[cfg(test)]
 mod tests_profile_management;

@@ -2,6 +2,9 @@
 
 Minimal, gas-optimized Stellar Soroban smart contract for managing user profiles with SEP-29 compliance.
 
+> [!TIP]
+> **Detailed Documentation**: For a comprehensive technical guide including events, error codes, and store structure, see the [User Profile Contract Documentation](docs/USER_PROFILE_CONTRACT.md).
+
 ## Overview
 
 This contract stores minimal essential data on-chain (~100 bytes per profile) while maintaining references to complete off-chain profile data through cryptographic hashes.

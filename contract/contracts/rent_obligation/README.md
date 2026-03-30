@@ -2,6 +2,9 @@
 
 A Soroban smart contract for minting and managing transferable NFTs representing rent agreements on the Stellar network.
 
+> [!TIP]
+> **Detailed Documentation**: For a comprehensive technical guide including storage structure, full API, and integration patterns, see the [Rent Obligation NFT Documentation](docs/RENT_OBLIGATION_NFT.md).
+
 ## Overview
 
 This contract enables landlords to tokenize their rental income streams as NFTs. These tokens represent the right to receive rent payments from active lease agreements and can be transferred to other parties, enabling use cases such as:

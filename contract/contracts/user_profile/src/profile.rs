@@ -1,5 +1,6 @@
 use soroban_sdk::{contract, contractimpl, Address, Bytes, Env, String};
-
+use crate::errors::ContractError;
+use crate::events;
 use crate::storage::DataKey;
 use crate::types::{AccountType, UserProfile};
 
@@ -10,15 +11,19 @@ pub struct UserProfileContract;
 impl UserProfileContract {
     /// Initialize the contract with an admin address
     /// Can only be called once
-    pub fn initialize(env: Env, admin: Address) {
+    pub fn initialize(env: Env, admin: Address) -> Result<(), ContractError> {
         if env.storage().instance().has(&DataKey::Initialized) {
-            panic!("Contract already initialized");
+            return Err(ContractError::AlreadyInitialized);
         }
 
         admin.require_auth();
 
         env.storage().instance().set(&DataKey::Admin, &admin);
         env.storage().instance().set(&DataKey::Initialized, &true);
+
+        events::initialized(&env, admin);
+
+        Ok(())
     }
 
     /// Create a new user profile
@@ -28,7 +33,7 @@ impl UserProfileContract {
         account_id: Address,
         account_type: AccountType,
         data_hash: Bytes,
-    ) -> UserProfile {
+    ) -> Result<UserProfile, ContractError> {
         // Require authorization from the account owner
         account_id.require_auth();
 
@@ -36,13 +41,13 @@ impl UserProfileContract {
 
         // Check if profile already exists
         if env.storage().persistent().has(&key) {
-            panic!("Profile already exists for this account");
+            return Err(ContractError::ProfileAlreadyExists);
         }
 
         // Validate data hash length (should be 32 bytes for SHA-256 or 46 bytes for IPFS CID)
         let hash_len = data_hash.len();
         if hash_len != 32 && hash_len != 46 {
-            panic!("Invalid data hash length");
+            return Err(ContractError::InvalidHashLength);
         }
 
         // Create profile with current timestamp
@@ -52,16 +57,19 @@ impl UserProfileContract {
         let profile = UserProfile {
             account_id: account_id.clone(),
             version,
-            account_type,
+            account_type: account_type.clone(),
             last_updated: timestamp,
-            data_hash,
+            data_hash: data_hash.clone(),
             is_verified: false,
         };
 
         // Store profile in persistent storage
         env.storage().persistent().set(&key, &profile);
 
-        profile
+        // Emit creation event
+        events::profile_created(&env, account_id, account_type, data_hash);
+
+        Ok(profile)
     }
 
     /// Update an existing profile
@@ -71,7 +79,7 @@ impl UserProfileContract {
         account_id: Address,
         account_type: Option<AccountType>,
         data_hash: Option<Bytes>,
-    ) -> UserProfile {
+    ) -> Result<UserProfile, ContractError> {
         // Require authorization from the account owner
         account_id.require_auth();
 
@@ -82,7 +90,7 @@ impl UserProfileContract {
             .storage()
             .persistent()
             .get(&key)
-            .unwrap_or_else(|| panic!("Profile not found"));
+            .ok_or(ContractError::ProfileNotFound)?;
 
         // Update account type if provided
         if let Some(new_type) = account_type {
@@ -93,7 +101,7 @@ impl UserProfileContract {
         if let Some(new_hash) = data_hash {
             let hash_len = new_hash.len();
             if hash_len != 32 && hash_len != 46 {
-                panic!("Invalid data hash length");
+                return Err(ContractError::InvalidHashLength);
             }
             profile.data_hash = new_hash;
         }
@@ -104,7 +112,15 @@ impl UserProfileContract {
         // Save updated profile
         env.storage().persistent().set(&key, &profile);
 
-        profile
+        // Emit update event
+        events::profile_updated(
+            &env,
+            account_id,
+            profile.account_type.clone(),
+            profile.data_hash.clone(),
+        );
+
+        Ok(profile)
     }
 
     /// Get a user profile by account address
@@ -123,7 +139,11 @@ impl UserProfileContract {
 
     /// Verify a user profile (admin only)
     /// Sets is_verified flag to true
-    pub fn verify_profile(env: Env, admin: Address, account_id: Address) -> UserProfile {
+    pub fn verify_profile(
+        env: Env,
+        admin: Address,
+        account_id: Address,
+    ) -> Result<UserProfile, ContractError> {
         // Require admin authorization
         admin.require_auth();
 
@@ -132,10 +152,10 @@ impl UserProfileContract {
             .storage()
             .instance()
             .get(&DataKey::Admin)
-            .unwrap_or_else(|| panic!("Admin not configured"));
+            .ok_or(ContractError::AdminNotConfigured)?;
 
         if admin != stored_admin {
-            panic!("Unauthorized: caller is not admin");
+            return Err(ContractError::UnauthorizedAdmin);
         }
 
         let key = DataKey::Profile(account_id.clone());
@@ -145,7 +165,7 @@ impl UserProfileContract {
             .storage()
             .persistent()
             .get(&key)
-            .unwrap_or_else(|| panic!("Profile not found"));
+            .ok_or(ContractError::ProfileNotFound)?;
 
         // Set verification status
         profile.is_verified = true;
@@ -154,12 +174,19 @@ impl UserProfileContract {
         // Save updated profile
         env.storage().persistent().set(&key, &profile);
 
-        profile
+        // Emit verification event
+        events::profile_verified(&env, account_id);
+
+        Ok(profile)
     }
 
     /// Unverify a user profile (admin only)
     /// Sets is_verified flag to false
-    pub fn unverify_profile(env: Env, admin: Address, account_id: Address) -> UserProfile {
+    pub fn unverify_profile(
+        env: Env,
+        admin: Address,
+        account_id: Address,
+    ) -> Result<UserProfile, ContractError> {
         // Require admin authorization
         admin.require_auth();
 
@@ -168,10 +195,10 @@ impl UserProfileContract {
             .storage()
             .instance()
             .get(&DataKey::Admin)
-            .unwrap_or_else(|| panic!("Admin not configured"));
+            .ok_or(ContractError::AdminNotConfigured)?;
 
         if admin != stored_admin {
-            panic!("Unauthorized: caller is not admin");
+            return Err(ContractError::UnauthorizedAdmin);
         }
 
         let key = DataKey::Profile(account_id.clone());
@@ -181,7 +208,7 @@ impl UserProfileContract {
             .storage()
             .persistent()
             .get(&key)
-            .unwrap_or_else(|| panic!("Profile not found"));
+            .ok_or(ContractError::ProfileNotFound)?;
 
         // Remove verification status
         profile.is_verified = false;
@@ -190,32 +217,40 @@ impl UserProfileContract {
         // Save updated profile
         env.storage().persistent().set(&key, &profile);
 
-        profile
+        // Emit unverification event
+        events::profile_unverified(&env, account_id);
+
+        Ok(profile)
     }
 
     /// Get the contract admin address
     /// Public read access
-    pub fn get_admin(env: Env) -> Address {
+    pub fn get_admin(env: Env) -> Result<Address, ContractError> {
         env.storage()
             .instance()
             .get(&DataKey::Admin)
-            .unwrap_or_else(|| panic!("Admin not configured"))
+            .ok_or(ContractError::AdminNotConfigured)
     }
 
     /// Delete a profile (owner only)
     /// Removes all on-chain data for the account
-    pub fn delete_profile(env: Env, account_id: Address) {
+    pub fn delete_profile(env: Env, account_id: Address) -> Result<(), ContractError> {
         // Require authorization from the account owner
         account_id.require_auth();
 
         let key = DataKey::Profile(account_id.clone());
 
         if !env.storage().persistent().has(&key) {
-            panic!("Profile not found");
+            return Err(ContractError::ProfileNotFound);
         }
 
         // Remove profile from storage
         env.storage().persistent().remove(&key);
+
+        // Emit deletion event
+        events::profile_deleted(&env, account_id);
+
+        Ok(())
     }
 }
 
@@ -240,7 +275,6 @@ mod test {
     }
 
     #[test]
-    #[should_panic(expected = "Contract already initialized")]
     fn test_initialize_twice_fails() {
         let env = Env::default();
         let contract_id = env.register(UserProfileContract, ());
@@ -250,7 +284,9 @@ mod test {
         env.mock_all_auths();
 
         client.initialize(&admin);
-        client.initialize(&admin);
+        let result = client.try_initialize(&admin);
+        
+        assert!(result.is_err());
     }
 
     #[test]
@@ -276,7 +312,6 @@ mod test {
     }
 
     #[test]
-    #[should_panic(expected = "Profile already exists")]
     fn test_create_duplicate_profile_fails() {
         let env = Env::default();
         let contract_id = env.register(UserProfileContract, ());
@@ -290,7 +325,9 @@ mod test {
 
         client.initialize(&admin);
         client.create_profile(&user, &AccountType::Tenant, &data_hash);
-        client.create_profile(&user, &AccountType::Landlord, &data_hash);
+        
+        let result = client.try_create_profile(&user, &AccountType::Landlord, &data_hash);
+        assert!(result.is_err());
     }
 
     #[test]
@@ -448,7 +485,6 @@ mod test {
     }
 
     #[test]
-    #[should_panic(expected = "Invalid data hash length")]
     fn test_invalid_hash_length() {
         let env = Env::default();
         let contract_id = env.register(UserProfileContract, ());
@@ -461,6 +497,8 @@ mod test {
         env.mock_all_auths();
 
         client.initialize(&admin);
-        client.create_profile(&user, &AccountType::Tenant, &invalid_hash);
+        let result = client.try_create_profile(&user, &AccountType::Tenant, &invalid_hash);
+        
+        assert!(result.is_err());
     }
 }
