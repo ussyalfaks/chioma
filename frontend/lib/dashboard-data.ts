@@ -55,7 +55,7 @@ export interface ReviewTarget {
   id: string;
   agreementId: string;
   name: string;
-  role: 'LANDLORD' | 'TENANT' | 'AGENT';
+  role: 'USER' | 'ADMIN';
   propertyName: string;
   context: ReviewContext;
   dueLabel: string;
@@ -255,7 +255,7 @@ const tenantReviewTargetsMock: ReviewTarget[] = [
     id: 'rev-target-001',
     agreementId: 'agr-tenant-001',
     name: 'James Adebayo',
-    role: 'LANDLORD',
+    role: 'USER',
     propertyName: 'Sunset Apartments, Unit 4B',
     context: 'LEASE',
     dueLabel: 'Lease milestone reached 3 days ago',
@@ -264,7 +264,7 @@ const tenantReviewTargetsMock: ReviewTarget[] = [
     id: 'rev-target-002',
     agreementId: 'mnt-019',
     name: 'Facility Ops Team',
-    role: 'AGENT',
+    role: 'ADMIN',
     propertyName: 'Sunset Apartments, Unit 4B',
     context: 'MAINTENANCE',
     dueLabel: 'Maintenance ticket closed yesterday',
@@ -284,7 +284,7 @@ const tenantReviewsMock: DashboardReview[] = [
       id: 'tenant-user',
       name: 'You',
       isVerified: true,
-      role: 'TENANT',
+      role: 'USER',
     },
   },
   {
@@ -299,7 +299,7 @@ const tenantReviewsMock: DashboardReview[] = [
       id: 'tenant-user',
       name: 'You',
       isVerified: true,
-      role: 'TENANT',
+      role: 'USER',
     },
   },
 ];
@@ -309,7 +309,7 @@ const landlordReviewTargetsMock: ReviewTarget[] = [
     id: 'rev-target-101',
     agreementId: 'agr-landlord-002',
     name: 'Ada Nwosu',
-    role: 'TENANT',
+    role: 'USER',
     propertyName: 'Glover Road, Ikoyi',
     context: 'LEASE',
     dueLabel: 'Move-in completed 1 week ago',
@@ -318,7 +318,7 @@ const landlordReviewTargetsMock: ReviewTarget[] = [
     id: 'rev-target-102',
     agreementId: 'agr-landlord-004',
     name: 'Kunle Bello',
-    role: 'TENANT',
+    role: 'USER',
     propertyName: 'Admiralty Way, Block 4',
     context: 'MAINTENANCE',
     dueLabel: 'Maintenance request resolved 2 days ago',
@@ -338,7 +338,7 @@ const landlordReviewsMock: DashboardReview[] = [
       id: 'landlord-user',
       name: 'You',
       isVerified: true,
-      role: 'LANDLORD',
+      role: 'ADMIN',
     },
   },
   {
@@ -353,7 +353,7 @@ const landlordReviewsMock: DashboardReview[] = [
       id: 'landlord-user',
       name: 'You',
       isVerified: true,
-      role: 'LANDLORD',
+      role: 'ADMIN',
     },
   },
 ];
@@ -441,12 +441,12 @@ export async function loadLandlordDisputes(): Promise<DashboardDispute[]> {
 }
 
 export async function loadReviewWorkspace(
-  role: 'tenant' | 'landlord',
+  role: 'user' | 'admin',
 ): Promise<{
   targets: ReviewTarget[];
   reviews: DashboardReview[];
 }> {
-  return role === 'tenant'
+  return role === 'user'
     ? { targets: tenantReviewTargetsMock, reviews: tenantReviewsMock }
     : { targets: landlordReviewTargetsMock, reviews: landlordReviewsMock };
 }

@@ -10,7 +10,7 @@ export interface ChatParticipant {
     firstName: string;
     lastName: string;
     email: string;
-    role: 'tenant' | 'landlord' | 'agent';
+    role: 'user' | 'admin';
   };
 }
 
@@ -37,7 +37,7 @@ export interface Message {
     id: string;
     firstName: string;
     lastName: string;
-    role: 'tenant' | 'landlord' | 'agent';
+    role: 'user' | 'admin';
   };
 }
 
