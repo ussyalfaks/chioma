@@ -14,14 +14,14 @@ const testimonials = [
   },
   {
     name: 'Michael Chen',
-    role: 'Real Estate Agent',
+    role: 'User',
     content:
-      'The transparency and speed of commission payments is incredible. No more waiting weeks for settlements.',
+      'The transparency and speed of transactions is incredible. No more waiting weeks for settlements.',
     rating: 5,
   },
   {
     name: 'Emily Rodriguez',
-    role: 'Tenant',
+    role: 'User',
     content:
       'Finding and securing my apartment was seamless. The smart contract lease gave me peace of mind.',
     rating: 5,

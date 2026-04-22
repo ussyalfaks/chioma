@@ -173,11 +173,9 @@ export function ChatSidebar({
                   {other && (
                     <span
                       className={`inline-block mt-1 text-[10px] font-medium px-1.5 py-0.5 rounded-full capitalize ${
-                        other.role === 'landlord'
-                          ? 'bg-blue-50 text-blue-600'
-                          : other.role === 'agent'
-                            ? 'bg-orange-50 text-orange-600'
-                            : 'bg-emerald-50 text-emerald-600'
+                        other.role === 'admin'
+                          ? 'bg-red-50 text-red-600'
+                          : 'bg-blue-50 text-blue-600'
                       }`}
                     >
                       {other.role}

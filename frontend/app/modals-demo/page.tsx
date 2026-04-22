@@ -69,7 +69,7 @@ interface UserData {
   name: string;
   email: string;
   phone?: string;
-  role: 'tenant' | 'landlord' | 'agent' | 'admin';
+  role: 'user' | 'admin';
   status: 'active' | 'suspended' | 'inactive';
   isVerified: boolean;
 }
@@ -280,7 +280,7 @@ export default function ModalsDemo() {
                 name: 'John Doe',
                 email: 'john@example.com',
                 phone: '+1 (555) 123-4567',
-                role: 'tenant' as const,
+                role: 'user' as const,
                 status: 'active' as const,
                 isVerified: true,
               },

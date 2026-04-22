@@ -6,9 +6,8 @@ export default function ResourceTabs({
   onChange: (val: string) => void;
 }) {
   const tabs = [
-    { id: 'tenant', label: 'Tenants' },
-    { id: 'landlord', label: 'Landlords' },
-    { id: 'agent', label: 'Agents' },
+    { id: 'user', label: 'Users' },
+    { id: 'admin', label: 'Admins' },
   ];
 
   return (

@@ -13,7 +13,7 @@ export interface Review {
     name: string;
     avatar?: string;
     isVerified?: boolean;
-    role?: 'TENANT' | 'LANDLORD';
+    role?: 'USER' | 'ADMIN';
   };
 }
 

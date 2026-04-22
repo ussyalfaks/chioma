@@ -23,9 +23,9 @@ import { CreateTenantScreeningRequestDto } from './dto/create-tenant-screening-r
 import { GrantTenantScreeningConsentDto } from './dto/grant-tenant-screening-consent.dto';
 import { TenantScreeningWebhookDto } from './dto/tenant-screening-webhook.dto';
 import {
-  TenantScreeningProvider,
-  TenantScreeningRiskLevel,
-  TenantScreeningStatus,
+  UserScreeningProvider,
+  UserScreeningRiskLevel,
+  UserScreeningStatus,
 } from './screening.enums';
 
 type RequestActor = {
@@ -37,10 +37,10 @@ type RequestActor = {
 
 type ProviderSubmissionResponse = {
   providerReference: string;
-  status: TenantScreeningStatus;
+  status: UserScreeningStatus;
   report?: Record<string, unknown>;
   providerReportId?: string;
-  riskLevel?: TenantScreeningRiskLevel;
+  riskLevel?: UserScreeningRiskLevel;
 };
 
 @Injectable()
@@ -74,7 +74,7 @@ export class ScreeningService {
       requestedByUserId: actor.id,
       provider,
       requestedChecks: dto.requestedChecks,
-      status: TenantScreeningStatus.PENDING_CONSENT,
+      status: UserScreeningStatus.PENDING_CONSENT,
       consentRequired: true,
       consentVersion: dto.consentVersion,
       consentExpiresAt: new Date(
@@ -114,11 +114,11 @@ export class ScreeningService {
     const screening = await this.requireScreening(screeningId);
     if (actor.role !== UserRole.ADMIN && screening.tenantId !== actor.id) {
       throw new ForbiddenException(
-        'Only the tenant or an admin can grant consent',
+        'Only the user or an admin can grant consent',
       );
     }
 
-    if (screening.status !== TenantScreeningStatus.PENDING_CONSENT) {
+    if (screening.status !== UserScreeningStatus.PENDING_CONSENT) {
       throw new BadRequestException('Consent has already been processed');
     }
 
@@ -136,7 +136,7 @@ export class ScreeningService {
     });
 
     await this.consentRepository.save(consent);
-    screening.status = TenantScreeningStatus.CONSENTED;
+    screening.status = UserScreeningStatus.CONSENTED;
     screening.consentGrantedAt = consent.grantedAt;
     screening.consentVersion = dto.consentTextVersion;
     await this.screeningRepository.save(screening);
@@ -214,8 +214,8 @@ export class ScreeningService {
     screening.status = dto.status;
     screening.failureReason = dto.failureReason ?? null;
     screening.completedAt =
-      dto.status === TenantScreeningStatus.COMPLETED ||
-      dto.status === TenantScreeningStatus.FAILED
+      dto.status === UserScreeningStatus.COMPLETED ||
+      dto.status === UserScreeningStatus.FAILED
         ? new Date()
         : screening.completedAt;
 
@@ -252,7 +252,7 @@ export class ScreeningService {
     screening.status = providerResponse.status;
     screening.submittedAt = new Date();
     screening.failureReason =
-      providerResponse.status === TenantScreeningStatus.FAILED
+      providerResponse.status === UserScreeningStatus.FAILED
         ? 'Provider rejected screening request'
         : null;
 
@@ -280,9 +280,9 @@ export class ScreeningService {
       const providerReference = `sandbox-${screening.id}`;
       return {
         providerReference,
-        status: TenantScreeningStatus.COMPLETED,
+        status: UserScreeningStatus.COMPLETED,
         providerReportId: `report-${screening.id}`,
-        riskLevel: TenantScreeningRiskLevel.REVIEW,
+        riskLevel: UserScreeningRiskLevel.REVIEW,
         report: {
           provider: screening.provider,
           checks: screening.requestedChecks,
@@ -308,7 +308,7 @@ export class ScreeningService {
       status: string;
       report?: Record<string, unknown>;
       providerReportId?: string;
-      riskLevel?: TenantScreeningRiskLevel;
+      riskLevel?: UserScreeningRiskLevel;
     }>(
       `${providerConfig.baseUrl}/screenings`,
       {
@@ -345,7 +345,7 @@ export class ScreeningService {
   private async storeReport(
     screening: TenantScreeningRequest,
     reportData: Record<string, unknown>,
-    riskLevel?: TenantScreeningRiskLevel,
+    riskLevel?: UserScreeningRiskLevel,
     providerReportId?: string,
   ): Promise<void> {
     const encryptedReport = this.encryptionService.encrypt(
@@ -369,7 +369,7 @@ export class ScreeningService {
       ),
     });
 
-    screening.status = TenantScreeningStatus.COMPLETED;
+    screening.status = UserScreeningStatus.COMPLETED;
     screening.completedAt = new Date();
     screening.reportSummary = this.buildReportSummary(reportData, riskLevel);
     await this.reportRepository.save(report);
@@ -380,20 +380,20 @@ export class ScreeningService {
     screening: TenantScreeningRequest,
   ): Promise<void> {
     if (
-      screening.status !== TenantScreeningStatus.COMPLETED &&
-      screening.status !== TenantScreeningStatus.FAILED
+      screening.status !== UserScreeningStatus.COMPLETED &&
+      screening.status !== UserScreeningStatus.FAILED
     ) {
       return;
     }
 
     const type =
-      screening.status === TenantScreeningStatus.COMPLETED
+      screening.status === UserScreeningStatus.COMPLETED
         ? 'screening'
         : 'screening_failed';
     const message =
-      screening.status === TenantScreeningStatus.COMPLETED
-        ? 'Tenant screening is complete and ready for review.'
-        : `Tenant screening failed${screening.failureReason ? `: ${screening.failureReason}` : '.'}`;
+      screening.status === UserScreeningStatus.COMPLETED
+        ? 'User screening is complete and ready for review.'
+        : `User screening failed${screening.failureReason ? `: ${screening.failureReason}` : '.'}`;
 
     await Promise.all([
       this.notificationsService.notify(
@@ -409,7 +409,7 @@ export class ScreeningService {
         type,
       ),
       this.webhooksService.dispatchEvent(
-        screening.status === TenantScreeningStatus.COMPLETED
+        screening.status === UserScreeningStatus.COMPLETED
           ? 'screening.completed'
           : 'screening.failed',
         {
@@ -427,7 +427,7 @@ export class ScreeningService {
 
   private buildReportSummary(
     reportData: Record<string, unknown>,
-    riskLevel?: TenantScreeningRiskLevel,
+    riskLevel?: UserScreeningRiskLevel,
   ): Record<string, unknown> {
     return {
       riskLevel: riskLevel ?? null,
@@ -470,33 +470,31 @@ export class ScreeningService {
 
   private isSandboxMode(): boolean {
     return (
-      this.configService.get<string>(
-        'TENANT_SCREENING_SANDBOX_MODE',
-        'true',
-      ) === 'true'
+      this.configService.get<string>('USER_SCREENING_SANDBOX_MODE', 'true') ===
+      'true'
     );
   }
 
-  private getDefaultProvider(): TenantScreeningProvider {
+  private getDefaultProvider(): UserScreeningProvider {
     return (
-      (this.configService.get<string>('TENANT_SCREENING_DEFAULT_PROVIDER') as
-        | TenantScreeningProvider
-        | undefined) ?? TenantScreeningProvider.TRANSUNION_SMARTMOVE
+      (this.configService.get<string>('USER_SCREENING_DEFAULT_PROVIDER') as
+        | UserScreeningProvider
+        | undefined) ?? UserScreeningProvider.TRANSUNION_SMARTMOVE
     );
   }
 
-  private getProviderConfig(provider: TenantScreeningProvider): {
+  private getProviderConfig(provider: UserScreeningProvider): {
     baseUrl: string;
     apiKey: string;
   } {
     const configMap = {
-      [TenantScreeningProvider.TRANSUNION_SMARTMOVE]: {
+      [UserScreeningProvider.TRANSUNION_SMARTMOVE]: {
         baseUrl:
           this.configService.get<string>('TRANSUNION_SMARTMOVE_API_URL') ?? '',
         apiKey:
           this.configService.get<string>('TRANSUNION_SMARTMOVE_API_KEY') ?? '',
       },
-      [TenantScreeningProvider.EXPERIAN_CONNECT]: {
+      [UserScreeningProvider.EXPERIAN_CONNECT]: {
         baseUrl:
           this.configService.get<string>('EXPERIAN_CONNECT_API_URL') ?? '',
         apiKey:
@@ -514,20 +512,20 @@ export class ScreeningService {
     return providerConfig;
   }
 
-  private mapProviderStatus(status: string): TenantScreeningStatus {
+  private mapProviderStatus(status: string): UserScreeningStatus {
     const normalized = status.toUpperCase();
     switch (normalized) {
       case 'COMPLETED':
       case 'APPROVED':
-        return TenantScreeningStatus.COMPLETED;
+        return UserScreeningStatus.COMPLETED;
       case 'FAILED':
       case 'REJECTED':
-        return TenantScreeningStatus.FAILED;
+        return UserScreeningStatus.FAILED;
       case 'PROCESSING':
       case 'IN_PROGRESS':
-        return TenantScreeningStatus.IN_PROGRESS;
+        return UserScreeningStatus.IN_PROGRESS;
       default:
-        return TenantScreeningStatus.SUBMITTED;
+        return UserScreeningStatus.SUBMITTED;
     }
   }
 }

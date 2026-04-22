@@ -4,25 +4,25 @@ import { FileText, PlayCircle, ShieldIcon } from 'lucide-react';
 
 const mockResources = [
   {
-    id: 'getting-started-tenant',
-    title: 'Tenant Guide: Getting Started',
+    id: 'getting-started-user',
+    title: 'User Guide: Getting Started',
     type: 'guide',
-    role: 'tenant',
-    slug: 'getting-started-tenant',
+    role: 'user',
+    slug: 'getting-started-user',
   },
   {
     id: 'security-deposit-faq',
     title: 'Understanding Security Deposits',
     type: 'faq',
-    role: 'tenant',
+    role: 'user',
     slug: 'security-deposit-faq',
   },
   {
-    id: 'add-property-landlord',
-    title: 'How to list your first property',
+    id: 'property-management',
+    title: 'How to manage your properties',
     type: 'video',
-    role: 'landlord',
-    slug: 'add-property-landlord',
+    role: 'user',
+    slug: 'property-management',
   },
 ];
 

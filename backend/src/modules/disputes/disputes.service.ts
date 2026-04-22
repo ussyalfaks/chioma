@@ -96,8 +96,8 @@ export class DisputesService {
         throw new NotFoundException('User not found');
       }
 
-      const isLandlord = agreement.landlordId === user.id;
-      const isTenant = agreement.tenantId === user.id;
+      const isLandlord = agreement.adminId === user.id;
+      const isTenant = agreement.userId === user.id;
 
       if (!isLandlord && !isTenant && user.role !== UserRole.ADMIN) {
         throw new ForbiddenException(
@@ -445,8 +445,8 @@ export class DisputesService {
 
     if (userId) {
       const user = await this.userRepository.findOne({ where: { id: userId } });
-      const isLandlord = agreement.landlordId === user?.id;
-      const isTenant = agreement.tenantId === user?.id;
+      const isLandlord = agreement.adminId === user?.id;
+      const isTenant = agreement.userId === user?.id;
       const isAdmin = user?.role === UserRole.ADMIN;
 
       if (!isLandlord && !isTenant && !isAdmin) {
@@ -477,8 +477,8 @@ export class DisputesService {
     }
 
     const isInitiator = dispute.initiatedBy.toString() === userId;
-    const isLandlord = dispute.agreement.landlordId?.toString() === userId;
-    const isTenant = dispute.agreement.tenantId?.toString() === userId;
+    const isLandlord = dispute.agreement.adminId?.toString() === userId;
+    const isTenant = dispute.agreement.userId?.toString() === userId;
     const isAdmin = user.role === UserRole.ADMIN;
 
     if (!isAdmin && !isInitiator && !isLandlord && !isTenant) {

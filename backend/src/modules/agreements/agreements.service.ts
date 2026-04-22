@@ -49,14 +49,14 @@ export class AgreementsService {
 
   @Locked({
     key: (createAgreementDto: CreateAgreementDto) =>
-      `agreement:create:${createAgreementDto.propertyId}:${createAgreementDto.tenantId}:${createAgreementDto.startDate}`,
+      `agreement:create:${createAgreementDto.propertyId}:${createAgreementDto.userId}:${createAgreementDto.startDate}`,
     ttlMs: 10000,
   })
   @Idempotent({
     ttlMs: 604_800_000,
     key: (createAgreementDto: CreateAgreementDto) =>
       createAgreementDto.idempotencyKey
-        ? `agreement:create:${createAgreementDto.landlordId}:${createAgreementDto.idempotencyKey}`
+        ? `agreement:create:${createAgreementDto.adminId}:${createAgreementDto.idempotencyKey}`
         : null,
     requireKey: false,
   })

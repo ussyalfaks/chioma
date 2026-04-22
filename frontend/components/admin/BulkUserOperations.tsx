@@ -87,11 +87,7 @@ function ConfirmDialog({
 function getRoleBadge(role: User['role']): string {
   const colors: Record<User['role'], string> = {
     admin: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
-    landlord: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-    tenant: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
-    agent: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
-    support: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-    auditor: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    user: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
   };
   return colors[role] ?? 'bg-white/5 text-blue-300/40 border-white/10';
 }

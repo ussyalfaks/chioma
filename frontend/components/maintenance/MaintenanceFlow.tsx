@@ -112,13 +112,13 @@ const mapIncomingRequest = (
 });
 
 export default function MaintenanceFlow({
-  defaultRole = 'tenant',
+  defaultRole = 'user',
 }: MaintenanceFlowProps) {
   const user = useAuthStore((state) => state.user);
   const effectiveRole: MaintenanceRole =
     (user?.role as MaintenanceRole) ?? defaultRole;
-  const isTenant = effectiveRole === 'tenant';
-  const isManager = effectiveRole === 'landlord' || effectiveRole === 'agent';
+  const isUser = effectiveRole === 'user';
+  const isManager = effectiveRole === 'admin';
 
   const [requests, setRequests] = useState<MaintenanceRequest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -292,7 +292,7 @@ export default function MaintenanceFlow({
 
   return (
     <div className="space-y-8 pb-12">
-      {isTenant && (
+      {isUser && (
         <MaintenanceRequestForm
           properties={DEFAULT_PROPERTIES}
           isSubmitting={isSubmitting}

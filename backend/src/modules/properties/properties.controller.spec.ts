@@ -25,7 +25,7 @@ describe('PropertiesController', () => {
     lastName: 'Landlord',
     phoneNumber: null,
     avatarUrl: null,
-    role: UserRole.LANDLORD,
+    role: UserRole.ADMIN,
     emailVerified: true,
     verificationToken: null,
     resetToken: null,

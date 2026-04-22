@@ -85,7 +85,7 @@ async function getProperty(id: string): Promise<PropertyData | null> {
             id: 'u1',
             name: 'Michael T.',
             isVerified: true,
-            role: 'TENANT',
+            role: 'USER',
           },
         },
         {
@@ -100,7 +100,7 @@ async function getProperty(id: string): Promise<PropertyData | null> {
             id: 'u2',
             name: 'Jane Doe',
             isVerified: false,
-            role: 'TENANT',
+            role: 'USER',
           },
         },
       ],

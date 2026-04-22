@@ -19,7 +19,7 @@ interface UserData {
   name: string;
   email: string;
   phone?: string;
-  role: 'tenant' | 'landlord' | 'agent' | 'admin';
+  role: 'user' | 'admin';
   status: 'active' | 'suspended' | 'inactive';
   isVerified: boolean;
 }
@@ -48,7 +48,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
       name: '',
       email: '',
       phone: '',
-      role: 'tenant',
+      role: 'user',
       status: 'active',
       isVerified: false,
     },
@@ -137,13 +137,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
   };
 
   const roles = [
-    { value: 'tenant', label: 'Tenant', color: 'bg-blue-100 text-blue-700' },
-    {
-      value: 'landlord',
-      label: 'Landlord',
-      color: 'bg-purple-100 text-purple-700',
-    },
-    { value: 'agent', label: 'Agent', color: 'bg-green-100 text-green-700' },
+    { value: 'user', label: 'User', color: 'bg-blue-100 text-blue-700' },
     { value: 'admin', label: 'Admin', color: 'bg-red-100 text-red-700' },
   ];
 

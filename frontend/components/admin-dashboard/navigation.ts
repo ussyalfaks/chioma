@@ -13,13 +13,7 @@ import {
 import { MdSecurity } from 'react-icons/md';
 import type { ComponentType } from 'react';
 
-export type AdminAppRole =
-  | 'admin'
-  | 'support'
-  | 'auditor'
-  | 'tenant'
-  | 'landlord'
-  | 'agent';
+export type AdminAppRole = 'admin';
 
 export type AdminNavItem = {
   icon: ComponentType<{ className?: string }>;
@@ -33,7 +27,7 @@ const adminNavItems: AdminNavItem[] = [
     icon: MdSecurity,
     label: 'Audit Logs',
     href: '/admin/audit-logs',
-    visibleFor: ['admin', 'auditor'],
+    visibleFor: ['admin'],
   },
   {
     icon: ShieldAlert,
@@ -57,7 +51,7 @@ const adminNavItems: AdminNavItem[] = [
     icon: BarChart3,
     label: 'System Analytics',
     href: '/admin/analytics',
-    visibleFor: ['admin', 'auditor', 'support'],
+    visibleFor: ['admin'],
   },
   {
     icon: UserCog,
@@ -69,19 +63,19 @@ const adminNavItems: AdminNavItem[] = [
     icon: ShieldCheck,
     label: 'Pending KYC',
     href: '/admin/kyc',
-    visibleFor: ['admin', 'support'],
+    visibleFor: ['admin'],
   },
   {
     icon: Gavel,
     label: 'Disputes Dashboard',
     href: '/admin/disputes',
-    visibleFor: ['admin', 'support'],
+    visibleFor: ['admin'],
   },
   {
     icon: ShieldX,
     label: 'Rejected KYC',
     href: '/admin/kyc/rejected',
-    visibleFor: ['admin', 'support'],
+    visibleFor: ['admin'],
   },
 ];
 
@@ -140,9 +134,9 @@ export function getAdminBreadcrumbItems(pathname: string): Array<{
       index === segments.length - 1
         ? undefined
         : `/${pathname
-            .split('/')
-            .filter(Boolean)
-            .slice(0, index + 1)
-            .join('/')}`,
+          .split('/')
+          .filter(Boolean)
+          .slice(0, index + 1)
+          .join('/')}`,
   }));
 }

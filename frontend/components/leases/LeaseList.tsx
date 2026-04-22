@@ -7,7 +7,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 
 interface LeaseListProps {
   leases: Lease[];
-  currentUserRole: 'LANDLORD' | 'TENANT';
+  currentUserRole: 'user' | 'admin';
   onSignComplete?: (leaseId: string) => Promise<void>;
 }
 
@@ -67,7 +67,7 @@ export function LeaseList({
                   Property
                 </th>
                 <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest">
-                  {currentUserRole === 'LANDLORD' ? 'Tenant' : 'Landlord'}
+                  {currentUserRole === 'admin' ? 'Party 2' : 'Party 1'}
                 </th>
                 <th className="px-6 py-4 text-[10px] font-bold uppercase tracking-widest">
                   Duration
@@ -95,7 +95,7 @@ export function LeaseList({
                     </p>
                   </td>
                   <td className="px-6 py-5 align-middle font-medium text-blue-200/60">
-                    {currentUserRole === 'LANDLORD'
+                    {currentUserRole === 'admin'
                       ? lease.tenantName
                       : lease.landlordName}
                   </td>

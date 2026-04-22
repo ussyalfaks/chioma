@@ -41,7 +41,7 @@ export class ScreeningController {
 
   @Post('request')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.AGENT, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.USER)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({ summary: 'Create a tenant screening request' })
   @ApiResponse({ status: 201, description: 'Screening request created' })

@@ -38,7 +38,7 @@ describe('AuthService', () => {
     password: 'hashed-password',
     firstName: 'Test',
     lastName: 'User',
-    role: UserRole.TENANT,
+    role: UserRole.USER,
     isActive: true,
     emailVerified: true,
     failedLoginAttempts: 0,
@@ -167,7 +167,7 @@ describe('AuthService', () => {
         password: 'SecurePass123!',
         firstName: 'New',
         lastName: 'User',
-        role: UserRole.TENANT,
+        role: UserRole.USER,
       };
 
       const hashedPassword = 'hashed-password';
@@ -211,7 +211,7 @@ describe('AuthService', () => {
         password: 'SecurePass123!',
         firstName: 'Test',
         lastName: 'User',
-        role: UserRole.TENANT,
+        role: UserRole.USER,
       };
 
       mockUserRepository.findOne.mockResolvedValue(mockUser);

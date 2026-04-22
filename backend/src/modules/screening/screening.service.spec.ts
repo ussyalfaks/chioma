@@ -11,8 +11,8 @@ import { AuditService } from '../audit/audit.service';
 import { WebhooksService } from '../webhooks/webhooks.service';
 import {
   ScreeningCheckType,
-  TenantScreeningProvider,
-  TenantScreeningStatus,
+  UserScreeningProvider,
+  UserScreeningStatus,
 } from './screening.enums';
 import { UserRole } from '../users/entities/user.entity';
 
@@ -69,7 +69,7 @@ describe('ScreeningService', () => {
               const config: Record<string, string> = {
                 TENANT_SCREENING_SANDBOX_MODE: 'true',
                 TENANT_SCREENING_DEFAULT_PROVIDER:
-                  TenantScreeningProvider.TRANSUNION_SMARTMOVE,
+                  UserScreeningProvider.TRANSUNION_SMARTMOVE,
                 TENANT_SCREENING_CONSENT_TTL_DAYS: '30',
                 TENANT_SCREENING_REPORT_TTL_DAYS: '30',
               };
@@ -91,7 +91,7 @@ describe('ScreeningService', () => {
   it('creates screening requests in pending consent state', async () => {
     const created = {
       id: 'screening-1',
-      status: TenantScreeningStatus.PENDING_CONSENT,
+      status: UserScreeningStatus.PENDING_CONSENT,
     };
     mockScreeningRepository.create.mockReturnValue(created);
     mockScreeningRepository.save.mockResolvedValue(created);
@@ -99,7 +99,7 @@ describe('ScreeningService', () => {
     const result = await service.createRequest(
       {
         id: 'landlord-1',
-        role: UserRole.LANDLORD,
+        role: UserRole.ADMIN,
       },
       {
         tenantId: 'tenant-1',
@@ -119,12 +119,12 @@ describe('ScreeningService', () => {
       id: 'screening-1',
       tenantId: 'tenant-1',
       requestedByUserId: 'landlord-1',
-      provider: TenantScreeningProvider.TRANSUNION_SMARTMOVE,
+      provider: UserScreeningProvider.TRANSUNION_SMARTMOVE,
       requestedChecks: [
         ScreeningCheckType.CREDIT,
         ScreeningCheckType.RENTAL_HISTORY,
       ],
-      status: TenantScreeningStatus.PENDING_CONSENT,
+      status: UserScreeningStatus.PENDING_CONSENT,
       consentExpiresAt: new Date('2026-04-30T00:00:00.000Z'),
       encryptedApplicantData:
         'enc:{"legalName":"Jane Tenant","email":"jane@example.com"}',
@@ -142,14 +142,14 @@ describe('ScreeningService', () => {
       'screening-1',
       {
         id: 'tenant-1',
-        role: UserRole.TENANT,
+        role: UserRole.USER,
       },
       {
         consentTextVersion: 'v1',
       },
     );
 
-    expect(result.status).toBe(TenantScreeningStatus.COMPLETED);
+    expect(result.status).toBe(UserScreeningStatus.COMPLETED);
     expect(mockReportRepository.save).toHaveBeenCalled();
     expect(mockNotificationsService.notify).toHaveBeenCalledTimes(2);
     expect(mockWebhooksService.dispatchEvent).toHaveBeenCalledWith(

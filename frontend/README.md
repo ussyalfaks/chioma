@@ -15,7 +15,7 @@ See [LEAFLET_SETUP.md](./LEAFLET_SETUP.md) for more details.
 
 ### Property Listing Wizard
 
-The landlord listing flow is available at `/landlords/properties/add` with:
+The property listing flow is available at `/user/properties/add` with:
 
 - 8 guided steps (basic info through preview/publish)
 - progress indicator and listing completeness score
@@ -52,7 +52,7 @@ The frontend now includes a centralized, typed error handling system with route 
 - `lib/errors/*`: shared error types, classifiers, message catalog, logging, and retry helpers.
 - `components/error/ErrorFallback.tsx`: accessible reusable fallback UI with retry + safe navigation.
 - `components/error/ClientErrorBoundary.tsx`: component-level React boundary for critical UI regions.
-- `app/error.tsx`, `app/landlords/error.tsx`, `app/dashboard/error.tsx`, `app/tenant/error.tsx`: route-level recoverable boundaries.
+- `app/error.tsx`, `app/user/error.tsx`, `app/admin/error.tsx`: route-level recoverable boundaries.
 - `components/error/ErrorMonitoringProvider.tsx`: captures `window.onerror` and unhandled promise rejections.
 - `components/error/NetworkStatusBanner.tsx`: offline detection with visible recovery action.
 

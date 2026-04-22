@@ -1,6 +1,6 @@
-# Contract Contributor Guide
+# Smart Contract Contributing Guide
 
-Welcome to the Chioma Smart Contracts! This guide will help you understand the Soroban contract architecture, development workflow, and how to make changes that pass all CI/CD checks.
+This document provides comprehensive guidelines for contributing to the Chioma smart contracts. It covers Soroban contract architecture, development standards, security considerations, testing requirements, and CI/CD pipeline expectations.
 
 ## Table of Contents
 
@@ -974,11 +974,13 @@ cargo clippy --fix --all-targets --all-features
 
 ---
 
-## Questions?
+## Support and Communication
 
-- Check existing issues and PRs
-- Review similar contracts for patterns
-- Ask in team discussions
-- Create an issue for bugs or feature requests
+For questions or assistance:
 
-Happy coding! 🚀
+- Review existing issues and pull requests for similar cases
+- Examine established contracts for architectural patterns
+- Participate in team discussions and code reviews
+- Submit detailed issue reports for bugs or feature requests
+
+We appreciate your contributions to the Chioma platform.

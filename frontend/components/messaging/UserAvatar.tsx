@@ -5,15 +5,14 @@ import React from 'react';
 interface UserAvatarProps {
   firstName: string;
   lastName: string;
-  role?: 'tenant' | 'landlord' | 'agent';
+  role?: 'user' | 'admin';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
 }
 
 const roleColors: Record<string, string> = {
-  landlord: 'bg-blue-100 text-blue-700',
-  tenant: 'bg-emerald-100 text-emerald-700',
-  agent: 'bg-orange-100 text-orange-700',
+  admin: 'bg-red-100 text-red-700',
+  user: 'bg-blue-100 text-blue-700',
 };
 
 const sizeClasses = {
@@ -25,12 +24,12 @@ const sizeClasses = {
 export function UserAvatar({
   firstName,
   lastName,
-  role = 'tenant',
+  role = 'user',
   size = 'md',
   className = '',
 }: UserAvatarProps) {
   const initials = `${firstName[0] ?? ''}${lastName[0] ?? ''}`.toUpperCase();
-  const colorClass = roleColors[role] ?? roleColors.tenant;
+  const colorClass = roleColors[role] ?? roleColors.user;
 
   return (
     <div

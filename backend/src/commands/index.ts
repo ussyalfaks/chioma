@@ -1,13 +1,9 @@
 import { Logger } from '@nestjs/common';
 import { parseCliArgs, seedAdminUser } from './admin.seed';
 import { parseCliArgs as parseAgentArgs, seedAgentUser } from './agent.seed';
-import { parseCliArgs as parseTenantArgs, seedTenantUser } from './tenant.seed';
-import {
-  parseCliArgs as parseLandlordArgs,
-  seedLandlordUser,
-} from './landlord.seed';
+import { parseCliArgs as parseUserArgs, seedUser } from './user.seed';
 
-type SupportedCommand = 'admin' | 'agent' | 'tenant' | 'landlord';
+type SupportedCommand = 'admin' | 'agent' | 'user';
 const logger = new Logger('SeedCommand');
 
 function printUsage(): void {
@@ -16,8 +12,7 @@ function printUsage(): void {
   logger.log('Commands:');
   logger.log('  admin      Create admin user');
   logger.log('  agent      Create agent user');
-  logger.log('  tenant     Create tenant user');
-  logger.log('  landlord   Create landlord user');
+  logger.log('  user       Create user');
   logger.log('');
   logger.log('Options:');
   logger.log('  --email <email>            User email');
@@ -49,15 +44,9 @@ async function run(): Promise<void> {
     return;
   }
 
-  if (normalizedCommand === 'tenant') {
-    const options = parseTenantArgs(args);
-    await seedTenantUser(options);
-    return;
-  }
-
-  if (normalizedCommand === 'landlord') {
-    const options = parseLandlordArgs(args);
-    await seedLandlordUser(options);
+  if (normalizedCommand === 'user') {
+    const options = parseUserArgs(args);
+    await seedUser(options);
     return;
   }
 
@@ -66,7 +55,7 @@ async function run(): Promise<void> {
   process.exit(1);
 }
 
-void run().catch((error: unknown) => {
+run().catch((error: unknown) => {
   const message = error instanceof Error ? error.message : String(error);
   logger.error('Command failed:', message);
   process.exit(1);

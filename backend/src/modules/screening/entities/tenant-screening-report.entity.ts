@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { TenantScreeningRiskLevel } from '../screening.enums';
+import { UserScreeningRiskLevel } from '../screening.enums';
 
 @Entity('tenant_screening_reports')
 @Index(['screeningId'], { unique: true })
@@ -26,10 +26,10 @@ export class TenantScreeningReport {
   @Column({
     name: 'risk_level',
     type: 'enum',
-    enum: TenantScreeningRiskLevel,
+    enum: UserScreeningRiskLevel,
     nullable: true,
   })
-  riskLevel?: TenantScreeningRiskLevel | null;
+  riskLevel?: UserScreeningRiskLevel | null;
 
   @Column({ name: 'access_expires_at', type: 'timestamp', nullable: true })
   accessExpiresAt?: Date | null;

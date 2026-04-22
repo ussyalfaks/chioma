@@ -36,7 +36,7 @@ interface KycStatus {
   progress: number;
 }
 
-export default function TenantProfilePage() {
+export default function UserProfilePage() {
   const { user, accessToken } = useAuth();
 
   const [profile, setProfile] = useState<UserProfile>({
@@ -228,7 +228,7 @@ export default function TenantProfilePage() {
               <div className="flex items-center justify-between text-sm">
                 <span className="text-blue-200/40">Account Type</span>
                 <span className="font-medium capitalize text-white">
-                  {user?.role || 'Tenant'}
+                  {user?.role || 'User'}
                 </span>
               </div>
             </div>

@@ -66,9 +66,16 @@ export const useWizardStore = create<WizardStore>()(
 
       initDraft: async (draftId) => {
         try {
+          // Get auth token from store
+          const { useAuthStore } = await import('@/store/authStore');
+          const { accessToken } = useAuthStore.getState();
+
+          const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
           if (draftId) {
             const response = await axios.get(
               `/api/property-listings/wizard/${draftId}/draft`,
+              { headers },
             );
             const draft = response.data;
             set({
@@ -92,6 +99,8 @@ export const useWizardStore = create<WizardStore>()(
           } else {
             const response = await axios.post(
               '/api/property-listings/wizard/start',
+              {},
+              { headers },
             );
             const draft = response.data;
             set({
@@ -134,12 +143,19 @@ export const useWizardStore = create<WizardStore>()(
 
         set({ syncStatus: 'saving' });
         try {
+          // Get auth token from store
+          const { useAuthStore } = await import('@/store/authStore');
+          const { accessToken } = useAuthStore.getState();
+
+          const headers = accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+
           const response = await axios.patch(
             `/api/property-listings/wizard/${draftId}/step`,
             {
               step,
               data,
             },
+            { headers },
           );
 
           set({

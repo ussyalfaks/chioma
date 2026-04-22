@@ -41,7 +41,7 @@ export class PropertiesController {
 
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @ApiBearerAuth('JWT-auth')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
@@ -340,7 +340,7 @@ export class PropertiesController {
 
   @Post('/property-listings/wizard/start')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @ApiBearerAuth('JWT-auth')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({
@@ -356,7 +356,7 @@ export class PropertiesController {
 
   @Patch('/property-listings/wizard/:id/step')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @ApiBearerAuth('JWT-auth')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
@@ -373,7 +373,7 @@ export class PropertiesController {
 
   @Get('/property-listings/wizard/:id/draft')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
     summary: 'Get wizard draft',
@@ -388,7 +388,7 @@ export class PropertiesController {
 
   @Delete('/property-listings/wizard/:id/draft')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @ApiBearerAuth('JWT-auth')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
@@ -404,7 +404,7 @@ export class PropertiesController {
 
   @Post('/property-listings/wizard/:id/publish')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.LANDLORD, UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.ADMIN)
   @ApiBearerAuth('JWT-auth')
   @HttpCode(HttpStatus.OK)
   @ApiOperation({

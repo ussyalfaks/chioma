@@ -91,7 +91,7 @@ export class ReviewsService {
       throw new BadRequestException('Booking must be completed');
     }
 
-    if (agreement.landlordId !== hostId) {
+    if (agreement.adminId !== hostId) {
       throw new ForbiddenException('Not authorized');
     }
 
@@ -105,7 +105,7 @@ export class ReviewsService {
 
     const review = this.guestReviewRepository.create({
       bookingId: dto.bookingId,
-      guestId: agreement.tenantId,
+      guestId: agreement.userId,
       hostId,
       cleanliness: dto.cleanliness,
       communication: dto.communication,
@@ -137,7 +137,7 @@ export class ReviewsService {
       throw new BadRequestException('Booking must be completed');
     }
 
-    if (agreement.tenantId !== guestId) {
+    if (agreement.userId !== guestId) {
       throw new ForbiddenException('Not authorized');
     }
 
@@ -152,7 +152,7 @@ export class ReviewsService {
     const review = this.hostReviewRepository.create({
       bookingId: dto.bookingId,
       guestId,
-      hostId: agreement.landlordId,
+      hostId: agreement.adminId,
       accuracy: dto.accuracy,
       cleanliness: dto.cleanliness,
       checkIn: dto.checkIn,

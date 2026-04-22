@@ -39,7 +39,7 @@ export class MaintenanceController {
   @ApiBody({ type: CreateMaintenanceRequestDto })
   @ApiResponse({ status: 201, description: 'Maintenance request created' })
   async create(@Body() body: CreateMaintenanceRequestDto, @Req() req: any) {
-    if (req.user.role !== UserRole.TENANT)
+    if (req.user.role !== UserRole.USER)
       throw new ForbiddenException(
         'Only tenants can create maintenance requests',
       );
@@ -84,7 +84,7 @@ export class MaintenanceController {
     @Body() body: UpdateMaintenanceStatusDto,
     @Req() req: any,
   ) {
-    const isLandlordOrAgent = [UserRole.LANDLORD, UserRole.ADMIN].includes(
+    const isLandlordOrAgent = [UserRole.ADMIN, UserRole.ADMIN].includes(
       req.user.role,
     );
     if (!isLandlordOrAgent)

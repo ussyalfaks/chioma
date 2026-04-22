@@ -24,20 +24,20 @@ export class CreateAgreementDto {
   propertyId: string;
 
   @ApiProperty({
-    description: 'Landlord user ID',
-    example: 'landlord-uuid-string',
+    description: 'Admin user ID',
+    example: 'admin-uuid-string',
   })
   @IsNotEmpty()
   @IsString()
-  landlordId: string;
+  adminId: string;
 
   @ApiProperty({
-    description: 'Tenant user ID',
-    example: 'tenant-uuid-string',
+    description: 'User ID (Tenant)',
+    example: 'user-uuid-string',
   })
   @IsNotEmpty()
   @IsString()
-  tenantId: string;
+  userId: string;
 
   @ApiPropertyOptional({
     description: 'Agent user ID (optional)',
@@ -49,7 +49,7 @@ export class CreateAgreementDto {
 
   // Stellar Public Keys (56 characters for Stellar addresses)
   @ApiProperty({
-    description: 'Landlord Stellar public key for blockchain payments',
+    description: 'Admin Stellar public key for blockchain payments',
     example: 'GD5DJ3B6A2KHWGFPJGBM4D7J23G5QJY6XQFQKXQ2Q2Q2Q2Q2Q2Q2Q',
     minLength: 56,
     maxLength: 56,
@@ -60,12 +60,12 @@ export class CreateAgreementDto {
   @Length(56, 56)
   @Matches(/^G[A-Z0-9]{55}$/, {
     message:
-      'Landlord Stellar public key must be a valid Stellar address starting with G',
+      'Admin Stellar public key must be a valid Stellar address starting with G',
   })
-  landlordStellarPubKey: string;
+  adminStellarPubKey: string;
 
   @ApiProperty({
-    description: 'Tenant Stellar public key for blockchain payments',
+    description: 'User Stellar public key for blockchain payments',
     example: 'GD7J3B6A2KHWGFPJGBM4D7J23G5QJY6XQFQKXQ2Q2Q2Q2Q2Q2Q2Q',
     minLength: 56,
     maxLength: 56,
@@ -76,9 +76,9 @@ export class CreateAgreementDto {
   @Length(56, 56)
   @Matches(/^G[A-Z0-9]{55}$/, {
     message:
-      'Tenant Stellar public key must be a valid Stellar address starting with G',
+      'User Stellar public key must be a valid Stellar address starting with G',
   })
-  tenantStellarPubKey: string;
+  userStellarPubKey: string;
 
   @ApiPropertyOptional({
     description: 'Agent Stellar public key for commission payments',

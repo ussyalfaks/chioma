@@ -28,9 +28,7 @@ export class DisputeNotificationService {
 
     // Notify the other party (landlord or tenant)
     const otherPartyId =
-      agreement.landlordId === initiator.id
-        ? agreement.tenantId
-        : agreement.landlordId;
+      agreement.adminId === initiator.id ? agreement.userId : agreement.adminId;
 
     await this.sendNotification({
       userId: otherPartyId,
@@ -61,9 +59,7 @@ export class DisputeNotificationService {
 
     // Notify the other party
     const otherPartyId =
-      agreement.landlordId === initiator.id
-        ? agreement.tenantId
-        : agreement.landlordId;
+      agreement.adminId === initiator.id ? agreement.userId : agreement.adminId;
 
     await this.sendNotification({
       userId: otherPartyId,
@@ -95,9 +91,9 @@ export class DisputeNotificationService {
     } else {
       // Public comments notify all parties
       const otherPartyId =
-        agreement.landlordId === initiator.id
-          ? agreement.tenantId
-          : agreement.landlordId;
+        agreement.adminId === initiator.id
+          ? agreement.userId
+          : agreement.adminId;
 
       await this.sendNotification({
         userId: otherPartyId,
@@ -120,7 +116,7 @@ export class DisputeNotificationService {
     const { dispute, agreement, initiator } = data;
 
     // Notify all parties
-    const parties = [agreement.landlordId, agreement.tenantId].filter(
+    const parties = [agreement.adminId, agreement.userId].filter(
       (id) => id !== initiator.id,
     );
 
@@ -156,7 +152,7 @@ export class DisputeNotificationService {
     const { dispute, agreement, initiator } = data;
 
     // Notify all parties
-    const parties = [agreement.landlordId, agreement.tenantId];
+    const parties = [agreement.adminId, agreement.userId];
 
     for (const partyId of parties) {
       await this.sendNotification({

@@ -5,7 +5,7 @@ import {
   Index,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TenantScreeningProvider } from '../screening.enums';
+import { UserScreeningProvider } from '../screening.enums';
 
 @Entity('tenant_screening_consents')
 @Index(['screeningId'])
@@ -21,9 +21,9 @@ export class TenantScreeningConsent {
 
   @Column({
     type: 'enum',
-    enum: TenantScreeningProvider,
+    enum: UserScreeningProvider,
   })
-  provider: TenantScreeningProvider;
+  provider: UserScreeningProvider;
 
   @Column({ name: 'consent_text_version', type: 'varchar' })
   consentTextVersion: string;

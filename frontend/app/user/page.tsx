@@ -32,9 +32,9 @@ const mockAgreements = [
 
 const agreements = process.env.NODE_ENV === 'production' ? [] : mockAgreements;
 
-export default function TenantDashboardOverview() {
+export default function UserDashboardOverview() {
   // AUTH DISABLED - useRoleRedirect commented out for development
-  // useRoleRedirect(['tenant']);
+  // useRoleRedirect(['user']);
 
   return (
     <div className="space-y-6 sm:space-y-8 pb-10">

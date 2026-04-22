@@ -18,6 +18,17 @@ export default function ErrorMonitoringProvider() {
     };
 
     const onUnhandledRejection = (event: PromiseRejectionEvent) => {
+      // Suppress wallet rejection errors (user cancelled wallet connection)
+      if (
+        typeof event.reason === 'object' &&
+        event.reason !== null &&
+        'code' in event.reason &&
+        (event.reason as any).code === -4
+      ) {
+        event.preventDefault();
+        return;
+      }
+
       const appError = classifyUnknownError(event.reason, {
         source: 'window.onunhandledrejection',
       });

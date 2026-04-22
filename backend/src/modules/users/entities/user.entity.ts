@@ -13,9 +13,8 @@ import { KycStatus } from '../../kyc/kyc-status.enum';
 export enum UserRole {
   USER = 'user',
   ADMIN = 'admin',
-  LANDLORD = 'landlord',
-  TENANT = 'tenant',
   AGENT = 'agent',
+  SUPER_ADMIN = 'super_admin',
 }
 
 export enum AuthMethod {

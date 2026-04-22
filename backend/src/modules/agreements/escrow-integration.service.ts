@@ -48,8 +48,8 @@ export class EscrowIntegrationService {
       // Create on-chain escrow
       try {
         const txHash = await this.escrowContract.createEscrow({
-          depositor: agreement.tenantStellarPubKey || '',
-          beneficiary: agreement.landlordStellarPubKey || '',
+          depositor: agreement.userStellarPubKey || '',
+          beneficiary: agreement.adminStellarPubKey || '',
           arbiter: this.getDefaultArbiter(),
           amount: agreement.securityDeposit.toString(),
           token: 'NATIVE',

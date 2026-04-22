@@ -348,27 +348,27 @@ export class ProfileService {
 
   private dtoToAccountType(dto: AccountTypeDto): AccountType {
     switch (dto) {
-      case AccountTypeDto.Tenant:
-        return AccountType.Tenant;
-      case AccountTypeDto.Landlord:
-        return AccountType.Landlord;
+      case AccountTypeDto.User:
+        return AccountType.User;
+      case AccountTypeDto.Admin:
+        return AccountType.Admin;
       case AccountTypeDto.Agent:
         return AccountType.Agent;
       default:
-        return AccountType.Tenant;
+        return AccountType.User;
     }
   }
 
   private accountTypeToDto(accountType: AccountType): AccountTypeDto {
     switch (accountType) {
-      case AccountType.Tenant:
-        return AccountTypeDto.Tenant;
-      case AccountType.Landlord:
-        return AccountTypeDto.Landlord;
+      case AccountType.User:
+        return AccountTypeDto.User;
+      case AccountType.Admin:
+        return AccountTypeDto.Admin;
       case AccountType.Agent:
         return AccountTypeDto.Agent;
       default:
-        return AccountTypeDto.Tenant;
+        return AccountTypeDto.User;
     }
   }
 }

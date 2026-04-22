@@ -6,7 +6,7 @@ import { useAuthStore } from '@/store/authStore';
 import { DisputesList } from '@/components/user/DisputesList';
 import { Suspense } from 'react';
 
-export default function TenantDisputesPage() {
+export default function UserDisputesPage() {
   const { user, isAuthenticated, loading } = useAuthStore();
 
   if (loading) {
@@ -17,13 +17,13 @@ export default function TenantDisputesPage() {
     );
   }
 
-  if (!isAuthenticated || user?.role !== 'tenant') {
+  if (!isAuthenticated || user?.role !== 'user') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] text-center p-8">
         <Flag className="w-16 h-16 text-blue-400/50 mb-5" />
         <h1 className="text-2xl font-black text-white mb-2">Access Denied</h1>
         <p className="text-blue-200/50 mb-6">
-          Disputes are only available to verified tenants.
+          Disputes are only available to verified users.
         </p>
         <Link
           href="/"

@@ -36,7 +36,7 @@ export default function NewDisputePage() {
     );
   }
 
-  if (!isAuthenticated || user?.role !== 'tenant') {
+  if (!isAuthenticated || user?.role !== 'user') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center p-8">
         <div className="max-w-md text-center text-white">

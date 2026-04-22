@@ -53,9 +53,9 @@ export interface AdminDisputeDetail {
   agreementReference: string;
   propertyName: string;
   claimantName: string;
-  claimantRole: 'tenant' | 'landlord' | 'agent';
+  claimantRole: 'user' | 'admin';
   respondentName: string;
-  respondentRole: 'tenant' | 'landlord' | 'agent';
+  respondentRole: 'user' | 'admin';
   disputeType: DisputeType;
   description: string;
   status: DisputeStatus;
@@ -81,9 +81,9 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
     agreementReference: 'AGR-2025-014',
     propertyName: 'Sunset Apartments, Unit 4B',
     claimantName: 'Amina Hassan',
-    claimantRole: 'tenant',
+    claimantRole: 'user',
     respondentName: 'James Adebayo',
-    respondentRole: 'landlord',
+    respondentRole: 'user',
     disputeType: 'MAINTENANCE',
     description:
       'Water damage repairs were delayed for 12 days after the issue was reported.',
@@ -127,7 +127,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         title: 'Dispute opened',
         description: 'Case filed under maintenance category.',
         actorName: 'Amina Hassan',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-02-18T10:00:00.000Z',
       },
       {
@@ -136,7 +136,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         title: 'Evidence uploaded',
         description: '3 files attached to the case.',
         actorName: 'Amina Hassan',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-02-18T10:08:00.000Z',
       },
       {
@@ -164,7 +164,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         description:
           'Contractor was scheduled; delay due to parts shipment — attaching vendor comms.',
         actorName: 'James Adebayo',
-        actorRole: 'landlord',
+        actorRole: 'user',
         createdAt: '2026-03-04T16:45:00.000Z',
       },
     ],
@@ -176,9 +176,9 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
     agreementReference: 'AGR-2025-014',
     propertyName: 'Sunset Apartments, Unit 4B',
     claimantName: 'Amina Hassan',
-    claimantRole: 'tenant',
+    claimantRole: 'user',
     respondentName: 'James Adebayo',
-    respondentRole: 'landlord',
+    respondentRole: 'user',
     disputeType: 'SECURITY_DEPOSIT',
     description:
       'Requesting clarity on deduction applied to the security deposit statement.',
@@ -214,7 +214,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         title: 'Dispute opened',
         description: 'Security deposit reconciliation questioned.',
         actorName: 'Amina Hassan',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2025-12-20T16:00:00.000Z',
       },
       {
@@ -245,9 +245,9 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
     agreementReference: 'AGR-2025-021',
     propertyName: 'Glover Road, Ikoyi',
     claimantName: 'Ada Nwosu',
-    claimantRole: 'tenant',
+    claimantRole: 'user',
     respondentName: 'Chidi Okonkwo',
-    respondentRole: 'landlord',
+    respondentRole: 'user',
     disputeType: 'RENT_PAYMENT',
     description:
       'Tenant claims rent was debited twice after a manual settlement was also recorded.',
@@ -274,7 +274,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         title: 'Dispute opened',
         description: 'Duplicate rent debit alleged.',
         actorName: 'Ada Nwosu',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-03-04T08:45:00.000Z',
       },
     ],
@@ -286,9 +286,9 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
     agreementReference: 'AGR-2025-010',
     propertyName: 'Admiralty Way, Block 4',
     claimantName: 'Kunle Bello',
-    claimantRole: 'tenant',
+    claimantRole: 'user',
     respondentName: 'Fatima Ibrahim',
-    respondentRole: 'landlord',
+    respondentRole: 'user',
     disputeType: 'PROPERTY_DAMAGE',
     description:
       'Checkout inspection found damage to the kitchen cabinet and broken smoke detectors.',
@@ -340,7 +340,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         title: 'Dispute opened',
         description: 'Property damage claim after checkout.',
         actorName: 'Fatima Ibrahim',
-        actorRole: 'landlord',
+        actorRole: 'user',
         createdAt: '2026-02-09T17:30:00.000Z',
       },
       {
@@ -349,7 +349,7 @@ const detailMocks: Record<string, AdminDisputeDetail> = {
         title: 'Additional evidence',
         description: 'Tenant submitted prior condition checklist.',
         actorName: 'Kunle Bello',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-02-15T08:30:00.000Z',
       },
       {
@@ -412,9 +412,9 @@ export async function loadAdminDisputesList(): Promise<DashboardDispute[]> {
     const response = await apiClient.get<
       | DashboardDispute[]
       | {
-          disputes?: DashboardDispute[];
-          data?: DashboardDispute[];
-        }
+        disputes?: DashboardDispute[];
+        data?: DashboardDispute[];
+      }
     >('/admin/disputes');
     const body = response.data;
     const rows = Array.isArray(body)

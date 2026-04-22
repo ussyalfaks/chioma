@@ -6,10 +6,10 @@ import { ApiKeysManagement } from '@/components/developer/ApiKeysManagement';
 export default function ApiKeysPage() {
   const { user } = useAuth();
 
-  if (!user || (user.role !== 'admin' && user.role !== 'agent')) {
+  if (!user || user.role !== 'admin') {
     return (
       <div className="rounded-3xl border border-amber-300/20 bg-amber-500/10 p-6 text-amber-100">
-        Only admins and agents can access API key management.
+        Only admins can access API key management.
       </div>
     );
   }

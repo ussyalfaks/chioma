@@ -17,7 +17,7 @@ export class OnChainDataDto {
   @ApiProperty({
     enum: AccountTypeDto,
     description: 'Account type',
-    example: AccountTypeDto.Tenant,
+    example: AccountTypeDto.User,
   })
   accountType: AccountTypeDto;
 

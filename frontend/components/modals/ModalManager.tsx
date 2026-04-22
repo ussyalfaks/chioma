@@ -94,7 +94,7 @@ interface UserData {
   name: string;
   email: string;
   phone?: string;
-  role: 'tenant' | 'landlord' | 'agent' | 'admin';
+  role: 'user' | 'admin';
   status: 'active' | 'suspended' | 'inactive';
   isVerified: boolean;
 }
@@ -303,10 +303,7 @@ export const ModalManager: React.FC = () => {
           isOpen={modalState.isOpen}
           onClose={closeModal}
           dispute={modalState.data?.dispute as DisputeInfo | null}
-          userRole={
-            (modalState.data?.userRole as 'admin' | 'landlord' | 'tenant') ||
-            'admin'
-          }
+          userRole={(modalState.data?.userRole as 'admin' | 'user') || 'admin'}
           onResolve={
             modalState.data?.onResolve as
               | ((

@@ -24,7 +24,7 @@ import axios from 'axios';
 @ApiTags('Property Wizard')
 @Controller('property-listings/wizard')
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles(UserRole.LANDLORD, UserRole.ADMIN)
+@Roles(UserRole.ADMIN, UserRole.ADMIN)
 @ApiBearerAuth('JWT-auth')
 export class PropertyWizardController {
   constructor(private readonly wizardService: PropertyWizardService) {}

@@ -1,6 +1,6 @@
-# Frontend Contributor Guide
+# Frontend Contributing Guide
 
-Welcome to the Chioma frontend! This guide will help you understand the project structure, theme system, component architecture, and how to make changes that pass all CI/CD checks.
+This document provides comprehensive guidelines for contributing to the Chioma frontend. It covers project architecture, design system, component development, testing requirements, and CI/CD pipeline expectations.
 
 ## Table of Contents
 
@@ -119,9 +119,7 @@ When creating components, follow these patterns:
 frontend/
 ├── app/                          # Next.js App Router pages
 │   ├── admin/                    # Admin dashboard routes
-│   ├── dashboard/                # User dashboard routes
-│   ├── landlords/                # Landlord-specific routes
-│   ├── tenant/                   # Tenant-specific routes
+│   ├── user/                     # User dashboard routes
 │   ├── properties/               # Property listing routes
 │   ├── layout.tsx                # Root layout
 │   ├── page.tsx                  # Home page
@@ -165,7 +163,7 @@ frontend/
 
 **`app/`** - Next.js App Router pages
 
-- Organized by feature/role (admin, landlords, tenant, etc.)
+- Organized by feature/role (admin, user, etc.)
 - Each route can have `layout.tsx`, `page.tsx`, `error.tsx`, `loading.tsx`
 - Use `'use client'` directive for client components
 
@@ -1131,11 +1129,13 @@ pnpm run build
 
 ---
 
-## Questions?
+## Support and Communication
 
-- Check existing issues and PRs
-- Review similar components for patterns
-- Ask in team discussions
-- Create an issue for bugs or feature requests
+For questions or assistance:
 
-Happy coding! 🚀
+- Review existing issues and pull requests for similar cases
+- Examine established components for architectural patterns
+- Participate in team discussions and code reviews
+- Submit detailed issue reports for bugs or feature requests
+
+We appreciate your contributions to the Chioma platform.

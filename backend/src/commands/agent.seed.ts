@@ -204,7 +204,7 @@ export async function seedAgentUser(
       existingUser.firstName = config.firstName;
       existingUser.lastName = config.lastName;
       existingUser.password = passwordHash;
-      existingUser.role = UserRole.AGENT;
+      existingUser.role = UserRole.ADMIN;
       existingUser.emailVerified = true;
       existingUser.verificationToken = null;
       existingUser.resetToken = null;
@@ -223,7 +223,7 @@ export async function seedAgentUser(
         password: passwordHash,
         firstName: config.firstName,
         lastName: config.lastName,
-        role: UserRole.AGENT,
+        role: UserRole.ADMIN,
         emailVerified: true,
         verificationToken: null,
         resetToken: null,

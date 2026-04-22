@@ -1,7 +1,7 @@
 ````markdown
 # Contributing to Chioma
 
-Thank you for your interest in contributing to Chioma! We welcome contributions from the community to help make rental payments transparent, low-cost, and programmable.
+This document outlines the contribution process for the Chioma platform. We welcome community contributions that advance our mission of making rental payments transparent, low-cost, and programmable.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ Thank you for your interest in contributing to Chioma! We welcome contributions 
 
 ## Introduction
 
-Chioma is an open-source platform on the Stellar blockchain connecting landlords, agents, and tenants. It uses a hybrid architecture with on-chain settlement and off-chain business logic.
+Chioma is an open-source platform built on the Stellar blockchain, connecting landlords, agents, and tenants through a hybrid architecture that combines on-chain settlement with off-chain business logic.
 
 ## Prerequisites
 
@@ -113,38 +113,38 @@ Located in `contract/`.
 
 ## Pull Request Process
 
-1.  Fork the repository and creating a new branch for your feature or fix.
-2.  Ensure all tests pass locally.
-3.  Submit a Pull Request (PR) with a clear description of your changes.
-4.  Link any relevant issues in your PR description.
-5.  Wait for review and address any feedback.
+1. Fork the repository and create a feature branch for your changes
+2. Ensure all tests pass locally before submission
+3. Submit a pull request with a comprehensive description of your changes
+4. Reference any related issues in your pull request description
+5. Address reviewer feedback promptly and professionally
 
-Thank you for contributing to Chioma!
+We appreciate your contributions to the Chioma platform.
 
-## Local pipeline checks
+## Local Pipeline Validation
 
-You can run the same checks that our CI/CD uses locally before opening a pull request. Each sub-project includes a `check-all.sh` helper that runs formatting, linting, building, and tests.
+You can execute the same validation checks used by our CI/CD pipeline locally before submitting a pull request. Each component includes a `check-all.sh` script that performs formatting, linting, building, and testing.
 
-- Frontend: Run the script from the repository root or the `frontend` folder:
-  - File: [frontend/check-all.sh](frontend/check-all.sh)
+- Frontend: Execute from the repository root or the `frontend` directory:
+  - Script location: [frontend/check-all.sh](frontend/check-all.sh)
 
   ```bash
   ./frontend/check-all.sh
   ```
 
-- Backend: Run the script from the repository root or the `backend` folder:
-  - File: [backend/check-all.sh](backend/check-all.sh)
+- Backend: Execute from the repository root or the `backend` directory:
+  - Script location: [backend/check-all.sh](backend/check-all.sh)
 
   ```bash
   ./backend/check-all.sh
   ```
 
-- Contracts: Run the script from the repository root or the `contract` folder:
-  - File: [contract/check-all.sh](contract/check-all.sh)
+- Contracts: Execute from the repository root or the `contract` directory:
+  - Script location: [contract/check-all.sh](contract/check-all.sh)
 
   ```bash
   ./contract/check-all.sh
   ```
 
-Each script exits immediately on error (`set -e`) so any failing step will stop the run and return a non-zero exit code. Use these scripts to validate your changes locally and reduce CI iteration.
+Each script terminates immediately upon encountering an error (`set -e`), ensuring that any failing step halts execution and returns a non-zero exit code. Use these scripts to validate your changes locally and minimize CI/CD iteration cycles.
 ````

@@ -9,7 +9,7 @@ export type ContractStatus = 'ACTIVE' | 'PENDING' | 'EXPIRED';
 export interface ContractParty {
   name: string;
   walletAddress: string;
-  role: 'LANDLORD' | 'TENANT' | 'AGENT';
+  role: 'USER' | 'ADMIN';
 }
 
 export interface Contract {

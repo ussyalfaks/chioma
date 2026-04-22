@@ -1,8 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsObject, IsOptional, IsString } from 'class-validator';
 import {
-  TenantScreeningRiskLevel,
-  TenantScreeningStatus,
+  UserScreeningRiskLevel,
+  UserScreeningStatus,
 } from '../screening.enums';
 
 export class TenantScreeningWebhookDto {
@@ -10,19 +10,19 @@ export class TenantScreeningWebhookDto {
   @IsString()
   providerReference: string;
 
-  @ApiProperty({ enum: TenantScreeningStatus })
-  @IsEnum(TenantScreeningStatus)
-  status: TenantScreeningStatus;
+  @ApiProperty({ enum: UserScreeningStatus })
+  @IsEnum(UserScreeningStatus)
+  status: UserScreeningStatus;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   providerReportId?: string;
 
-  @ApiPropertyOptional({ enum: TenantScreeningRiskLevel })
+  @ApiPropertyOptional({ enum: UserScreeningRiskLevel })
   @IsOptional()
-  @IsEnum(TenantScreeningRiskLevel)
-  riskLevel?: TenantScreeningRiskLevel;
+  @IsEnum(UserScreeningRiskLevel)
+  riskLevel?: UserScreeningRiskLevel;
 
   @ApiPropertyOptional()
   @IsOptional()

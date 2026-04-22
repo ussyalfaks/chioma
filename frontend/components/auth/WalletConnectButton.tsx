@@ -119,16 +119,10 @@ export default function WalletConnectButton({
             if (onSuccess) {
               onSuccess();
             } else {
-              // Navigate to role-based dashboard using Next.js router
+              // Navigate to dashboard based on role
               setTimeout(() => {
                 const dashboardRoute =
-                  userWithRole.role === 'tenant'
-                    ? '/tenant'
-                    : userWithRole.role === 'landlord'
-                      ? '/landlords'
-                      : userWithRole.role === 'agent'
-                        ? '/agents'
-                        : '/admin';
+                  userWithRole.role === 'admin' ? '/admin' : '/user';
                 console.log('🚀 Navigating to:', dashboardRoute);
                 router.push(dashboardRoute);
               }, 500); // Small delay to show success message
@@ -140,16 +134,25 @@ export default function WalletConnectButton({
           toast.dismiss('wallet-challenge');
           toast.dismiss('wallet-sign');
           toast.dismiss('wallet-verify');
-          const errorMessage =
-            error instanceof Error ? error.message : String(error);
-          if (
-            !errorMessage.toLowerCase().includes('cancelled') &&
-            !errorMessage.toLowerCase().includes('reject') &&
-            !errorMessage.toLowerCase().includes('user denied')
-          ) {
+
+          // Check if error is a user rejection
+          const isUserRejection =
+            (error instanceof Error &&
+              (error.message.toLowerCase().includes('cancelled') ||
+                error.message.toLowerCase().includes('reject') ||
+                error.message.toLowerCase().includes('user denied'))) ||
+            (typeof error === 'object' &&
+              error !== null &&
+              'code' in error &&
+              (error as any).code === -4);
+
+          if (!isUserRejection) {
+            const errorMessage =
+              error instanceof Error ? error.message : String(error);
             toast.error(errorMessage || 'Wallet connection failed');
+            console.error('Wallet connect error:', error);
           }
-          console.error('Wallet connect error:', error);
+          // Silently ignore user rejections
         } finally {
           setIsConnecting(false);
         }

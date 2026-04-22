@@ -11,8 +11,8 @@ import { AccountTypeDto } from './create-profile.dto';
 export class UpdateProfileDto {
   @ApiPropertyOptional({
     enum: AccountTypeDto,
-    description: 'The type of account (tenant, landlord, or agent)',
-    example: AccountTypeDto.Landlord,
+    description: 'The type of account (user, admin, or agent)',
+    example: AccountTypeDto.Admin,
   })
   @IsOptional()
   @IsEnum(AccountTypeDto)

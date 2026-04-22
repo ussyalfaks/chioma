@@ -25,7 +25,7 @@ export interface RefundRequestDetail extends RefundRequestRow {
     action: string;
     message: string;
     actorName: string;
-    actorRole: 'tenant' | 'landlord' | 'admin' | 'system';
+    actorRole: 'user' | 'admin' | 'system';
     createdAt: string;
   }>;
 }
@@ -110,9 +110,9 @@ export const MOCK_REFUND_DETAILS: Record<string, RefundRequestDetail> = {
       {
         id: 'h1',
         action: 'created',
-        message: 'Refund request created from tenant dashboard.',
+        message: 'Refund request created from user dashboard.',
         actorName: 'Ada Nwosu',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-03-22T11:20:00.000Z',
       },
     ],
@@ -130,7 +130,7 @@ export const MOCK_REFUND_DETAILS: Record<string, RefundRequestDetail> = {
         action: 'created',
         message: 'Request submitted.',
         actorName: 'Kunle Bello',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-03-18T09:00:00.000Z',
       },
       {

@@ -6,7 +6,7 @@ export interface ReviewAuthor {
   id: string;
   name: string;
   isVerified: boolean;
-  role: 'TENANT' | 'LANDLORD' | 'AGENT';
+  role: 'USER' | 'ADMIN';
 }
 
 export interface Review {
@@ -15,7 +15,7 @@ export interface Review {
   comment: string;
   createdAt: string;
   propertyName: string;
-  context: 'LEASE' | 'MAINTENANCE' | 'AGENT';
+  context: 'LEASE' | 'MAINTENANCE' | 'SERVICE';
   author: ReviewAuthor;
 }
 
@@ -23,18 +23,18 @@ export interface ReviewTarget {
   id: string;
   agreementId: string;
   name: string;
-  role: 'LANDLORD' | 'TENANT' | 'AGENT';
+  role: 'USER' | 'ADMIN';
   propertyName: string;
   context: 'LEASE' | 'MAINTENANCE';
   dueLabel: string;
 }
 
-export const MOCK_TENANT_REVIEW_TARGETS: ReviewTarget[] = [
+export const MOCK_REVIEW_TARGETS: ReviewTarget[] = [
   {
     id: 'rev-target-001',
-    agreementId: 'agr-tenant-001',
+    agreementId: 'agr-001',
     name: 'James Adebayo',
-    role: 'LANDLORD',
+    role: 'USER',
     propertyName: 'Sunset Apartments, Unit 4B',
     context: 'LEASE',
     dueLabel: 'Lease milestone reached 3 days ago',
@@ -43,14 +43,32 @@ export const MOCK_TENANT_REVIEW_TARGETS: ReviewTarget[] = [
     id: 'rev-target-002',
     agreementId: 'mnt-019',
     name: 'Facility Ops Team',
-    role: 'AGENT',
+    role: 'USER',
     propertyName: 'Sunset Apartments, Unit 4B',
     context: 'MAINTENANCE',
     dueLabel: 'Maintenance ticket closed yesterday',
   },
+  {
+    id: 'rev-target-101',
+    agreementId: 'agr-002',
+    name: 'Ada Nwosu',
+    role: 'USER',
+    propertyName: 'Glover Road, Ikoyi',
+    context: 'LEASE',
+    dueLabel: 'Move-in completed 1 week ago',
+  },
+  {
+    id: 'rev-target-102',
+    agreementId: 'agr-004',
+    name: 'Kunle Bello',
+    role: 'USER',
+    propertyName: 'Admiralty Way, Block 4',
+    context: 'MAINTENANCE',
+    dueLabel: 'Maintenance request resolved 2 days ago',
+  },
 ];
 
-export const MOCK_TENANT_REVIEWS: Review[] = [
+export const MOCK_REVIEWS: Review[] = [
   {
     id: 'review-001',
     rating: 5,
@@ -60,10 +78,10 @@ export const MOCK_TENANT_REVIEWS: Review[] = [
     propertyName: 'Sunset Apartments, Unit 4B',
     context: 'LEASE',
     author: {
-      id: 'tenant-user',
+      id: 'user-001',
       name: 'You',
       isVerified: true,
-      role: 'TENANT',
+      role: 'USER',
     },
   },
   {
@@ -75,64 +93,46 @@ export const MOCK_TENANT_REVIEWS: Review[] = [
     propertyName: 'Sunset Apartments, Unit 4B',
     context: 'MAINTENANCE',
     author: {
-      id: 'tenant-user',
+      id: 'user-001',
       name: 'You',
       isVerified: true,
-      role: 'TENANT',
+      role: 'USER',
     },
   },
-];
-
-export const MOCK_LANDLORD_REVIEW_TARGETS: ReviewTarget[] = [
-  {
-    id: 'rev-target-101',
-    agreementId: 'agr-landlord-002',
-    name: 'Ada Nwosu',
-    role: 'TENANT',
-    propertyName: 'Glover Road, Ikoyi',
-    context: 'LEASE',
-    dueLabel: 'Move-in completed 1 week ago',
-  },
-  {
-    id: 'rev-target-102',
-    agreementId: 'agr-landlord-004',
-    name: 'Kunle Bello',
-    role: 'TENANT',
-    propertyName: 'Admiralty Way, Block 4',
-    context: 'MAINTENANCE',
-    dueLabel: 'Maintenance request resolved 2 days ago',
-  },
-];
-
-export const MOCK_LANDLORD_REVIEWS: Review[] = [
   {
     id: 'review-101',
     rating: 5,
     comment:
-      'Tenant stayed current on payments and kept the unit in excellent condition during inspection.',
+      'User stayed current on payments and kept the unit in excellent condition during inspection.',
     createdAt: '2026-02-08T14:00:00.000Z',
     propertyName: 'Glover Road, Ikoyi',
     context: 'LEASE',
     author: {
-      id: 'landlord-user',
+      id: 'user-002',
       name: 'You',
       isVerified: true,
-      role: 'LANDLORD',
+      role: 'USER',
     },
   },
   {
     id: 'review-102',
     rating: 4,
     comment:
-      'Tenant documented the issue clearly and cooperated with maintenance scheduling.',
+      'User documented the issue clearly and cooperated with maintenance scheduling.',
     createdAt: '2026-03-02T10:15:00.000Z',
     propertyName: 'Admiralty Way, Block 4',
     context: 'MAINTENANCE',
     author: {
-      id: 'landlord-user',
+      id: 'user-002',
       name: 'You',
       isVerified: true,
-      role: 'LANDLORD',
+      role: 'USER',
     },
   },
 ];
+
+// Backwards compatibility exports
+export const MOCK_TENANT_REVIEW_TARGETS = MOCK_REVIEW_TARGETS;
+export const MOCK_TENANT_REVIEWS = MOCK_REVIEWS.slice(0, 2);
+export const MOCK_LANDLORD_REVIEW_TARGETS = MOCK_REVIEW_TARGETS.slice(2);
+export const MOCK_LANDLORD_REVIEWS = MOCK_REVIEWS.slice(2);

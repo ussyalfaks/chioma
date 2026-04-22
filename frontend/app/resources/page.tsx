@@ -5,7 +5,7 @@ import ResourceSearch from '@/components/resources/ResourceSearch';
 import ResourceTabs from '@/components/resources/ResourceTabs';
 
 export default function ResourcesPage() {
-  const [activeTab, setActiveTab] = useState('tenant');
+  const [activeTab, setActiveTab] = useState('user');
   const [searchQuery, setSearchQuery] = useState('');
 
   return (

@@ -396,7 +396,7 @@ export class PropertiesService {
     const property = await this.create(createDto, landlordId);
     const published = await this.publish(property.id, {
       id: landlordId,
-      role: UserRole.LANDLORD,
+      role: UserRole.ADMIN,
     } as User);
     await this.propertyListingDraftRepository.remove(draft);
     return published;

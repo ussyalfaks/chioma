@@ -17,7 +17,7 @@ import {
 interface Contact {
   id: string;
   name: string;
-  role: 'landlord' | 'agent';
+  role: 'user';
   email: string;
   phone: string;
   avatarUrl?: string;
@@ -32,7 +32,7 @@ interface Contact {
 interface HistoricalContact {
   id: string;
   name: string;
-  role: 'landlord' | 'agent';
+  role: 'user';
   email: string;
   phone: string;
   propertyTitle: string;
@@ -57,7 +57,7 @@ export default function MyContactsPage() {
         {
           id: '1',
           name: 'John Doe',
-          role: 'landlord',
+          role: 'user',
           email: 'john.doe@example.com',
           phone: '+234 801 234 5678',
           isVerified: true,
@@ -70,7 +70,7 @@ export default function MyContactsPage() {
         {
           id: '2',
           name: 'Sarah Johnson',
-          role: 'agent',
+          role: 'user',
           email: 'sarah.johnson@example.com',
           phone: '+234 802 345 6789',
           isVerified: true,
@@ -85,7 +85,7 @@ export default function MyContactsPage() {
         {
           id: '3',
           name: 'Michael Brown',
-          role: 'landlord',
+          role: 'user',
           email: 'michael.brown@example.com',
           phone: '+234 803 456 7890',
           propertyTitle: 'Marina Heights',
@@ -94,7 +94,7 @@ export default function MyContactsPage() {
         {
           id: '4',
           name: 'Emily Davis',
-          role: 'agent',
+          role: 'user',
           email: 'emily.davis@example.com',
           phone: '+234 804 567 8901',
           propertyTitle: 'Marina Heights',
@@ -176,18 +176,10 @@ export default function MyContactsPage() {
                     </div>
                     <div className="flex items-center gap-2 mb-1.5">
                       <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border ${
-                          contact.role === 'landlord'
-                            ? 'bg-blue-500/10 text-blue-400 border-blue-500/20'
-                            : 'bg-purple-500/10 text-purple-400 border-purple-500/20'
-                        }`}
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border bg-blue-500/10 text-blue-400 border-blue-500/20`}
                       >
-                        {contact.role === 'landlord' ? (
-                          <Building className="w-3 h-3" />
-                        ) : (
-                          <User className="w-3 h-3" />
-                        )}
-                        {contact.role === 'landlord' ? 'Landlord' : 'Agent'}
+                        <Building className="w-3 h-3" />
+                        Contact
                       </span>
                       {contact.rating && (
                         <span className="text-xs text-blue-200/50">
@@ -320,13 +312,9 @@ export default function MyContactsPage() {
                       </td>
                       <td className="px-6 py-4">
                         <span
-                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border ${
-                            contact.role === 'landlord'
-                              ? 'bg-blue-500/10 text-blue-400 border-blue-500/20'
-                              : 'bg-purple-500/10 text-purple-400 border-purple-500/20'
-                          }`}
+                          className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold border bg-blue-500/10 text-blue-400 border-blue-500/20`}
                         >
-                          {contact.role === 'landlord' ? 'Landlord' : 'Agent'}
+                          Contact
                         </span>
                       </td>
                       <td className="px-6 py-4 text-blue-200/60">

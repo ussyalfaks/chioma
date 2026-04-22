@@ -11,7 +11,7 @@ export type PriorityLevel = 'emergency' | 'urgent' | 'normal' | 'low';
 
 export type RequestStatus = 'open' | 'in_progress' | 'resolved' | 'closed';
 
-export type MaintenanceRole = 'tenant' | 'landlord' | 'agent';
+export type MaintenanceRole = 'user' | 'admin';
 
 export interface MaintenanceMedia {
   id: string;

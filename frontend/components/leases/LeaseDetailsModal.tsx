@@ -22,7 +22,7 @@ export interface Lease {
 interface LeaseDetailsModalProps {
   lease: Lease;
   onClose: () => void;
-  currentUserRole: 'LANDLORD' | 'TENANT';
+  currentUserRole: 'user' | 'admin';
   onSignComplete?: (leaseId: string) => Promise<void>;
 }
 
@@ -51,7 +51,7 @@ export function LeaseDetailsModal({
     }
   };
 
-  const canSign = lease.status === 'PENDING' && currentUserRole === 'TENANT';
+  const canSign = lease.status === 'PENDING' && currentUserRole === 'user';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
@@ -181,12 +181,12 @@ export function LeaseDetailsModal({
                 Review & Sign
               </button>
             )}
-            {lease.status === 'PENDING' && currentUserRole === 'LANDLORD' && (
+            {lease.status === 'PENDING' && currentUserRole === 'admin' && (
               <button
                 disabled
                 className="px-6 py-2.5 rounded-xl font-bold text-gray-400 bg-gray-100 cursor-not-allowed border border-gray-200"
               >
-                Waiting for Tenant Signature
+                Waiting for User Signature
               </button>
             )}
           </div>

@@ -3,24 +3,14 @@
  * Maps user roles to their respective dashboard routes
  */
 
-export type UserRole =
-  | 'tenant'
-  | 'landlord'
-  | 'agent'
-  | 'admin'
-  | 'support'
-  | 'auditor';
+export type UserRole = 'admin' | 'user';
 
 /**
  * Dashboard route mapping for each role
  */
 export const DASHBOARD_ROUTES: Record<UserRole, string> = {
-  tenant: '/tenant',
-  landlord: '/landlords',
-  agent: '/agents',
   admin: '/admin',
-  support: '/admin', // Support users go to admin dashboard
-  auditor: '/admin', // Auditors go to admin dashboard
+  user: '/user',
 };
 
 /**

@@ -41,7 +41,7 @@ export class SublettingService {
       throw new NotFoundException('Agreement not found');
     }
 
-    if (agreement.tenantId !== tenantId) {
+    if (agreement.userId !== tenantId) {
       throw new ForbiddenException('Not authorized');
     }
 
@@ -56,7 +56,7 @@ export class SublettingService {
     const request = this.subletRequestRepository.create({
       agreementId: dto.agreementId,
       tenantId,
-      landlordId: agreement.landlordId,
+      landlordId: agreement.adminId,
       requestedStartDate: new Date(dto.startDate),
       requestedEndDate: new Date(dto.endDate),
       maxDaysPerYear: property.sublettingMaxDaysPerYear,
@@ -68,7 +68,7 @@ export class SublettingService {
     const saved = await this.subletRequestRepository.save(request);
 
     await this.notificationsService.notify(
-      agreement.landlordId,
+      agreement.adminId,
       'Sublet request',
       'A tenant requested subletting approval.',
       'SUBLET_REQUEST',

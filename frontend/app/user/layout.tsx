@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Menu, Wallet, Search, User } from 'lucide-react';
 import { NotificationBell } from '@/components/notifications';
-import { Sidebar } from '@/components/dashboard/Sidebar';
+import { Sidebar } from '@/components/user-dashboard';
 import { userNavItems } from '@/data/user-nav-items';
 import { ClientErrorBoundary } from '@/components/error/ClientErrorBoundary';
 import { useAuth } from '@/store/authStore';
@@ -65,10 +65,10 @@ export default function TenantDashboardLayout({
                 <Search size={20} />
               </button>
 
-              <a 
-                href="/user/properties/wizard" 
+              <a
+                href="/user/properties/wizard"
                 className="hidden sm:flex items-center justify-center px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg transition-colors"
-               >
+              >
                 Add new listing
               </a>
               <NotificationBell

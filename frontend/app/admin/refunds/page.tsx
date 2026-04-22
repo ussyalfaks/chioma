@@ -17,7 +17,7 @@ export default function AdminRefundsPage() {
 
   useEffect(() => {
     if (!authLoading && user?.role !== 'admin') {
-      router.replace('/landlords');
+      router.replace('/');
     }
   }, [authLoading, user?.role, router]);
 

@@ -46,7 +46,7 @@ const mockData: Record<string, unknown> = {
         id: 'rev-001',
         reviewId: 'RVW-2026-001',
         target: 'James Adebayo',
-        targetRole: 'LANDLORD',
+        targetRole: 'USER',
         propertyName: 'Sunset Apartments, Unit 4B',
         rating: 5,
         comment:
@@ -61,7 +61,7 @@ const mockData: Record<string, unknown> = {
         id: 'rev-002',
         reviewId: 'RVW-2026-002',
         target: 'Facility Ops Team',
-        targetRole: 'AGENT',
+        targetRole: 'ADMIN',
         propertyName: 'Sunset Apartments, Unit 4B',
         rating: 4,
         comment: 'Maintenance response good after escalation.',

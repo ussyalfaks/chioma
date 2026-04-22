@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Menu, Search, User } from 'lucide-react';
-import { Sidebar } from '@/components/dashboard/Sidebar';
+import { Sidebar } from '@/components/user-dashboard';
 import { hostNavItems } from '@/data/host-nav-items';
 import { NotificationBell } from '@/components/notifications';
 import { ClientErrorBoundary } from '@/components/error/ClientErrorBoundary';

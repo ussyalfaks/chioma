@@ -32,21 +32,21 @@ export class RentAgreement {
   @Column({ name: 'property_id', nullable: true })
   propertyId: string;
 
-  @Column({ name: 'landlord_id', nullable: true })
-  landlordId: string;
+  @Column({ name: 'admin_id', nullable: true })
+  adminId: string;
 
-  @Column({ name: 'tenant_id', nullable: true })
-  tenantId: string;
+  @Column({ name: 'user_id', nullable: true })
+  userId: string;
 
   @Column({ name: 'agent_id', nullable: true })
   agentId: string;
 
   // Stellar Account Public Keys
-  @Column({ name: 'landlord_stellar_pub_key', length: 56, nullable: true })
-  landlordStellarPubKey: string;
+  @Column({ name: 'admin_stellar_pub_key', length: 56, nullable: true })
+  adminStellarPubKey: string;
 
-  @Column({ name: 'tenant_stellar_pub_key', length: 56, nullable: true })
-  tenantStellarPubKey: string;
+  @Column({ name: 'user_stellar_pub_key', length: 56, nullable: true })
+  userStellarPubKey: string;
 
   @Column({ name: 'agent_stellar_pub_key', length: 56, nullable: true })
   agentStellarPubKey: string;

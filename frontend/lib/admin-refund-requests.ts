@@ -129,7 +129,7 @@ const detailMocks: Record<string, AdminRefundRequestDetail> = {
         action: 'created',
         message: 'Refund request created from tenant dashboard.',
         actorName: 'Ada Nwosu',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-03-22T11:20:00.000Z',
       },
     ],
@@ -147,7 +147,7 @@ const detailMocks: Record<string, AdminRefundRequestDetail> = {
         action: 'created',
         message: 'Request submitted.',
         actorName: 'Kunle Bello',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-03-18T09:00:00.000Z',
       },
       {
@@ -174,7 +174,7 @@ const detailMocks: Record<string, AdminRefundRequestDetail> = {
         action: 'created',
         message: 'Request submitted.',
         actorName: 'Amina Hassan',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-03-10T16:45:00.000Z',
       },
       {
@@ -207,7 +207,7 @@ const detailMocks: Record<string, AdminRefundRequestDetail> = {
         action: 'created',
         message: 'Request submitted.',
         actorName: 'Chidi Okonkwo',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2025-12-05T10:00:00.000Z',
       },
       {
@@ -233,7 +233,7 @@ const detailMocks: Record<string, AdminRefundRequestDetail> = {
         action: 'created',
         message: 'Request submitted.',
         actorName: 'James Adebayo',
-        actorRole: 'landlord',
+        actorRole: 'user',
         createdAt: '2026-02-28T13:00:00.000Z',
       },
       {

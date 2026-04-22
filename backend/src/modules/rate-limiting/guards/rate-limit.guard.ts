@@ -185,9 +185,9 @@ export class RateLimitGuard implements CanActivate {
     switch (request.user.role) {
       case UserRole.ADMIN:
         return UserTier.ENTERPRISE;
-      case UserRole.LANDLORD:
+      case UserRole.ADMIN:
         return UserTier.PREMIUM;
-      case UserRole.TENANT:
+      case UserRole.USER:
         return UserTier.BASIC;
       default:
         return UserTier.FREE;

@@ -67,7 +67,7 @@ export default function SecurityDashboardPage() {
 
   useEffect(() => {
     if (!authLoading && user?.role !== 'admin') {
-      router.replace('/landlords');
+      router.replace('/');
     }
   }, [authLoading, router, user?.role]);
 

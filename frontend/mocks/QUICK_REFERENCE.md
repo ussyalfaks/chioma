@@ -35,27 +35,6 @@ export default function DisputesPage() {
 }
 ```
 
-### Display Tenant Roster
-
-```typescript
-import { MOCK_TENANTS } from '@/mocks';
-
-export default function TenantsPage() {
-  return <TenantTable tenants={MOCK_TENANTS} />;
-}
-```
-
-### Display Reviews
-
-```typescript
-import { MOCK_TENANT_REVIEWS, MOCK_LANDLORD_REVIEWS } from '@/mocks';
-
-export default function ReviewsPage() {
-  const reviews = userRole === 'tenant' ? MOCK_TENANT_REVIEWS : MOCK_LANDLORD_REVIEWS;
-  return reviews.map(r => <ReviewCard key={r.id} review={r} />);
-}
-```
-
 ### Display Transactions
 
 ```typescript
@@ -152,23 +131,15 @@ async function fetchDisputes() {
 
 ## Data by Role
 
-### Tenant Data
+### User Data
 
-- `MOCK_TENANT_REVIEWS` - Reviews written by tenant
-- `MOCK_TENANT_REVIEW_TARGETS` - People to review
+- `MOCK_REVIEWS` - Reviews written by user
 - `MOCK_DASHBOARD_PAYMENTS` - Payment history
-- `MOCK_DISPUTES` - Disputes involving tenant
+- `MOCK_DISPUTES` - Disputes involving user
 - `MOCK_TRANSACTIONS` - Transaction history
 - `MOCK_REFERRAL_STATS` - Referral program
-
-### Landlord Data
-
-- `MOCK_TENANTS` - Tenant roster
-- `MOCK_LANDLORD_REVIEWS` - Reviews written by landlord
-- `MOCK_LANDLORD_REVIEW_TARGETS` - Tenants to review
 - `MOCK_MAINTENANCE_REQUESTS` - Maintenance requests
-- `MOCK_DOCUMENTS` - Lease documents
-- `MOCK_DISPUTES` - Disputes involving landlord
+- `MOCK_DOCUMENTS` - Documents
 
 ### Admin Data
 
@@ -177,14 +148,7 @@ async function fetchDisputes() {
 - `generateMockAuthStats()` - Auth metrics
 - `MOCK_DISPUTES` - All disputes
 - `MOCK_CONTRACTS` - All contracts
-
-### Agent Data
-
-- `MOCK_MONTHLY_EARNINGS` - Commission earnings
-- `MOCK_CONVERSION_DATA` - Conversion metrics
-- `MOCK_LISTING_PERFORMANCE` - Listing performance
-- `MOCK_AGENT_METRICS` - Agent KPIs
-- `MOCK_WALLET_BALANCES` - Wallet balances
+- `MOCK_USERS` - All users
 
 ## Data Lookup Patterns
 
@@ -254,13 +218,6 @@ const sorted = [...MOCK_DISPUTES].sort(
 
 ```typescript
 const sorted = [...MOCK_TRANSACTIONS].sort((a, b) => b.amount - a.amount);
-```
-
-### Filter Tenants by Status
-
-```typescript
-const activeTenants = MOCK_TENANTS.filter((t) => t.status === 'Active');
-const arrearsTenantsants = MOCK_TENANTS.filter((t) => t.status === 'Arrears');
 ```
 
 ## Pagination Example

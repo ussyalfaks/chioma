@@ -2,7 +2,7 @@
 
 import { UUID, ISO8601DateTime, StellarPublicKey } from './common.types';
 
-export type UserRole = 'landlord' | 'tenant' | 'agent' | 'admin';
+export type UserRole = 'admin' | 'user' | 'agent' | 'super_admin';
 export type UserStatus = 'pending' | 'active' | 'suspended' | 'deactivated';
 export type KYCStatus = 'not_started' | 'pending' | 'approved' | 'rejected';
 
@@ -34,7 +34,7 @@ export interface User {
   lastLoginAt?: ISO8601DateTime;
 }
 
-export interface LandlordProfile {
+export interface AdminProfile {
   id: UUID;
   userId: UUID;
 
@@ -62,7 +62,7 @@ export interface LandlordProfile {
   updatedAt: ISO8601DateTime;
 }
 
-export interface TenantProfile {
+export interface UserProfile {
   id: UUID;
   userId: UUID;
 
@@ -81,7 +81,7 @@ export interface TenantProfile {
   yearsOfRentalHistory?: number;
 
   // References
-  references: TenantReference[];
+  references: UserReference[];
 
   // Stats
   activeLeases: number;
@@ -122,10 +122,10 @@ export interface AgentProfile {
   updatedAt: ISO8601DateTime;
 }
 
-export interface TenantReference {
+export interface UserReference {
   id: UUID;
   name: string;
-  relationship: 'previous_landlord' | 'employer' | 'personal';
+  relationship: 'previous_host' | 'employer' | 'personal';
   email?: string;
   phoneNumber?: string;
   notes?: string;

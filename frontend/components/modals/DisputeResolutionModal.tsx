@@ -32,7 +32,7 @@ interface DisputeResolutionModalProps {
     resolution: string,
     action: 'approve' | 'reject',
   ) => Promise<void>;
-  userRole?: 'admin' | 'landlord' | 'tenant';
+  userRole?: 'admin' | 'user';
 }
 
 export const DisputeResolutionModal: React.FC<DisputeResolutionModalProps> = ({

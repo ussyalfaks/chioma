@@ -112,7 +112,7 @@ function validateEmail(email: string): void {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(normalizedEmail)) {
-    throw new Error('Invalid admin email format');
+    throw new Error('Invalid Admin email format');
   }
 }
 
@@ -154,11 +154,9 @@ function getSeedConfig(options: SeedAdminOptions): SeedAdminConfig {
       .toLowerCase(),
     password: options.password,
     firstName:
-      options.firstName ?? process.env.ADMIN_DEFAULT_FIRST_NAME ?? 'System',
+      options.firstName ?? process.env.ADMIN_DEFAULT_FIRST_NAME ?? 'Demo',
     lastName:
-      options.lastName ??
-      process.env.ADMIN_DEFAULT_LAST_NAME ??
-      'Administrator',
+      options.lastName ?? process.env.ADMIN_DEFAULT_LAST_NAME ?? 'Admin',
     force: options.force,
     autoGeneratePassword,
   };

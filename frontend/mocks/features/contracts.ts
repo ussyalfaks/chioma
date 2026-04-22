@@ -1,19 +1,20 @@
 /**
- * Mock Contract Data\n */
+ * Mock Contract Data
+ */
 
 export interface ContractParty {
   name: string;
   walletAddress: string;
-  role: 'LANDLORD' | 'TENANT' | 'AGENT';
+  role: 'USER' | 'ADMIN';
 }
 
 export interface Contract {
   id: string;
   propertyName: string;
   propertyAddress: string;
-  landlord: ContractParty;
-  tenant: ContractParty;
-  agent?: ContractParty;
+  party1: ContractParty;
+  party2: ContractParty;
+  party3?: ContractParty;
   rentAmount: string;
   securityDeposit: string;
   commissionRate: string;
@@ -31,20 +32,20 @@ export const MOCK_CONTRACTS: Contract[] = [
     id: 'CTR-2024-001',
     propertyName: 'Sunrise Apartments - Unit 4B',
     propertyAddress: '12 Victoria Island Rd, Lagos, Nigeria',
-    landlord: {
+    party1: {
       name: 'Chief Emeka Okonkwo',
       walletAddress: 'GBXK...7F2D',
-      role: 'LANDLORD',
+      role: 'USER',
     },
-    tenant: {
+    party2: {
       name: 'Adaeze Nwankwo',
       walletAddress: 'GCPD...9A1E',
-      role: 'TENANT',
+      role: 'USER',
     },
-    agent: {
+    party3: {
       name: 'Sarah Jenks',
       walletAddress: 'GDQF...3B8C',
-      role: 'AGENT',
+      role: 'USER',
     },
     rentAmount: '$1,200,000 USDC',
     securityDeposit: '$600,000 USDC',
@@ -59,21 +60,21 @@ export const MOCK_CONTRACTS: Contract[] = [
 
 This Lease Agreement ("Agreement") is entered into on this 1st day of June, 2024, by and between:
 
-LANDLORD: Chief Emeka Okonkwo
-TENANT: Adaeze Nwankwo
-AGENT: Sarah Jenks (Chioma Platform Agent #8839)
+PARTY 1: Chief Emeka Okonkwo
+PARTY 2: Adaeze Nwankwo
+PARTY 3: Sarah Jenks (Chioma Platform Agent #8839)
 
 PROPERTY: Sunrise Apartments - Unit 4B, 12 Victoria Island Rd, Lagos, Nigeria
 
 1. TERM: The lease term shall commence on June 1, 2024 and terminate on May 31, 2025.
 
-2. RENT: Tenant agrees to pay $1,200,000 USDC per annum, payable via Stellar network in monthly installments of $100,000 USDC.
+2. RENT: Party 2 agrees to pay $1,200,000 USDC per annum, payable via Stellar network in monthly installments of $100,000 USDC.
 
 3. SECURITY DEPOSIT: A security deposit of $600,000 USDC shall be held in escrow via Stellar multi-signature transaction. The deposit shall be released within 30 days of lease termination, subject to property inspection.
 
-4. AGENT COMMISSION: The agent shall receive a commission of 10% of the annual rent, distributed automatically via smart contract upon successful lease execution.
+4. COMMISSION: Party 3 shall receive a commission of 10% of the annual rent, distributed automatically via smart contract upon successful lease execution.
 
-5. MAINTENANCE: The landlord is responsible for structural repairs. The tenant is responsible for routine maintenance and keeping the premises in good condition.
+5. MAINTENANCE: Party 1 is responsible for structural repairs. Party 2 is responsible for routine maintenance and keeping the premises in good condition.
 
 6. DISPUTE RESOLUTION: Any disputes shall be resolved through the Chioma platform arbitration process.
 
@@ -83,15 +84,15 @@ PROPERTY: Sunrise Apartments - Unit 4B, 12 Victoria Island Rd, Lagos, Nigeria
     id: 'CTR-2024-002',
     propertyName: 'Glover Road Residence - Suite A',
     propertyAddress: 'Glover Road, Ikoyi, Lagos, Nigeria',
-    landlord: {
+    party1: {
       name: 'James Adebayo',
       walletAddress: 'GDEF...4K9L',
-      role: 'LANDLORD',
+      role: 'USER',
     },
-    tenant: {
+    party2: {
       name: 'Chioma Okafor',
       walletAddress: 'GHIJ...5M0N',
-      role: 'TENANT',
+      role: 'USER',
     },
     rentAmount: '$800,000 USDC',
     securityDeposit: '$400,000 USDC',
@@ -106,14 +107,14 @@ PROPERTY: Sunrise Apartments - Unit 4B, 12 Victoria Island Rd, Lagos, Nigeria
 
 This Lease Agreement ("Agreement") is entered into on this 1st day of July, 2024, by and between:
 
-LANDLORD: James Adebayo
-TENANT: Chioma Okafor
+PARTY 1: James Adebayo
+PARTY 2: Chioma Okafor
 
 PROPERTY: Glover Road Residence - Suite A, Ikoyi, Lagos, Nigeria
 
 1. TERM: The lease term shall commence on July 1, 2024 and terminate on June 30, 2025.
 
-2. RENT: Tenant agrees to pay $800,000 USDC per annum, payable via Stellar network in monthly installments of $66,667 USDC.
+2. RENT: Party 2 agrees to pay $800,000 USDC per annum, payable via Stellar network in monthly installments of $66,667 USDC.
 
 3. SECURITY DEPOSIT: A security deposit of $400,000 USDC shall be held in escrow.
 

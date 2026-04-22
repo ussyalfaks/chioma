@@ -1,9 +1,9 @@
-export enum TenantScreeningProvider {
+export enum UserScreeningProvider {
   TRANSUNION_SMARTMOVE = 'TRANSUNION_SMARTMOVE',
   EXPERIAN_CONNECT = 'EXPERIAN_CONNECT',
 }
 
-export enum TenantScreeningStatus {
+export enum UserScreeningStatus {
   PENDING_CONSENT = 'PENDING_CONSENT',
   CONSENTED = 'CONSENTED',
   SUBMITTED = 'SUBMITTED',
@@ -20,7 +20,7 @@ export enum ScreeningCheckType {
   RENTAL_HISTORY = 'RENTAL_HISTORY',
 }
 
-export enum TenantScreeningRiskLevel {
+export enum UserScreeningRiskLevel {
   LOW = 'LOW',
   MEDIUM = 'MEDIUM',
   HIGH = 'HIGH',

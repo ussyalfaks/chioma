@@ -10,7 +10,7 @@ export default function AdminThreatsPage() {
   const router = useRouter();
 
   // Guard for admin access
-  const hasAccess = user?.role === 'admin' || user?.role === 'auditor';
+  const hasAccess = user?.role === 'admin';
 
   React.useEffect(() => {
     if (!loading && !hasAccess) {

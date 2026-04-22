@@ -9,8 +9,8 @@ import {
 import { SorobanClientService } from '../../common/services/soroban-client.service';
 
 export enum AccountType {
-  Tenant = 0,
-  Landlord = 1,
+  User = 0,
+  Admin = 1,
   Agent = 2,
 }
 
@@ -274,16 +274,16 @@ export class ProfileContractService {
     }
     if (typeof value === 'string') {
       switch (value.toLowerCase()) {
-        case 'tenant':
-          return AccountType.Tenant;
-        case 'landlord':
-          return AccountType.Landlord;
+        case 'user':
+          return AccountType.User;
+        case 'admin':
+          return AccountType.Admin;
         case 'agent':
           return AccountType.Agent;
         default:
-          return AccountType.Tenant;
+          return AccountType.User;
       }
     }
-    return AccountType.Tenant;
+    return AccountType.User;
   }
 }

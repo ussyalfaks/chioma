@@ -9,10 +9,9 @@ mocks/
 ├── index.ts                 # Central export hub
 ├── README.md               # This file
 ├── entities/               # Core data entities
-│   ├── users.ts           # User profiles (tenants, landlords, agents, admins)
+│   ├── users.ts           # User profiles (users, admins)
 │   ├── properties.ts      # Property/building data
 │   ├── agreements.ts      # Lease agreements
-│   ├── tenants.ts         # Tenant roster (for landlord dashboard)
 │   └── currencies.ts      # Supported currencies
 ├── features/              # Feature-specific mock data
 │   ├── disputes.ts        # Dispute cases and details
@@ -24,9 +23,9 @@ mocks/
 │   ├── referrals.ts       # Referral program data
 │   └── contracts.ts       # Smart contracts
 ├── analytics/             # Dashboard metrics and analytics
-│   ├── dashboard.ts       # Agent/landlord dashboard metrics
+│   ├── dashboard.ts       # User/admin dashboard metrics
 │   ├── auth-metrics.ts    # Authentication statistics
-│   └── agent-analytics.ts # Agent-specific analytics
+│   └── user-analytics.ts  # User-specific analytics
 └── api/                   # API layer
     └── mock-api.ts        # Mock API interceptor
 ```
@@ -87,10 +86,9 @@ if (shouldUseMockApi()) {
 
 These represent fundamental objects in the system:
 
-- **users.ts**: All user types (tenants, landlords, agents, admins)
+- **users.ts**: All user types (users, admins)
 - **properties.ts**: Physical properties/buildings
 - **agreements.ts**: Lease agreements between parties
-- **tenants.ts**: Tenant roster for landlord views
 - **currencies.ts**: Supported blockchain currencies
 
 ### Features (Domain-Specific Data)
@@ -110,9 +108,9 @@ These represent specific features and their associated data:
 
 Dashboard-specific data:
 
-- **dashboard.ts**: Agent/landlord KPIs, earnings, performance
+- **dashboard.ts**: User/admin KPIs, earnings, performance
 - **auth-metrics.ts**: Authentication statistics and trends
-- **agent-analytics.ts**: Agent-specific metrics and wallet balances
+- **agent-analytics.ts**: User-specific metrics and wallet balances
 
 ### API Layer
 
@@ -170,27 +168,24 @@ Key relationships between mock data:
 
 ```
 Users
-├── Tenants (tenant-001, tenant-002, ...)
-├── Landlords (landlord-001, landlord-002, ...)
-├── Agents (agent-001, agent-002, ...)
+├── Regular Users (user-001, user-002, ...)
 └── Admins (admin-001)
 
 Properties
-├── Owned by Landlords
+├── Owned by Users
 └── Contain Units/Suites
 
 Agreements
-├── Link Landlords + Tenants + Properties
+├── Link Users + Properties
 └── Reference Currencies
 
 Disputes
-├── Between Tenants and Landlords
+├── Between Users
 ├── Reference Agreements
 └── Contain Evidence + Timeline
 
 Reviews
-├── By Tenants about Landlords/Agents
-├── By Landlords about Tenants
+├── By Users about other Users
 └── Reference Properties
 
 Transactions
@@ -200,16 +195,16 @@ Transactions
 
 Maintenance
 ├── For Properties
-├── Assigned to Agents
-└── Requested by Tenants
+├── Assigned to Users
+└── Requested by Users
 
 Documents
 ├── For Properties
-├── Involve Tenants
+├── Involve Users
 └── Types: Lease, Inspection, Maintenance
 
 Contracts
-├── Between Landlord + Tenant + Agent
+├── Between Users
 ├── For Properties
 └── Use Currencies
 ```

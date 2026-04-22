@@ -17,7 +17,7 @@ export interface TimelineEvent {
   title: string;
   description: string;
   actorName: string;
-  actorRole: 'tenant' | 'landlord' | 'admin' | 'system';
+  actorRole: 'user' | 'admin' | 'system';
   createdAt: string;
 }
 
@@ -27,9 +27,9 @@ export interface Dispute {
   agreementReference: string;
   propertyName: string;
   claimantName: string;
-  claimantRole: 'tenant' | 'landlord';
+  claimantRole: 'user';
   respondentName: string;
-  respondentRole: 'tenant' | 'landlord';
+  respondentRole: 'user';
   disputeType: string;
   description: string;
   status: 'OPEN' | 'UNDER_REVIEW' | 'RESOLVED' | 'CLOSED';
@@ -51,9 +51,9 @@ export const MOCK_DISPUTES: Dispute[] = [
     agreementReference: 'AGR-2025-014',
     propertyName: 'Sunset Apartments, Unit 4B',
     claimantName: 'Amina Hassan',
-    claimantRole: 'tenant',
+    claimantRole: 'user',
     respondentName: 'James Adebayo',
-    respondentRole: 'landlord',
+    respondentRole: 'user',
     disputeType: 'MAINTENANCE',
     description:
       'Water damage repairs were delayed for 12 days after the issue was reported.',
@@ -97,7 +97,7 @@ export const MOCK_DISPUTES: Dispute[] = [
         title: 'Dispute opened',
         description: 'Case filed under maintenance category.',
         actorName: 'Amina Hassan',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-02-18T10:00:00.000Z',
       },
       {
@@ -106,7 +106,7 @@ export const MOCK_DISPUTES: Dispute[] = [
         title: 'Evidence uploaded',
         description: '3 files attached to the case.',
         actorName: 'Amina Hassan',
-        actorRole: 'tenant',
+        actorRole: 'user',
         createdAt: '2026-02-18T10:08:00.000Z',
       },
       {
@@ -130,11 +130,11 @@ export const MOCK_DISPUTES: Dispute[] = [
       {
         id: 'tl-5',
         type: 'comment',
-        title: 'Landlord response',
+        title: 'Response from respondent',
         description:
           'Contractor was scheduled; delay due to parts shipment — attaching vendor comms.',
         actorName: 'James Adebayo',
-        actorRole: 'landlord',
+        actorRole: 'user',
         createdAt: '2026-03-04T16:45:00.000Z',
       },
     ],
@@ -146,9 +146,9 @@ export const MOCK_DISPUTES: Dispute[] = [
     agreementReference: 'AGR-2025-014',
     propertyName: 'Sunset Apartments, Unit 4B',
     claimantName: 'Amina Hassan',
-    claimantRole: 'tenant',
+    claimantRole: 'user',
     respondentName: 'James Adebayo',
-    respondentRole: 'landlord',
+    respondentRole: 'user',
     disputeType: 'SECURITY_DEPOSIT',
     description:
       'Requesting clarity on deduction applied to the security deposit statement.',
@@ -178,9 +178,9 @@ export const MOCK_DISPUTES: Dispute[] = [
     agreementReference: 'AGR-2025-021',
     propertyName: 'Glover Road, Ikoyi',
     claimantName: 'James Adebayo',
-    claimantRole: 'landlord',
+    claimantRole: 'user',
     respondentName: 'Ada Nwosu',
-    respondentRole: 'tenant',
+    respondentRole: 'user',
     disputeType: 'RENT_PAYMENT',
     description:
       'Tenant claims rent was debited twice after a manual settlement was also recorded.',
@@ -200,9 +200,9 @@ export const MOCK_DISPUTES: Dispute[] = [
     agreementReference: 'AGR-2025-010',
     propertyName: 'Admiralty Way, Block 4',
     claimantName: 'James Adebayo',
-    claimantRole: 'landlord',
+    claimantRole: 'user',
     respondentName: 'Kunle Bello',
-    respondentRole: 'tenant',
+    respondentRole: 'user',
     disputeType: 'PROPERTY_DAMAGE',
     description:
       'Checkout inspection found damage to the kitchen cabinet and broken smoke detectors.',

@@ -8,8 +8,8 @@ import {
 } from 'typeorm';
 import {
   ScreeningCheckType,
-  TenantScreeningProvider,
-  TenantScreeningStatus,
+  UserScreeningProvider,
+  UserScreeningStatus,
 } from '../screening.enums';
 
 @Entity('tenant_screening_requests')
@@ -27,9 +27,9 @@ export class TenantScreeningRequest {
 
   @Column({
     type: 'enum',
-    enum: TenantScreeningProvider,
+    enum: UserScreeningProvider,
   })
-  provider: TenantScreeningProvider;
+  provider: UserScreeningProvider;
 
   @Column({
     name: 'requested_checks',
@@ -39,10 +39,10 @@ export class TenantScreeningRequest {
 
   @Column({
     type: 'enum',
-    enum: TenantScreeningStatus,
-    default: TenantScreeningStatus.PENDING_CONSENT,
+    enum: UserScreeningStatus,
+    default: UserScreeningStatus.PENDING_CONSENT,
   })
-  status: TenantScreeningStatus;
+  status: UserScreeningStatus;
 
   @Column({ name: 'consent_required', type: 'boolean', default: true })
   consentRequired: boolean;

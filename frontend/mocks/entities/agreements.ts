@@ -6,9 +6,9 @@ export interface Agreement {
   id: string;
   reference: string;
   propertyId: string;
-  landlordId: string;
-  tenantId: string;
-  agentId?: string;
+  party1Id: string;
+  party2Id: string;
+  party3Id?: string;
   rentAmount: number;
   currency: string;
   securityDeposit: number;
@@ -23,9 +23,9 @@ export const MOCK_AGREEMENTS: Agreement[] = [
     id: 'agr-001',
     reference: 'AGR-2025-014',
     propertyId: 'prop-001',
-    landlordId: 'landlord-001',
-    tenantId: 'tenant-001',
-    agentId: 'agent-001',
+    party1Id: 'user-001',
+    party2Id: 'user-002',
+    party3Id: 'user-003',
     rentAmount: 150000,
     currency: 'USDC',
     securityDeposit: 300000,
@@ -38,9 +38,9 @@ export const MOCK_AGREEMENTS: Agreement[] = [
     id: 'agr-002',
     reference: 'AGR-2025-021',
     propertyId: 'prop-002',
-    landlordId: 'landlord-002',
-    tenantId: 'tenant-002',
-    agentId: 'agent-001',
+    party1Id: 'user-004',
+    party2Id: 'user-005',
+    party3Id: 'user-003',
     rentAmount: 200000,
     currency: 'USDC',
     securityDeposit: 400000,
@@ -53,9 +53,9 @@ export const MOCK_AGREEMENTS: Agreement[] = [
     id: 'agr-003',
     reference: 'AGR-2025-010',
     propertyId: 'prop-003',
-    landlordId: 'landlord-001',
-    tenantId: 'tenant-003',
-    agentId: 'agent-002',
+    party1Id: 'user-001',
+    party2Id: 'user-006',
+    party3Id: 'user-007',
     rentAmount: 180000,
     currency: 'USDC',
     securityDeposit: 360000,

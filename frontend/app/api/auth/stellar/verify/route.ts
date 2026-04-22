@@ -35,9 +35,7 @@ export async function POST(request: NextRequest) {
 
     // Map role to match authStore format
     const roleMap = {
-      TENANT: 'tenant',
-      LANDLORD: 'landlord',
-      AGENT: 'agent',
+      USER: 'user',
       ADMIN: 'admin',
     } as const;
 

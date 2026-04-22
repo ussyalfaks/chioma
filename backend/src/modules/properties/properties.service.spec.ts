@@ -32,7 +32,7 @@ describe('PropertiesService', () => {
     lastName: 'Owner',
     phoneNumber: null,
     avatarUrl: null,
-    role: UserRole.LANDLORD,
+    role: UserRole.ADMIN,
     emailVerified: true,
     verificationToken: null,
     resetToken: null,
@@ -67,7 +67,7 @@ describe('PropertiesService', () => {
     ...mockOwner,
     id: 'other-user-id',
     email: 'other@example.com',
-    role: UserRole.TENANT,
+    role: UserRole.USER,
   };
 
   const mockProperty: Property = {

@@ -23,7 +23,7 @@ describe('AuthController', () => {
       email: 'test@example.com',
       firstName: 'Test',
       lastName: 'User',
-      role: UserRole.TENANT,
+      role: UserRole.USER,
     },
     mfaRequired: false as const,
   };
@@ -83,7 +83,7 @@ describe('AuthController', () => {
         password: 'SecurePass123!',
         firstName: 'New',
         lastName: 'User',
-        role: UserRole.TENANT,
+        role: UserRole.USER,
       };
 
       jest.spyOn(service, 'register').mockResolvedValue(mockAuthResponse);

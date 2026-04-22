@@ -9,20 +9,17 @@ import {
   IsUUID,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  ScreeningCheckType,
-  TenantScreeningProvider,
-} from '../screening.enums';
+import { ScreeningCheckType, UserScreeningProvider } from '../screening.enums';
 
 export class CreateTenantScreeningRequestDto {
   @ApiProperty()
   @IsUUID()
   tenantId: string;
 
-  @ApiPropertyOptional({ enum: TenantScreeningProvider })
+  @ApiPropertyOptional({ enum: UserScreeningProvider })
   @IsOptional()
-  @IsEnum(TenantScreeningProvider)
-  provider?: TenantScreeningProvider;
+  @IsEnum(UserScreeningProvider)
+  provider?: UserScreeningProvider;
 
   @ApiProperty({ enum: ScreeningCheckType, isArray: true })
   @IsArray()

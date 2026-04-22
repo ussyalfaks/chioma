@@ -24,7 +24,7 @@ export function buildMockUser(userId: string): User {
     id: userId,
     email: `user-${userId.slice(0, 8)}@example.com`,
     name: 'Unknown user',
-    role: 'tenant',
+    role: 'user',
     phone: undefined,
     avatar: undefined,
     isVerified: false,
@@ -45,7 +45,7 @@ export function buildMockExtras(user: User): AdminUserDetailExtras {
   let properties: AdminUserPropertyRow[] = [];
   let agreementCount = 0;
 
-  if (user.role === 'landlord') {
+  if (user.role === 'admin') {
     properties = [
       {
         id: 'prop-mock-1',
@@ -63,7 +63,7 @@ export function buildMockExtras(user: User): AdminUserDetailExtras {
       },
     ];
     agreementCount = 3;
-  } else if (user.role === 'tenant') {
+  } else if (user.role === 'user') {
     properties = [
       {
         id: 'prop-mock-t1',
@@ -74,8 +74,6 @@ export function buildMockExtras(user: User): AdminUserDetailExtras {
       },
     ];
     agreementCount = 1;
-  } else if (user.role === 'agent') {
-    agreementCount = 0;
   } else {
     agreementCount = 0;
   }

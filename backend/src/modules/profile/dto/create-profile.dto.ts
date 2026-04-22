@@ -8,16 +8,16 @@ import {
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum AccountTypeDto {
-  Tenant = 'tenant',
-  Landlord = 'landlord',
+  User = 'user',
+  Admin = 'admin',
   Agent = 'agent',
 }
 
 export class CreateProfileDto {
   @ApiProperty({
     enum: AccountTypeDto,
-    description: 'The type of account (tenant, landlord, or agent)',
-    example: AccountTypeDto.Tenant,
+    description: 'The type of account (user, admin, or agent)',
+    example: AccountTypeDto.User,
   })
   @IsEnum(AccountTypeDto)
   accountType: AccountTypeDto;
